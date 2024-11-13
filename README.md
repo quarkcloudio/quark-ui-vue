@@ -41,17 +41,6 @@ AntdvPro is a complete set of enterprise-level mid-backend front-end/design solu
 
 [antdv-pro-docs](https://docs.antdv-pro.com) - Documentation
 
-## Community
-
-QQ Group: apply wechat group
-
-Wechat: aibayanyu2022
-
-Wechat Group: Add author WeChat
-
-Discord: [discord](https://discord.gg/tPb4G6gXmm)
-
-
 ## Useage
 
 ```bash
@@ -71,34 +60,3 @@ pnpm install
 # Development
 pnpm dev
 ```
-
-## Contribute
-
-We are very welcome to have you participate in our open source project.
-
-
-**Pull Request:**
-
-1. Fork code!
-2. Create your own branch: `git checkout -b feat-xxxx`
-3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
-4. Push your branch: `git push origin feat-xxxx`
-5. submit`pull request`
-
-Thank you to all the people who already contributed to antdv-pro!
-
-<a href="https://github.com/antdv-pro/antdv-pro/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=antdv-pro/antdv-pro&max=100&columns=15" />
-</a>
-
-## Support
-
-If you like our project, you can support us by clicking the "Star" button in the upper right corner. Your support is my motivation. Thank you ~
-
-Thanks to the open source project license provided by [Jetbrains](https://www.jetbrains.com/?from=antdv-pro).
-
-## Sponsor
-
-If you like our project, you can sponsor us to help us maintain the project better.
-
-[Alipay/Wechat](https://docs.antdv-pro.com/other/sponsor.html)
