@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { AlipayCircleFilled, LockOutlined, MobileOutlined, TaobaoCircleFilled, UserOutlined, WeiboCircleFilled } from '@ant-design/icons-vue'
+import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { delayTimer } from '@v-c/utils'
 import { AxiosError } from 'axios'
-import GlobalLayoutFooter from '~/layouts/components/global-footer/index.vue'
 import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
 import type { LoginMobileParams, LoginParams } from '~@/api/common/login'
@@ -107,57 +106,24 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="login-container">
-    <div h-screen w-screen absolute z-10>
-      <canvas ref="bubbleCanvas" />
-    </div>
     <div class="login-content flex-center">
       <div class="ant-pro-form-login-main rounded">
-        <!-- 登录头部 -->
-        <div
-          class="flex-between h-15 px-4 mb-[2px]"
-        >
-          <div class="flex-end">
-            <span class="ant-pro-form-login-logo">
-              <img w-full h-full object-cover src="/logo.svg">
-            </span>
-            <span class="ant-pro-form-login-title">
-              Antdv Pro
-            </span>
-            <span class="ant-pro-form-login-desc">
-              {{ t("pages.layouts.userLayout.title") }}
-            </span>
-          </div>
-          <div class="login-lang flex-center relative z-11">
-            <span
-              class="flex-center cursor-pointer text-16px"
-              @click="appStore.toggleTheme(layoutSetting.theme === 'dark' ? 'light' : 'dark')"
-            >
-              <!-- 亮色和暗黑模式切换按钮 -->
-              <template v-if="layoutSetting.theme === 'light'">
-                <carbon-moon />
-              </template>
-              <template v-else>
-                <carbon-sun />
-              </template>
-            </span>
-            <SelectLang />
-          </div>
-        </div>
-        <a-divider m-0 />
         <!-- 登录主体 -->
         <div class="box-border flex min-h-[520px]">
           <!-- 登录框左侧 -->
           <div class="ant-pro-form-login-main-left min-h-[520px] flex-center  bg-[var(--bg-color-container)]">
             <img src="@/assets/images/login-left.png" class="h-5/6 w-5/6">
           </div>
-          <a-divider m-0 type="vertical" class="ant-pro-login-divider  min-h-[520px]" />
           <!-- 登录框右侧 -->
           <div class="ant-pro-form-login-main-right px-5 w-[335px] flex-center flex-col relative z-11">
-            <div class="text-center py-6 text-2xl">
-              {{ t('pages.login.tips') }}
+            <span class="ant-pro-form-login-logo text-2xl">
+              <img w-full h-full object-cover src="/logo.png"> Quark Cloud
+            </span>
+            <div class="ant-pro-form-login-desc">
+              信息丰富的世界里，唯一稀缺的就是人类的注意力
             </div>
             <a-form ref="formRef" :model="loginModel">
-              <a-tabs v-model:activeKey="loginModel.type" centered>
+              <a-tabs v-model:active-key="loginModel.type" centered>
                 <a-tab-pane key="account" :tab="t('pages.login.accountLogin.tab')" />
                 <a-tab-pane key="mobile" :tab="t('pages.login.phoneLogin.tab')" />
               </a-tabs>
@@ -244,26 +210,9 @@ onBeforeUnmount(() => {
                 {{ t('pages.login.submit') }}
               </a-button>
             </a-form>
-            <a-divider>
-              <span class="text-slate-500">{{ t('pages.login.loginWith') }}</span>
-            </a-divider>
-            <div class="ant-pro-form-login-other">
-              <AlipayCircleFilled class="icon" />
-              <TaobaoCircleFilled class="icon" />
-              <WeiboCircleFilled class="icon" />
-            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div py-24px px-50px fixed bottom-0 z-11 w-screen :data-theme="layoutSetting.theme" text-14px>
-      <GlobalLayoutFooter
-        :copyright="layoutSetting.copyright" icp="鲁ICP备2023021414号-2"
-      >
-        <template #renderFooterLinks>
-          <footer-links />
-        </template>
-      </GlobalLayoutFooter>
     </div>
   </div>
 </template>
@@ -275,11 +224,6 @@ onBeforeUnmount(() => {
   height: 100vh;
   overflow: auto;
   background: var(--bg-color-container);
-}
-
-.login-lang {
-  height: 40px;
-  line-height: 44px;
 }
 
 .login-content {
