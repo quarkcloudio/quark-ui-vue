@@ -1,30 +1,6 @@
 <script setup lang="ts">
 import { LogoutOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons-vue'
-
-const message = useMessage()
-const userStore = useUserStore()
-const multiTabStore = useMultiTab()
-const layoutMenuStore = useLayoutMenu()
-const router = useRouter()
-const { avatar, nickname } = storeToRefs(userStore)
-async function handleClick({ key }: any) {
-  if (key === 'logout') {
-    const hide = message.loading('退出登录...', 0)
-    try {
-      await userStore.logout()
-    }
-    finally {
-      hide()
-      message.success('退出登录成功', 3)
-      router.push({
-        path: '/login',
-      }).then(() => {
-        multiTabStore.clear()
-        layoutMenuStore.clear()
-      })
-    }
-  }
-}
+const { avatar, nickname } = storeToRefs(useUserStore())
 </script>
 
 <template>
@@ -34,25 +10,25 @@ async function handleClick({ key }: any) {
       <span class="anticon">{{ nickname }}</span>
     </span>
     <template #overlay>
-      <a-menu @click="handleClick">
+      <a-menu>
         <a-menu-item key="0">
           <template #icon>
             <UserOutlined />
           </template>
-          <RouterLink to="/account/center">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
             个人中心
-          </RouterLink>
+          </a>
         </a-menu-item>
         <a-menu-item key="1">
           <template #icon>
             <ProfileOutlined />
           </template>
-          <RouterLink to="/account/settings">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
             个人设置
-          </RouterLink>
+          </a>
         </a-menu-item>
         <a-menu-divider />
-        <a-menu-item key="logout">
+        <a-menu-item key="3">
           <template #icon>
             <LogoutOutlined />
           </template>

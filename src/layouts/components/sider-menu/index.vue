@@ -3,40 +3,16 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import type { CSSProperties } from 'vue'
 import { useLayoutState } from '../../basic-layout/context'
 import Menu from '../menu/index.vue'
-
-const {
-  collapsed,
-  leftCollapsed,
-  handleCollapsed,
-  selectedMenus,
-  splitMenus,
-  layout,
-  logo,
-  theme,
-  title,
-  collapsedWidth,
-  siderWidth,
-  headerHeight,
-  fixedSider,
-  isMobile,
-  header,
-} = useLayoutState()
+const { collapsed, handleCollapsed, layout, logo, theme, title, collapsedWidth, siderWidth, headerHeight, fixedSider, isMobile } = useLayoutState()
 
 const prefixCls = shallowRef('ant-pro-sider')
 
 const siderStyle = computed<CSSProperties>(() => {
-  const style: CSSProperties = {
-    paddingTop: `${layout.value !== 'side' && !isMobile.value ? headerHeight.value : 0}px`,
-    transition:
-        'background-color 0.3s ease 0s, min-width 0.3s ease 0s, max-width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s',
+  return {
+    paddingTop: `${(layout.value !== 'side' && !isMobile.value) ? headerHeight.value : 0}px`,
+    transition: 'background-color 0.3s ease 0s, min-width 0.3s ease 0s, max-width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s',
     overflow: 'hidden',
   }
-
-  // bugfix https://github.com/antdv-pro/antdv-pro/issues/173
-  if (layout.value === 'mix' && header.value === false)
-    style.paddingTop = '0px'
-
-  return style
 })
 
 const cls = computed(() => ({
@@ -52,8 +28,7 @@ const showLogo = computed(() => {
 
 <template>
   <div
-    v-if="fixedSider"
-    :style="{
+    v-if="fixedSider" :style="{
       width: collapsed ? `${collapsedWidth}px` : `${siderWidth}px`,
       maxWidth: collapsed ? `${collapsedWidth}px` : `${siderWidth}px`,
       minWidth: collapsed ? `${collapsedWidth}px` : `${siderWidth}px`,
@@ -61,7 +36,6 @@ const showLogo = computed(() => {
     }"
   />
   <a-layout-sider
-    v-if="splitMenus ? (selectedMenus ?? []).length > 0 : true"
     :theme="theme === 'inverted' ? 'dark' : 'light'"
     :collapsed="collapsed && !isMobile"
     :trigger="null"
@@ -71,20 +45,16 @@ const showLogo = computed(() => {
     :class="cls"
     :style="siderStyle"
   >
-    <div v-if="showLogo" class="ant-pro-sider-logo" :class="collapsed && !isMobile ? 'ant-pro-sider-collapsed' : ''">
+    <div v-if="showLogo" class="ant-pro-sider-logo" :class="(collapsed && !isMobile) ? 'ant-pro-sider-collapsed' : ''">
       <a>
-        <img :src="logo" alt="logo">
+        <img :src="logo">
         <h1 v-if="!collapsed || isMobile">{{ title }}</h1>
       </a>
     </div>
-    <div class="flex-1 of-x-hidden of-y-auto scrollbar">
+    <div class="flex-1 of-x-hidden of-y-auto">
       <Menu />
     </div>
-    <div
-      v-if="!isMobile && leftCollapsed"
-      class="w-100% flex-shrink-0 ant-pro-sider-collapsed-button"
-      :class="theme === 'inverted' ? 'ant-pro-sider-collapsed-button-inverted' : ''"
-    >
+    <div v-if="!isMobile" class="w-100% flex-shrink-0 ant-pro-sider-collapsed-button" :class="theme === 'inverted' ? 'ant-pro-sider-collapsed-button-inverted' : ''">
       <a-menu
         class="ant-pro-sider-menu"
         mode="inline"
@@ -94,8 +64,8 @@ const showLogo = computed(() => {
       >
         <a-menu-item>
           <template #icon>
-            <MenuUnfoldOutlined v-if="collapsed" />
-            <MenuFoldOutlined v-else />
+            <MenuFoldOutlined v-if="collapsed" />
+            <MenuUnfoldOutlined v-else />
           </template>
         </a-menu-item>
       </a-menu>
@@ -104,5 +74,5 @@ const showLogo = computed(() => {
 </template>
 
 <style lang="less">
-@import './index.less';
+@import "./index.less";
 </style>

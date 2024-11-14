@@ -1,7 +1,6 @@
 import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 import { theme as antdTheme } from 'ant-design-vue/es'
 import type { ContentWidth, LayoutType, ThemeType } from '~@/layouts/basic-layout/typing'
-import type { AnimationNameValueType } from '~@/config/default-setting'
 import defaultSetting from '~@/config/default-setting'
 
 export interface LayoutSetting {
@@ -16,26 +15,18 @@ export interface LayoutSetting {
   fixedHeader?: boolean
   fixedSider?: boolean
   splitMenus?: boolean
-  watermark?: boolean
   header?: boolean
   footer?: boolean
   menu?: boolean
   menuHeader?: boolean
   colorWeak?: boolean
-  colorGray?: boolean
   multiTab?: boolean
   multiTabFixed?: boolean
   headerHeight?: number
   copyright?: string
-  keepAlive?: boolean
-  accordionMode?: boolean
-  leftCollapsed?: boolean
-  compactAlgorithm?: boolean
-  animationName?: AnimationNameValueType
 }
 
 export const useAppStore = defineStore('app', () => {
-  const { darkAlgorithm, compactAlgorithm, defaultAlgorithm } = antdTheme
   const layoutSetting = reactive<LayoutSetting>(defaultSetting)
   const themeConfig = reactive<ThemeConfig>({
     algorithm: antdTheme.defaultAlgorithm,
@@ -45,25 +36,19 @@ export const useAppStore = defineStore('app', () => {
     },
     components: {},
   })
-  const locale = ref<string>(lsLocaleState.value)
-  const toggleLocale = (locale: string) => {
-    lsLocaleState.value = locale
-  }
-  const toggleCompact = (isCompact = true) => {
-    layoutSetting.compactAlgorithm = isCompact
-    const algorithm = layoutSetting.theme === 'dark' ? [darkAlgorithm] : [defaultAlgorithm]
-    isCompact && algorithm.push(compactAlgorithm)
-    themeConfig.algorithm = algorithm
-  }
   const toggleTheme = (theme: ThemeType) => {
     if (layoutSetting.theme === theme)
       return
+
     layoutSetting.theme = theme
     if (theme === 'light' || theme === 'inverted') {
       if (themeConfig.token)
         themeConfig.token.colorBgContainer = '#fff'
       if (themeConfig.components?.Menu)
         delete themeConfig.components.Menu
+
+      themeConfig.algorithm = antdTheme.defaultAlgorithm
+
       toggleDark(false)
     }
     else if (theme === 'dark') {
@@ -80,8 +65,8 @@ export const useAppStore = defineStore('app', () => {
           } as any,
         }
       }
+      themeConfig.algorithm = antdTheme.darkAlgorithm
     }
-    toggleCompact(layoutSetting.compactAlgorithm)
   }
 
   const toggleDrawerVisible = (visible: boolean) => {
@@ -98,49 +83,9 @@ export const useAppStore = defineStore('app', () => {
   if (isDark.value)
     toggleTheme('dark')
 
-  // 监听isDark的变化
-  watch(isDark, () => {
-    if (isDark.value)
-      toggleTheme('dark')
-    else toggleTheme('light')
-  })
-
-  // 监听isDark的变化
-  watch(preferredLanguages, () => {
-    toggleLocale(preferredLanguages.value[0])
-  })
-
   const toggleCollapsed = (collapsed: boolean) => {
     layoutSetting.collapsed = collapsed
   }
-
-  function toggleGray(isGray = true) {
-    layoutSetting.colorGray = isGray
-    const dom = document.querySelector('body')
-    if (dom) {
-      if (isGray) {
-        toggleWeak(false)
-        dom.style.filter = 'grayscale(100%)'
-      }
-      else { dom.style.filter = '' }
-    }
-  }
-  if (layoutSetting.colorGray)
-    toggleGray(true)
-
-  function toggleWeak(isWeak = true) {
-    layoutSetting.colorWeak = isWeak
-    const dom = document.querySelector('body')
-    if (dom) {
-      if (isWeak) {
-        toggleGray(false)
-        dom.style.filter = 'invert(80%)'
-      }
-      else { dom.style.filter = '' }
-    }
-  }
-  if (layoutSetting.colorWeak)
-    toggleWeak(true)
 
   const toggleLayout = (layout: LayoutType) => {
     if (layoutSetting.theme === 'inverted' && layout === 'mix')
@@ -148,11 +93,11 @@ export const useAppStore = defineStore('app', () => {
 
     if (layout !== 'mix')
       layoutSetting.splitMenus = false
-    else layoutSetting.leftCollapsed = true
 
     if (layout === 'top')
       layoutSetting.contentWidth = 'Fixed'
-    else layoutSetting.contentWidth = 'Fluid'
+    else
+      layoutSetting.contentWidth = 'Fluid'
 
     layoutSetting.layout = layout
   }
@@ -164,12 +109,6 @@ export const useAppStore = defineStore('app', () => {
       toggleColorPrimary(value)
     else if (key === 'layout')
       toggleLayout(value as LayoutType)
-    else if (key === 'compactAlgorithm')
-      toggleCompact(value)
-    else if (key === 'colorWeak')
-      toggleWeak(value)
-    else if (key === 'colorGray')
-      toggleGray(value)
     else if (key in layoutSetting)
       (layoutSetting as any)[key] = value
   }
@@ -177,14 +116,10 @@ export const useAppStore = defineStore('app', () => {
   return {
     layoutSetting,
     theme: themeConfig,
-    locale,
-    toggleLocale,
     toggleTheme,
     toggleCollapsed,
     toggleDrawerVisible,
     changeSettingLayout,
     toggleColorPrimary,
-    toggleGray,
-    toggleWeak,
   }
 })

@@ -1,7 +1,6 @@
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import { message } from 'ant-design-vue/es'
 import router from '~@/router'
-
-const allowList = ['/login', '/404', '/403']
 
 export interface MultiTabItem {
   path: string
@@ -9,7 +8,6 @@ export interface MultiTabItem {
   title: string
   name?: string
   icon?: string
-  locale?: string
   // 判断当前是不是一个固定的标签
   affix?: boolean
   loading?: boolean
@@ -19,19 +17,10 @@ export const useMultiTab = defineStore('multi-tab', () => {
   const list = ref<MultiTabItem[]>([])
   const activeKey = shallowRef()
   const refreshItem = ref<MultiTabItem | null>(null)
-  const appStore = useAppStore()
-  const cacheList = ref<string[]>([])
-  const message = useMessage()
   const addItem = (route: RouteLocationNormalizedLoaded) => {
-    if (!route)
-      return
-    // 判断是不是重定向的地址，如果是，那么就不进行处理
-    if (route.path.startsWith('/redirect') || route.path.startsWith('/common'))
-      return
-    if (route.path === '/')
-      return
-    if (allowList.includes(route.path))
-      return
+    if (!route) return
+    // 判断是不是重定向的地址，如果是，那么久不进行处理
+    if (route.path.startsWith('/redirect')) return
     // 设置当前的loading为false
     if (refreshItem.value) {
       // 增加一个取消的延迟
@@ -40,15 +29,9 @@ export const useMultiTab = defineStore('multi-tab', () => {
           refreshItem.value.loading = false
           refreshItem.value = null
         }
-      }, 500)
+      }, 800)
     }
-    if (list.value.some(item => item.fullPath === route.fullPath)) {
-      if (!cacheList.value.includes(route?.name as string) && appStore.layoutSetting.keepAlive) {
-        if (route.meta.keepAlive && route.name)
-          cacheList.value.push(route.name as string)
-      }
-      return
-    }
+    if (list.value.some(item => item.fullPath === route.fullPath)) return
     const item: MultiTabItem = {
       path: route.path,
       fullPath: route.fullPath,
@@ -56,13 +39,7 @@ export const useMultiTab = defineStore('multi-tab', () => {
       name: route.name as string,
       icon: route.meta.icon,
       affix: route.meta.affix,
-      locale: route.meta.locale,
     }
-    if (!cacheList.value.includes(item?.name as string) && appStore.layoutSetting.keepAlive) {
-      if (route.meta.keepAlive && route.name)
-        cacheList.value.push(route.name as string)
-    }
-
     list.value.push(item)
   }
 
@@ -78,87 +55,38 @@ export const useMultiTab = defineStore('multi-tab', () => {
       return
     }
     const item = list.value[index]
-    // 需要判断当前的标签是不是被选中，如果是，还需要判断当前是不是第一个页签，如果是，那么就需要激活上一个页签，如果不是，那就需要激活下一个页签
+    // 需要判断当前的标签是不是被选中，如果是，还需要判断当前是不是第一个页签，如果是，那么久需要激活上一个页签，如果不是，那就需要激活下一个页签
     if (item.fullPath === activeKey.value) {
       const newItem = index === 0 ? list.value[index + 1] : list.value[index - 1]
       activeKey.value = newItem.fullPath
       router.push(newItem.fullPath)
     }
-    // 去除缓存
-    if (appStore.layoutSetting.keepAlive && item.name)
-      cacheList.value = cacheList.value.filter(name => name !== item.name)
-
     list.value = list.value.filter(item => item.fullPath !== key)
   }
 
   const refresh = (key: string) => {
     const item = list.value.find(item => item.fullPath === key)
     if (item) {
-      cacheList.value = cacheList.value.filter(name => name !== item.name)
       item.loading = true
       refreshItem.value = item
       router.replace(`/redirect/${encodeURIComponent(item.fullPath)}`)
     }
   }
 
-  const switchTab = (key: any) => {
-    if (key === activeKey.value)
-      return
+  const switchTab = (key: string) => {
     router.push(key)
   }
 
-  const closeOther = (key: string) => {
-    switchTab(key)
-    list.value.forEach((item) => {
-      if (item.affix)
-        return
-      if (item.fullPath === key)
-        return
-      close(item.fullPath)
-    })
-  }
-
-  const closeLeft = (key: string) => {
-    switchTab(key)
-
-    const index = list.value.findIndex(item => item.fullPath === key)
-    const leftList = list.value.slice(0, index)
-    leftList.forEach((item) => {
-      if (item.affix)
-        return
-      close(item.fullPath)
-    })
-  }
-
-  const closeRight = (key: string) => {
-    switchTab(key)
-
-    const index = list.value.findIndex(item => item.fullPath === key)
-    const rightList = list.value.slice(index + 1)
-    rightList.forEach((item) => {
-      if (item.affix)
-        return
-      close(item.fullPath)
-    })
-  }
-
-  const clear = () => {
-    list.value = []
-    cacheList.value = []
-    activeKey.value = undefined
-    refreshItem.value = null
-  }
+  watch(router.currentRoute, (route) => {
+    if (route.fullPath === activeKey.value) return
+    activeKey.value = route.fullPath
+    addItem(route)
+  }, { immediate: true })
   return {
     list,
     activeKey,
-    cacheList,
     close,
-    clear,
-    closeLeft,
-    closeRight,
-    closeOther,
     refresh,
     switchTab,
-    addItem,
   }
 })

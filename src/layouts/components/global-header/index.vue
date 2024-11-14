@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+import { MenuFoldOutlined } from '@ant-design/icons-vue'
 import { useLayoutState } from '../../basic-layout/context'
 import GlobalHeaderLogo from './global-header-logo.vue'
-
-const { layout, isMobile, handleMobileCollapsed, theme, menuHeader, collapsed, handleCollapsed, leftCollapsed }
-    = useLayoutState()
+const { layout, isMobile, handleMobileCollapsed, theme, menuHeader } = useLayoutState()
 const prefixCls = shallowRef('ant-pro-global-header')
 const cls = computed(() => ({
   [prefixCls.value]: true,
@@ -14,22 +12,14 @@ const cls = computed(() => ({
 </script>
 
 <template>
-  <div :class="[cls]">
-    <span
-      v-if="layout === 'side' && !isMobile && !leftCollapsed"
-      class="ml-0 text-18px"
-      @click="handleCollapsed?.(!collapsed)"
-    >
-      <MenuUnfoldOutlined v-if="collapsed" />
-      <MenuFoldOutlined v-else />
-    </span>
+  <div :class="cls">
     <template v-if="menuHeader">
       <GlobalHeaderLogo v-if="layout !== 'side' || isMobile" />
     </template>
     <span v-if="isMobile" class="ant-pro-global-header-collapsed-button" @click="handleMobileCollapsed">
       <MenuFoldOutlined />
     </span>
-    <div class="flex-1" :class="layout === 'top' ? `${prefixCls}-top` : 'overflow-x-auto'">
+    <div class="flex-1">
       <slot name="headerContent" />
     </div>
     <a-space align="center" flex-shrink-0>
@@ -39,5 +29,5 @@ const cls = computed(() => ({
 </template>
 
 <style lang="less">
-@import './index.less';
+@import "./index.less";
 </style>

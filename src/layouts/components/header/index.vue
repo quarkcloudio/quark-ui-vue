@@ -2,19 +2,7 @@
 import type { CSSProperties } from 'vue'
 import GlobalHeader from '../global-header/index.vue'
 import { useLayoutState } from '../../basic-layout/context'
-
-const {
-  headerHeight,
-  fixedHeader,
-  layout,
-  isMobile,
-  collapsed,
-  collapsedWidth,
-  siderWidth,
-  menu,
-  splitMenus,
-  selectedMenus,
-} = useLayoutState()
+const { headerHeight, fixedHeader, layout, isMobile, collapsed, collapsedWidth, siderWidth } = useLayoutState()
 
 const headerStyle = computed<CSSProperties>(() => {
   const defaultStyle: CSSProperties = {
@@ -27,8 +15,7 @@ const headerStyle = computed<CSSProperties>(() => {
     defaultStyle.width = '100%'
     defaultStyle.right = 0
   }
-
-  if (layout.value === 'side' && menu.value) {
+  if (layout.value === 'side') {
     if (!isMobile.value && fixedHeader.value) {
       const width = collapsed.value ? collapsedWidth.value : siderWidth.value
       defaultStyle.width = `calc(100% - ${width}px)`
@@ -51,22 +38,22 @@ const cls = computed(() => {
 
   return classes
 })
-const needFixed = computed(
-  () =>
-    fixedHeader.value || (layout.value === 'mix' && (splitMenus.value ? (selectedMenus.value ?? []).length > 0 : true)),
+const needFixed = computed(() =>
+  fixedHeader.value || layout.value === 'mix',
 )
 </script>
 
 <template>
   <a-layout-header
-    v-if="needFixed"
-    :style="{
+    v-if="needFixed" :style="{
       height: `${headerHeight}px`,
       lineHeight: `${headerHeight}px`,
       background: 'transparent',
     }"
   />
-  <a-layout-header :style="headerStyle" :class="cls">
+  <a-layout-header
+    :style="headerStyle" :class="cls"
+  >
     <GlobalHeader>
       <template v-if="$slots.headerActions" #headerActions>
         <slot name="headerActions" />
@@ -79,5 +66,5 @@ const needFixed = computed(
 </template>
 
 <style lang="less">
-@import './index.less';
+@import "./index.less";
 </style>

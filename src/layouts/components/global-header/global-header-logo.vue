@@ -10,7 +10,7 @@ const cls = computed(() => ({
 
 <template>
   <div :class="cls">
-    <a c-primary>
+    <a>
       <img :src="logo">
       <h1 v-if="!isMobile">{{ title }}</h1>
     </a>

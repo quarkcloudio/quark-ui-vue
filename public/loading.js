@@ -3,27 +3,18 @@
  * 解决首次加载时白屏的问题
  */
 (function () {
-  const div = document.createElement('div')
-  const body = document.querySelector('body')
-  body.appendChild(div)
-  div.setAttribute('id', 'loading-app')
-  if (div && div.innerHTML === '') {
-    div.innerHTML = `
+  const _root = document.querySelector('#app');
+  if (_root && _root.innerHTML === '') {
+    _root.innerHTML = `
       <style>
         html,
         body,
-        #loading-app {
+        #app {
           height: 100%;
           margin: 0;
           padding: 0;
         }
-        #loading-app {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: 9999;
+        #app {
           background-repeat: no-repeat;
           background-size: 100% auto;
         }
@@ -98,8 +89,8 @@
           -ms-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
           opacity: 0.3;
-          -webkit-animation: ant-spin-move 1s infinite linear alternate;
-          animation: ant-spin-move 1s infinite linear alternate;
+          -webkit-animation: antspinmove 1s infinite linear alternate;
+          animation: antSpinMove 1s infinite linear alternate;
         }
 
         .ant-spin-dot-item:nth-child(1) {
@@ -132,8 +123,8 @@
           -webkit-transform: rotate(45deg);
           -ms-transform: rotate(45deg);
           transform: rotate(45deg);
-          -webkit-animation: ant-rotate 1.2s infinite linear;
-          animation: ant-rotate 1.2s infinite linear;
+          -webkit-animation: antrotate 1.2s infinite linear;
+          animation: antRotate 1.2s infinite linear;
         }
 
         .ant-spin-lg .ant-spin-dot {
@@ -154,26 +145,26 @@
           }
         }
 
-        @-webkit-keyframes ant-spin-move {
+        @-webkit-keyframes antSpinMove {
           to {
             opacity: 1;
           }
         }
 
-        @keyframes ant-spin-move {
+        @keyframes antSpinMove {
           to {
             opacity: 1;
           }
         }
 
-        @-webkit-keyframes ant-rotate {
+        @-webkit-keyframes antRotate {
           to {
             -webkit-transform: rotate(405deg);
             transform: rotate(405deg);
           }
         }
 
-        @keyframes ant-rotate {
+        @keyframes antRotate {
           to {
             -webkit-transform: rotate(405deg);
             transform: rotate(405deg);
@@ -206,6 +197,6 @@
           初次加载资源可能需要较多时间 请耐心等待
         </div>
       </div>
-    `
+    `;
   }
-})()
+})();

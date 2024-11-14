@@ -1,9 +1,9 @@
 import type { LayoutSetting } from '~@/stores/app'
 
 export default {
-  title: 'Antdv Pro',
+  title: 'Antdv Admin Pro',
   theme: 'light',
-  logo: '/logo.png',
+  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   collapsed: false,
   drawerVisible: false,
   colorPrimary: '#1677FF',
@@ -14,42 +14,11 @@ export default {
   splitMenus: false,
   header: true,
   menu: true,
-  watermark: true,
   menuHeader: true,
   footer: false,
   colorWeak: false,
-  colorGray: false,
   multiTab: true,
   multiTabFixed: false,
-  keepAlive: true,
-  accordionMode: false,
-  leftCollapsed: true,
-  compactAlgorithm: false,
   headerHeight: 48,
-  copyright: 'Antdv Pro Team 2023',
-  animationName: 'slide-fadein-right',
+  copyright: '爱吧烟雨2023',
 } as LayoutSetting
-
-export const animationNameList = [
-  {
-    label: 'None',
-    value: 'none',
-  },
-  {
-    label: 'Fadein Up',
-    value: 'slide-fadein-up',
-  },
-  {
-    label: 'Fadein Right',
-    value: 'slide-fadein-right',
-  },
-  {
-    label: 'Zoom Fadein',
-    value: 'zoom-fadein',
-  },
-  {
-    label: 'Fadein',
-    value: 'fadein',
-  },
-]
-export type AnimationNameValueType = 'none' | 'slide-fadein-up' | 'slide-fadein-right' | 'zoom-fadein' | 'fadein'
