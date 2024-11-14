@@ -2,7 +2,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import type { CSSProperties } from 'vue'
 import { useLayoutState } from '../../BasicLayout/context'
-import Menu from '../menu/index.vue'
+import Menu from '../Menu/index.vue'
 const { collapsed, handleCollapsed, layout, logo, theme, title, collapsedWidth, siderWidth, headerHeight, fixedSider, isMobile } = useLayoutState()
 
 const prefixCls = shallowRef('ant-pro-sider')

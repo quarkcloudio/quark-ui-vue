@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
-import GlobalHeader from '../global-header/index.vue'
+import GlobalHeader from '../GlobalHeader/index.vue'
 import { useLayoutState } from '../../BasicLayout/context'
 const { headerHeight, fixedHeader, layout, isMobile, collapsed, collapsedWidth, siderWidth } = useLayoutState()
 
@@ -54,14 +54,14 @@ const needFixed = computed(() =>
   <a-layout-header
     :style="headerStyle" :class="cls"
   >
-    <GlobalHeader>
+    <global-header>
       <template v-if="$slots.headerActions" #headerActions>
         <slot name="headerActions" />
       </template>
       <template v-if="$slots.headerContent" #headerContent>
         <slot name="headerContent" />
       </template>
-    </GlobalHeader>
+    </global-header>
   </a-layout-header>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useLayoutState } from '../../BasicLayout/context'
-import SideMenu from '../sider-menu/index.vue'
+import SideMenu from '../SiderMenu/index.vue'
 const { mobileCollapsed, siderWidth } = useLayoutState()
 </script>
 
@@ -11,6 +11,6 @@ const { mobileCollapsed, siderWidth } = useLayoutState()
     placement="left"
     :width="siderWidth"
   >
-    <SideMenu />
+    <side-menu />
   </a-drawer>
 </template>

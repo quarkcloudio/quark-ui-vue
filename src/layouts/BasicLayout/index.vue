@@ -42,7 +42,7 @@ const contentCls = computed(() => {
   <div class="ant-pro-basicLayout" :data-theme="theme">
     <a-layout>
       <template v-if="menu">
-        <SiderMenu v-if="layout !== 'top' && !isMobile" />
+        <sider-menu v-if="layout !== 'top' && !isMobile" />
       </template>
       <a-layout>
         <template v-if="header">
@@ -65,11 +65,11 @@ const contentCls = computed(() => {
         </a-layout-content>
         <a-layout-footer v-if="footer" style="background-color: transparent;">
           <slot name="footerRender">
-            <GlobalFooter :copyright="copyright">
+            <global-footer :copyright="copyright">
               <template v-if="$slots.renderFooterLinks" #renderFooterLinks>
                 <footer-links />
               </template>
-            </GlobalFooter>
+            </global-footer>
           </slot>
         </a-layout-footer>
       </a-layout>

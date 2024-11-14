@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { pick } from '@v-c/utils'
-import BasicLayout from './basic-layout/index.vue'
-import SettingDrawer from './components/setting-drawer/index.vue'
-import MultiTab from './multi-tab/index.vue'
+import BasicLayout from './BasicLayout/index.vue'
+import SettingDrawer from './components/SettingDrawer/index.vue'
+import MultiTab from './MultiTab/index.vue'
 const appStore = useAppStore()
 const { layoutSetting } = storeToRefs(appStore)
 const userStore = useUserStore()
@@ -19,7 +19,7 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
 </script>
 
 <template>
-  <BasicLayout
+  <basic-layout
     :collapsed="layoutSetting.collapsed"
     :theme="layoutSetting.theme"
     :menu-data="userStore.menuData"
@@ -38,7 +38,7 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
       <UserAvatar />
     </template>
     <template #contentPrefix>
-      <MultiTab v-if="layoutSetting.multiTab" />
+      <multi-tab v-if="layoutSetting.multiTab" />
     </template>
 
     <template #renderFooterLinks>
@@ -51,8 +51,8 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
         </template>
       </RouterView>
     </a-watermark>
-  </BasicLayout>
-  <SettingDrawer
+  </basic-layout>
+  <setting-drawer
     v-model:open="layoutSetting.drawerVisible"
     :theme="layoutSetting.theme"
     :color-primary="layoutSetting.colorPrimary"
