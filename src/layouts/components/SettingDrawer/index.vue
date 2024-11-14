@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CloseOutlined, SettingOutlined } from '@ant-design/icons-vue'
-import type { ContentWidth, LayoutType, ThemeType } from '../../basic-layout/typing'
+import type { ContentWidth, LayoutType, ThemeType } from '../../BasicLayout/typing'
 import Body from './body.vue'
 import BlockCheckbox from './block-checkbox.vue'
 import ThemeColor from './theme-color.vue'

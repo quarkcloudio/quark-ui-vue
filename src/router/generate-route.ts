@@ -3,7 +3,7 @@
 
 import { isUrl } from '@v-c/utils'
 import type { RouteRecordRaw } from 'vue-router'
-import type { MenuData, MenuDataItem } from '~@/layouts/basic-layout/typing'
+import type { MenuData, MenuDataItem } from '~@/layouts/BasicLayout/typing'
 let cache_key = 1
 
 // 本地静态路由生成菜单的信息

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isUrl } from '@v-c/utils'
 import AsyncIcon from './async-icon.vue'
-import type { MenuDataItem } from '~@/layouts/basic-layout/typing'
+import type { MenuDataItem } from '~@/layouts/BasicLayout/typing'
 defineProps<{ item: MenuDataItem }>()
 </script>
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Header from '../components/header/index.vue'
-import SiderMenu from '../components/sider-menu/index.vue'
-import DrawerMenu from '../components/drawer-menu/index.vue'
-import Menu from '../components/menu/index.vue'
-import GlobalFooter from '../components/global-footer/index.vue'
+import Header from '../components/Header/index.vue'
+import SiderMenu from '../components/SiderMenu/index.vue'
+import DrawerMenu from '../components/DrawerMenu/index.vue'
+import Menu from '../components/Menu/index.vue'
+import GlobalFooter from '../components/GlobalFooter/index.vue'
 import { proLayoutProps } from './typing'
 import { useLayoutProvider } from './context'
 const props = defineProps(proLayoutProps)

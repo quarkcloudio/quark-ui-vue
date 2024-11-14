@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import type { CSSProperties } from 'vue'
-import { useLayoutState } from '../../basic-layout/context'
+import { useLayoutState } from '../../BasicLayout/context'
 import Menu from '../menu/index.vue'
 const { collapsed, handleCollapsed, layout, logo, theme, title, collapsedWidth, siderWidth, headerHeight, fixedSider, isMobile } = useLayoutState()
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LayoutType } from '../../basic-layout/typing'
+import type { LayoutType } from '../../BasicLayout/typing'
 
 const props = defineProps<{
   layout?: LayoutType
