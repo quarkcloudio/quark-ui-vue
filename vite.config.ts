@@ -80,6 +80,12 @@ export default defineConfig({
     },
   },
   server: {
-    port: 6678,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000/api', // 目标后端API域名
+        changeOrigin: true, // 是否改变源地址
+        rewrite: path => path.replace(/^\/api/, ''), // 重写路径
+      },
+    },
   },
 })
