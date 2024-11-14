@@ -1,7 +1,6 @@
 # Quark-UI-VUE
 
-基于ant-design-vue@4.x版本的Quark-UI引擎
-
+基于ant-design-vue的低代码UI引擎
 
 ## 启动项目
 
