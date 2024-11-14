@@ -44,13 +44,11 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
     <template #renderFooterLinks>
       <!-- TODO -->
     </template>
-    <a-watermark h-full flex flex-col flex-1 content="Antdv Admin Pro">
-      <RouterView>
-        <template #default="{ Component }">
-          <component :is="Component" />
-        </template>
-      </RouterView>
-    </a-watermark>
+    <RouterView>
+      <template #default="{ Component }">
+        <component :is="Component" />
+      </template>
+    </RouterView>
   </basic-layout>
   <setting-drawer
     v-model:open="layoutSetting.drawerVisible"

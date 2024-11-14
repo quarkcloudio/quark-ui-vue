@@ -74,7 +74,7 @@ const contentCls = computed(() => {
         </a-layout-footer>
       </a-layout>
     </a-layout>
-    <DrawerMenu v-if="menu" />
+    <drawer-menu v-if="menu" />
   </div>
 </template>
 
