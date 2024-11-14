@@ -74,14 +74,14 @@ const submit = async () => {
         <div class="ant-pro-form-login-top">
           <div class="ant-pro-form-login-header">
             <span class="ant-pro-form-login-logo">
-              <img src="/logo.svg">
+              <img src="/logo.png">
             </span>
             <span class="ant-pro-form-login-title">
-              Ant Design
+              QuarkCloud
             </span>
           </div>
           <div class="ant-pro-form-login-desc">
-            Ant Design 是西湖区最具影响力的 Web 设计规范
+            信息丰富的世界里，唯一稀缺的就是人类的注意力
           </div>
         </div>
         <div class="ant-pro-form-login-main" w-335px>
