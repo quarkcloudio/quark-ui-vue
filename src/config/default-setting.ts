@@ -1,9 +1,9 @@
 import type { LayoutSetting } from '~@/stores/app'
 
 export default {
-  title: 'Antdv Admin Pro',
+  title: 'QuarkCloud',
   theme: 'light',
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: '/logo.png',
   collapsed: false,
   drawerVisible: false,
   colorPrimary: '#1677FF',
@@ -20,5 +20,5 @@ export default {
   multiTab: true,
   multiTabFixed: false,
   headerHeight: 48,
-  copyright: '爱吧烟雨2023',
+  copyright: 'QuarkCloud',
 } as LayoutSetting
