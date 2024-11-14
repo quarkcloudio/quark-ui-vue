@@ -50,11 +50,11 @@ declare module '@vue/runtime-core' {
     AUpload: typeof import('ant-design-vue/es')['Upload']
     AUploadDragger: typeof import('ant-design-vue/es')['UploadDragger']
     AWatermark: typeof import('ant-design-vue/es')['Watermark']
-    CarbonMoon: typeof import('./../src/components/icons/carbon-moon.vue')['default']
-    CarbonSun: typeof import('./../src/components/icons/carbon-sun.vue')['default']
-    FooterLinks: typeof import('./../src/components/footer-links.vue')['default']
+    CarbonMoon: typeof import('./../src/components/Icons/carbon-moon.vue')['default']
+    CarbonSun: typeof import('./../src/components/Icons/carbon-sun.vue')['default']
+    FooterLinks: typeof import('./../src/components/FooterLinks.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    UserAvatar: typeof import('./../src/components/user-avatar/index.vue')['default']
+    UserAvatar: typeof import('./../src/components/UserAvatar/index.vue')['default']
   }
 }
