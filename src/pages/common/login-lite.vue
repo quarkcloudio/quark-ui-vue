@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
 import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
 
 </script>
@@ -22,8 +22,46 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
             信息丰富的世界里，唯一稀缺的就是人类的注意力
           </div>
         </div>
+        <a-divider />
         <div class="ant-pro-form-login-page-main">
-
+          <a-form
+            name="basic"
+            autocomplete="off"
+          >
+            <a-form-item
+              name="username"
+              :rules="[{ required: true, message: 'Please input your username!' }]"
+            >
+              <a-input size="large" placeholder="用户名">
+                <template #prefix>
+                  <user-outlined />
+                </template>
+              </a-input>
+            </a-form-item>
+            <a-form-item
+              name="password"
+              :rules="[{ required: true, message: 'Please input your password!' }]"
+            >
+              <a-input-password size="large" placeholder="密码">
+                <template #prefix>
+                  <lock-outlined />
+                </template>
+              </a-input-password>
+            </a-form-item>
+            <a-form-item
+              name="password"
+              :rules="[{ required: true, message: 'Please input your password!' }]"
+            >
+              <a-input size="large" placeholder="验证码">
+                <template #prefix>
+                  <SafetyCertificateOutlined />
+                </template>
+              </a-input>
+            </a-form-item>
+            <a-form-item >
+              <a-button block size="large" type="primary" html-type="submit">登录</a-button>
+            </a-form-item>
+          </a-form>
         </div>
       </div>
     </div>
