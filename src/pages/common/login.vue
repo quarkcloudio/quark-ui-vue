@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlipayCircleFilled, LockOutlined, MobileOutlined, TaobaoCircleFilled, UserOutlined, WeiboCircleFilled } from '@ant-design/icons-vue'
+import { LockOutlined, MobileOutlined, UpSquareOutlined } from '@ant-design/icons-vue'
 import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
 // import { loginApi } from '~/api/common/login'
 const appStore = useAppStore()
@@ -145,12 +145,6 @@ const submit = async () => {
               登录
             </a-button>
           </a-form>
-          <div class="ant-pro-form-login-other" text-14px>
-            其他登录方式:
-            <AlipayCircleFilled class="icon" />
-            <TaobaoCircleFilled class="icon" />
-            <WeiboCircleFilled class="icon" />
-          </div>
         </div>
       </div>
     </div>
