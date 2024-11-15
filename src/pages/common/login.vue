@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LockOutlined, MobileOutlined, UpSquareOutlined } from '@ant-design/icons-vue'
+import { LockOutlined, MobileOutlined } from '@ant-design/icons-vue'
 import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
 // import { loginApi } from '~/api/common/login'
 const appStore = useAppStore()
