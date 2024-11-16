@@ -22,8 +22,8 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
             信息丰富的世界里，唯一稀缺的就是人类的注意力
           </div>
         </div>
-        <a-divider />
         <div class="ant-pro-form-login-page-main">
+          <a-divider class="mt--15px mb-15px" />
           <a-form
             name="basic"
             autocomplete="off"
@@ -32,7 +32,7 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
               name="username"
               :rules="[{ required: true, message: 'Please input your username!' }]"
             >
-              <a-input size="large" placeholder="用户名">
+              <a-input size="large" placeholder="用户名" allow-clear>
                 <template #prefix>
                   <user-outlined />
                 </template>
