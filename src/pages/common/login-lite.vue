@@ -30,7 +30,7 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
           >
             <a-form-item
               name="username"
-              :rules="[{ required: true, message: 'Please input your username!' }]"
+              :rules="[{ required: true, message: '请输入用户名' }]"
             >
               <a-input size="large" placeholder="用户名" allow-clear>
                 <template #prefix>
@@ -40,7 +40,7 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
             </a-form-item>
             <a-form-item
               name="password"
-              :rules="[{ required: true, message: 'Please input your password!' }]"
+              :rules="[{ required: true, message: '请输入密码' }]"
             >
               <a-input-password size="large" placeholder="密码">
                 <template #prefix>
@@ -49,12 +49,15 @@ import GlobalLayoutFooter from '~/layouts/components/GlobalFooter/index.vue'
               </a-input-password>
             </a-form-item>
             <a-form-item
-              name="password"
-              :rules="[{ required: true, message: 'Please input your password!' }]"
+              name="captcha"
+              :rules="[{ required: true, message: '请输入验证码' }]"
             >
-              <a-input size="large" placeholder="验证码">
+              <a-input size="large" placeholder=" 验证码">
                 <template #prefix>
                   <SafetyCertificateOutlined />
+                </template>
+                <template #addonAfter>
+                  <img style="width: 110px; cursor: pointer;" :src="'/api/admin/login/index/captcha/7DJBGlVBFDP73JWp1rFQ?t=1731735829731'" />
                 </template>
               </a-input>
             </a-form-item>
