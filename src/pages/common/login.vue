@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
 
+const captchaId = ref('')
+const captchaUrl = ref('')
+
 </script>
 
 <template>

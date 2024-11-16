@@ -54,6 +54,7 @@ declare module '@vue/runtime-core' {
     AWatermark: typeof import('ant-design-vue/es')['Watermark']
     CarbonMoon: typeof import('./../src/components/Icons/carbon-moon.vue')['default']
     CarbonSun: typeof import('./../src/components/Icons/carbon-sun.vue')['default']
+    Engine: typeof import('./../src/components/Engine/index.vue')['default']
     FooterLinks: typeof import('./../src/components/FooterLinks.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
