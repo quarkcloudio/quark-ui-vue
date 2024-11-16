@@ -10,13 +10,6 @@ export default [
     },
   },
   {
-    path: '/loginLite',
-    component: () => import('~/pages/common/login-lite.vue'),
-    meta: {
-      title: '登录',
-    },
-  },
-  {
     path: '/common',
     name: 'LayouBasicRedirect',
     component: Layout,
