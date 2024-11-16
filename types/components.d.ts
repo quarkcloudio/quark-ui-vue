@@ -56,6 +56,8 @@ declare module '@vue/runtime-core' {
     CarbonSun: typeof import('./../src/components/Icons/carbon-sun.vue')['default']
     Engine: typeof import('./../src/components/Engine/index.vue')['default']
     FooterLinks: typeof import('./../src/components/FooterLinks.vue')['default']
+    Login: typeof import('./../src/components/Login/index.vue')['default']
+    Render: typeof import('./../src/components/Render/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserAvatar: typeof import('./../src/components/UserAvatar/index.vue')['default']
