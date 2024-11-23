@@ -1,4 +1,4 @@
-import type { MenuData } from '~@/layouts/BasicLayout/typing'
+import type { MenuData } from '~@/components/Layout/typing'
 import dynamicRoutes, { rootRoute } from '~@/router/dynamic-routes'
 import { genRoutes } from '~@/router/generate-route'
 
