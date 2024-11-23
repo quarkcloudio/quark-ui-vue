@@ -54,12 +54,16 @@ declare module '@vue/runtime-core' {
     AWatermark: typeof import('ant-design-vue/es')['Watermark']
     CarbonMoon: typeof import('./../src/components/Icons/carbon-moon.vue')['default']
     CarbonSun: typeof import('./../src/components/Icons/carbon-sun.vue')['default']
+    Divider: typeof import('ant-design-vue/es')['Divider']
     Engine: typeof import('./../src/components/Engine/index.vue')['default']
     FooterLinks: typeof import('./../src/components/FooterLinks.vue')['default']
+    Grid: typeof import('ant-design-vue/es')['Grid']
     Login: typeof import('./../src/components/Login/index.vue')['default']
     Render: typeof import('./../src/components/Render/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Row: typeof import('ant-design-vue/es')['Row']
+    Tabs: typeof import('ant-design-vue/es')['Tabs']
     UserAvatar: typeof import('./../src/components/UserAvatar/index.vue')['default']
   }
 }
