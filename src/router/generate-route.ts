@@ -1,6 +1,3 @@
-
-// 通过菜单生成路由
-
 import { isUrl } from '@v-c/utils'
 import type { RouteRecordRaw } from 'vue-router'
 import type { MenuData, MenuDataItem } from '~@/components/Layout/typing'

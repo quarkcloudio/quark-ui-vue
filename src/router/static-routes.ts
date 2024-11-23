@@ -27,22 +27,4 @@ export default [
       title: '登录',
     },
   },
-  {
-    path: '/common',
-    name: 'LayouBasicRedirect',
-    component: Layout,
-    redirect: '/redirect',
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        name: 'redirect',
-        component: () => import('~/pages/common/redirect.vue'),
-      },
-    ],
-  },
-
-  {
-    path: '/:pathMatch(.*)',
-    component: () => import('~/pages/exception/error.vue'),
-  },
 ] as RouteRecordRaw[]

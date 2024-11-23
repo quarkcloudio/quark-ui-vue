@@ -40,7 +40,6 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
     <template #contentPrefix>
       <multi-tab v-if="layoutSetting.multiTab" />
     </template>
-
     <template #renderFooterLinks>
       <!-- TODO -->
     </template>
