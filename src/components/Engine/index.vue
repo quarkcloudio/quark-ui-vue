@@ -5,20 +5,18 @@ const props = withDefaults(defineProps<{
   api: '',
 });
 
+const component = ref()
+
 const getComponent = async () => {
-  const result = await useGet(props.api)
-  console.log(result)
+  return await useGet(props.api)
 }
 
-onMounted(() => {
-  getComponent()
+onMounted(async () => {
+  component.value = await getComponent()
 })
 
 </script>
 
 <template>
-{{api}}
+  <render :body="component" />
 </template>
-
-<style lang="less" scoped>
-</style>
