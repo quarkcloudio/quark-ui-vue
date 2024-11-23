@@ -1,5 +1,5 @@
 import { isUrl } from '@v-c/utils'
-import type { MenuData, MenuDataItem } from '~@/layouts/BasicLayout/typing'
+import type { MenuData, MenuDataItem } from '~@/components/Layout/typing'
 import router from '~@/router'
 
 const toMapMenuData = (menuData: MenuData, menuDataMap: Map<string, MenuDataItem>, matched: MenuDataItem[] = []) => {
