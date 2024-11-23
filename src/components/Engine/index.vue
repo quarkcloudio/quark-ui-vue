@@ -15,6 +15,9 @@ onMounted(async () => {
   component.value = await getComponent()
 })
 
+watch(() => component.value, (val) => {
+  document.title = val?.title
+})
 </script>
 
 <template>

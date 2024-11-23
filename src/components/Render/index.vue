@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'Render', // 定义组件名称
+});
+
 const props = withDefaults(defineProps<{
   body?: any;
   data?: any;
