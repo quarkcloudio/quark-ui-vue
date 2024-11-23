@@ -20,11 +20,4 @@ export default [
       },
     ],
   },
-  {
-    path: '/login',
-    component: () => import('~/pages/common/login.vue'),
-    meta: {
-      title: '登录',
-    },
-  },
 ] as RouteRecordRaw[]
