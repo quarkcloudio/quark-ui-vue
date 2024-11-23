@@ -9,8 +9,7 @@
     "docs:build": "vitepress build docs",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --fix",
-    "dir-tree": "esno ./scripts/dir-tree"
+    "lint": "eslint src --fix"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
