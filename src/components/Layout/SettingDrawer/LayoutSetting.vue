@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ContentWidth, LayoutType } from '../../BasicLayout/typing'
+import type { ContentWidth, LayoutType } from '../typing'
 
 const props = defineProps<{
   contentWidth?: ContentWidth

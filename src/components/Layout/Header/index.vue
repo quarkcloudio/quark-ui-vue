@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
 import GlobalHeader from '../GlobalHeader/index.vue'
-import { useLayoutState } from '../../BasicLayout/context'
+import { useLayoutState } from '../context'
 const { headerHeight, fixedHeader, layout, isMobile, collapsed, collapsedWidth, siderWidth } = useLayoutState()
 
 const headerStyle = computed<CSSProperties>(() => {

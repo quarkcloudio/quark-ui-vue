@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { pick } from '@v-c/utils'
-import BasicLayout from './BasicLayout/index.vue'
-import SettingDrawer from './components/SettingDrawer/index.vue'
-import MultiTab from './MultiTab/index.vue'
+import BasicLayout from '@/components/Layout/index.vue'
+import SettingDrawer from '@/components/Layout/SettingDrawer/index.vue'
+import MultiTab from '@/components/Layout/MultiTab/index.vue'
 const appStore = useAppStore()
 const { layoutSetting } = storeToRefs(appStore)
 const userStore = useUserStore()
@@ -63,5 +63,4 @@ const layoutProps = computed(() => pick(appStore.layoutSetting, ['fixedHeader', 
 </template>
 
 <style scoped>
-
 </style>
