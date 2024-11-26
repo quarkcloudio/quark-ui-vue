@@ -83,14 +83,12 @@ import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-desi
   background-position: center;
   background-repeat: no-repeat;
 }
-
 .ant-pro-form-login-page-notice {
   display: flex;
   flex: 1;
   z-index: 99;
   align-items: flex-end;
 }
-
 .ant-pro-form-login-page-left {
   display: flex;
   flex: 1;
@@ -106,7 +104,6 @@ import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-desi
   height: max-content;
   margin: auto;
 }
-
 @media (min-width: 768px) {
   .ant-pro-form-login-page-left {
     background-repeat: no-repeat;
@@ -114,7 +111,6 @@ import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-desi
     background-size: 100%;
   }
 }
-
 .ant-pro-form-login-page-container {
   border-radius: 6px;
     background-size: 100%;
