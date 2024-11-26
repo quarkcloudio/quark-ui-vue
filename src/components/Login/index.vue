@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
+
+const props = withDefaults(defineProps<{
+  logo?: any;
+  title?: string;
+  subTitle?: string;
+}>(), {
+  logo: "/logo.png",
+  title: "QuarkCloud",
+  subTitle: "信息丰富的世界里，唯一稀缺的就是人类的注意力",
+});
+
+const { logo, title } = toRefs(props)
+
 </script>
 
 <template>
@@ -12,12 +25,12 @@ import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-desi
         <div class="ant-pro-form-login-page-top">
           <div class="ant-pro-form-login-page-header">
             <span class="ant-pro-form-login-page-logo">
-              <img src="/logo.png" alt="logo"></img>
+              <img :src="logo" alt="logo"></img>
             </span>
-            <span class="ant-pro-form-login-page-title">QuarkCloud</span>
+            <span class="ant-pro-form-login-page-title">{{ title }}</span>
           </div>
           <div class="ant-pro-form-login-page-desc">
-            信息丰富的世界里，唯一稀缺的就是人类的注意力
+            {{ subTitle }}
           </div>
         </div>
         <div class="ant-pro-form-login-page-main">
