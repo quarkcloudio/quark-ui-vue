@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { UserOutlined, LockOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
-
 </script>
 
 <template>
