@@ -1,17 +1,19 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<any>(), {
-  component: undefined,
+const props = withDefaults(defineProps<{
+  fieldProps?: any;
+}>(), {
+  fieldProps: undefined,
 });
 
 const {
-  component,
+  fieldProps,
 } = toRefs(props)
 </script>
 <template>
-  <template v-if="component === 'textField'">
+  <template v-if="fieldProps.component === 'textField'">
     <input type="text" />
   </template>
-  <template v-else-if="component === 'viewB'">
+  <template v-else-if="fieldProps.component === 'viewB'">
     <div>这是 View B 的内容</div>
   </template>
   <template v-else>

@@ -30,6 +30,9 @@ const { body } = toRefs(props)
     <view v-if="body.component === 'login'">
       <login />
     </view>
+    <view v-if="body.component.indexOf('Field') !== -1">
+      <field :fieldProps="body"/>
+    </view>
   </view>
   <view v-else>
     <view v-for="(item, index) in body" :key="index">
