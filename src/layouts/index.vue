@@ -58,12 +58,6 @@ const layoutProps = computed(() =>
   >
     <template #headerActions>
       <UserAvatar />
-      <SelectLang />
-      <GithubLink />
-      <template v-if="!isMobile">
-        <GiteeLink />
-        <DocLink />
-      </template>
     </template>
     <template #contentPrefix>
       <MultiTab v-if="layoutSetting.multiTab" />
