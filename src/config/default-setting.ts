@@ -26,7 +26,7 @@ export default {
   leftCollapsed: true,
   compactAlgorithm: false,
   headerHeight: 48,
-  copyright: 'Antdv Pro Team 2023',
+  copyright: 'QuarkCloud 2024',
   animationName: 'slide-fadein-right',
 } as LayoutSetting
 
