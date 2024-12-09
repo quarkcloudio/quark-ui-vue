@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { CloseOutlined, CopyOutlined, NotificationOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { useClipboard } from '@v-c/utils'
-import type { ContentWidth, LayoutType, ThemeType } from '../../basic-layout/typing'
-import Body from './body.vue'
-import BlockCheckbox from './block-checkbox.vue'
-import ThemeColor from './theme-color.vue'
-import LayoutSetting from './layout-setting.vue'
-import RegionalSetting from './regional-setting.vue'
-import OtherSetting from './other-setting.vue'
+import type { ContentWidth, LayoutType, ThemeType } from '../../Layout/typing'
+import Body from './Body.vue'
+import BlockCheckbox from './BlockCheckbox.vue'
+import ThemeColor from './ThemeColor.vue'
+import LayoutSetting from './LayoutSetting.vue'
+import RegionalSetting from './RegionalSetting.vue'
+import OtherSetting from './OtherSetting.vue'
 
 defineOptions({
   name: 'SettingDrawer',

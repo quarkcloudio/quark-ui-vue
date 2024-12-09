@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useLayoutState } from '../../basic-layout/context'
-import SubMenu from './sub-menu.vue'
+import { useLayoutState } from '../../Layout/context'
+import SubMenu from './SubMenu.vue'
 
 const { theme, collapsed, layout, isMobile, selectedMenus, selectedKeys, openKeys, handleOpenKeys, handleSelectedKeys, handleMenuSelect } = useLayoutState()
 const menuTheme = computed(() => {

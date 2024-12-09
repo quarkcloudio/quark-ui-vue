@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
-import { useLayoutState } from '../../basic-layout/context'
-import GlobalHeaderLogo from './global-header-logo.vue'
+import { useLayoutState } from '../../Layout/context'
+import GlobalHeaderLogo from './GlobalHeaderLogo.vue'
 
 const { layout, isMobile, handleMobileCollapsed, theme, menuHeader, collapsed, handleCollapsed, leftCollapsed }
     = useLayoutState()

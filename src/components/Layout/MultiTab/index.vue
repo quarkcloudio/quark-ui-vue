@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons-vue'
 import type { RouteLocationNormalized } from 'vue-router'
 import { listenerRouteChange, removeRouteListener } from '~@/utils/route-listener'
-import { useLayoutState } from '~/layouts/basic-layout/context'
+import { useLayoutState } from '~@/components/Layout/context'
 
 const multiTabStore = useMultiTab()
 const { list, activeKey } = storeToRefs(multiTabStore)

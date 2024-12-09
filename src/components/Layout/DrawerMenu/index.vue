@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useLayoutState } from '../../basic-layout/context'
-import SideMenu from '../sider-menu/index.vue'
+import { useLayoutState } from '../../Layout/context'
+import SideMenu from '../SiderMenu/index.vue'
 
 const { mobileCollapsed, siderWidth } = useLayoutState()
 </script>

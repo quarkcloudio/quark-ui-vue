@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ParentCompConsumer } from '@/layouts/basic-layout/parent-comp-consumer'
+import { ParentCompConsumer } from '~@/components/Layout/parent-comp-consumer'
 
 defineOptions({
   name: 'CustomRouteView',

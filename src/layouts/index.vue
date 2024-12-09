@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { pick } from '@v-c/utils'
-import BasicLayout from './basic-layout/index.vue'
-import SettingDrawer from './components/setting-drawer/index.vue'
-import MultiTab from './multi-tab/index.vue'
-import RouteView from './components/route-view.vue'
+import BasicLayout from '../components/Layout/index.vue'
+import SettingDrawer from '../components/Layout/SettingDrawer/index.vue'
+import MultiTab from '../components/Layout/MultiTab/index.vue'
+import RouteView from '../components/Layout/RouteView.vue'
 import { animationNameList } from '~@/config/default-setting'
 
 defineOptions({

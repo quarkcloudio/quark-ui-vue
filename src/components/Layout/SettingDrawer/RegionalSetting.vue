@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SelectValue } from 'ant-design-vue/es/select'
-import type { CheckedType, LayoutType } from '../../basic-layout/typing'
+import type { CheckedType, LayoutType } from '../../BasicLayout/typing'
 
 const props = defineProps<{
   layout?: LayoutType

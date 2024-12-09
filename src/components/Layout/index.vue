@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Header from '../components/header/index.vue'
-import SiderMenu from '../components/sider-menu/index.vue'
-import DrawerMenu from '../components/drawer-menu/index.vue'
-import Menu from '../components/menu/index.vue'
-import SplitMenu from '../components/menu/split-menu.vue'
-import GlobalFooter from '../components/global-footer/index.vue'
+import Header from './Header/index.vue'
+import SiderMenu from './SiderMenu/index.vue'
+import DrawerMenu from './DrawerMenu/index.vue'
+import Menu from './Menu/index.vue'
+import SplitMenu from './Menu/SplitMenu.vue'
+import GlobalFooter from './GlobalFooter/index.vue'
 import { proLayoutProps } from './typing'
 import { useLayoutProvider } from './context'
 

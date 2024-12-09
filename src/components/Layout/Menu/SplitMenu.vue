@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { omit } from '@v-c/utils'
-import { useLayoutState } from '../../basic-layout/context'
-import SubMenu from './sub-menu.vue'
+import { useLayoutState } from '../../Layout/context'
+import SubMenu from './SubMenu.vue'
 
 const { splitState, menuData, handleSplitSelectedKeys } = useLayoutState()
 

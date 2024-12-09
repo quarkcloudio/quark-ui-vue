@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLayoutState } from '../../basic-layout/context'
+import { useLayoutState } from '../../Layout/context'
 
 const { logo, title, layout, isMobile } = useLayoutState()
 const cls = computed(() => ({
