@@ -1,7 +1,7 @@
 import type { LayoutSetting } from '~@/stores/app'
 
 export default {
-  title: 'Antdv Pro',
+  title: 'QuarkCloud',
   theme: 'light',
   logo: '/logo.svg',
   collapsed: false,
