@@ -1,5 +1,5 @@
 import type { LoadingEnum } from '~#/loading-enum'
-import baseLoading from '@/components/base-loading/index.vue'
+import baseLoading from '@/components/BaseLoading/index.vue'
 
 interface LoadingType {
   text?: string
