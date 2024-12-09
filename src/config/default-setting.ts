@@ -7,7 +7,7 @@ export default {
   collapsed: false,
   drawerVisible: false,
   colorPrimary: '#1677FF',
-  layout: 'mix',
+  layout: 'side',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixedSider: true,
