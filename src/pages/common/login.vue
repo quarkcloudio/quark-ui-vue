@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlipayCircleFilled, LockOutlined, MobileOutlined, TaobaoCircleFilled, UserOutlined, WeiboCircleFilled } from '@ant-design/icons-vue'
+import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { AxiosError } from 'axios'
 import GlobalLayoutFooter from '~/components/Layout/GlobalFooter/index.vue'
 import { loginApi } from '~/api/common/login'
@@ -49,7 +49,6 @@ async function getCode() {
     }, 3000)
   }
   catch (error) {
-    // TODO
     codeLoading.value = false
   }
 }
@@ -197,12 +196,6 @@ async function submit() {
               {{ t('pages.login.submit') }}
             </a-button>
           </a-form>
-          <div class="ant-pro-form-login-other" text-14px>
-            {{ t('pages.login.loginWith') }}
-            <AlipayCircleFilled class="icon" />
-            <TaobaoCircleFilled class="icon" />
-            <WeiboCircleFilled class="icon" />
-          </div>
         </div>
       </div>
     </div>
