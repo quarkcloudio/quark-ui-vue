@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { RouterView } from 'vue-router'
 
 const Layout = () => import('~/layouts/index.vue')
 
@@ -30,7 +31,7 @@ export default [
     children: [
       {
         path: '/common/redirect',
-        component: () => import('~/components/Layout/RouteView.vue'),
+        component: () => RouterView,
         name: 'CommonRedirect',
         redirect: '/redirect',
         children: [
