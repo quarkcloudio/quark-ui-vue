@@ -91,16 +91,23 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       },
     },
     server: {
-      port: 6678,
+      // port: 6678,
+      // proxy: {
+      //   ...proxyObj,
+      //   // [env.VITE_APP_BASE_API]: {
+      //   //   target: env.VITE_APP_BASE_URL,
+      //   // //   如果你是https接口，需要配置这个参数
+      //   // //   secure: false,
+      //   //   changeOrigin: true,
+      //   //   rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), ''),
+      //   // },
+      // },
       proxy: {
-        ...proxyObj,
-        // [env.VITE_APP_BASE_API]: {
-        //   target: env.VITE_APP_BASE_URL,
-        // //   如果你是https接口，需要配置这个参数
-        // //   secure: false,
-        //   changeOrigin: true,
-        //   rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), ''),
-        // },
+        '/api': {
+          target: 'http://127.0.0.1:3000/api', // 目标后端API域名
+          changeOrigin: true, // 是否改变源地址
+          rewrite: path => path.replace(/^\/api/, ''), // 重写路径
+        },
       },
     },
     test: {
