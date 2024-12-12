@@ -14,11 +14,11 @@ const routerModules = import.meta.glob([
 ])
 export const basicRouteMap = {
   // iframe模式下使用
-  Iframe: () => import('~/pages/common/iframe.vue'),
+  Iframe: () => import('~/components/Layout/Iframe.vue'),
   // 一般用于存在子集的页面
   RouteView: () => import('~/components/Layout/RouteView.vue'),
   // 空页面
-  ComponentError: () => import('~/pages/exception/component-error.vue'),
+  ComponentError: () => import('~/components/Exception/ComponentError.vue'),
 }
 
 function checkEager(module: any) {

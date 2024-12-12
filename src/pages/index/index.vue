@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const api = ref(route.query.api || import.meta.env.VITE_DEFAULT_URL)
+const api = ref(route.query.api || import.meta.env.VITE_APP_DEFAULT_URL)
 </script>
 
 <template>

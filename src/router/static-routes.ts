@@ -4,10 +4,6 @@ const Layout = () => import('~/layouts/index.vue')
 
 export default [
   {
-    path: '/',
-    component: () => import('~/pages/index/index.vue'),
-  },
-  {
     path: '/index',
     component: () => import('~/pages/index/index.vue'),
   },
@@ -21,7 +17,7 @@ export default [
   {
     path: '/401',
     name: 'Error401',
-    component: () => import('~/pages/exception/401.vue'),
+    component: () => import('~/components/Exception/Error401.vue'),
     meta: {
       title: '授权已过期',
     },
@@ -34,14 +30,14 @@ export default [
     children: [
       {
         path: '/common/redirect',
-        component: () => import('~/pages/common/route-view.vue'),
+        component: () => import('~/components/Layout/RouteView.vue'),
         name: 'CommonRedirect',
         redirect: '/redirect',
         children: [
           {
             path: '/redirect/:path(.*)',
             name: 'RedirectPath',
-            component: () => import('~/pages/common/redirect.vue'),
+            component: () => import('~/components/Layout/Redirect.vue'),
           },
         ],
       },
@@ -53,6 +49,6 @@ export default [
     meta: {
       title: '找不到页面',
     },
-    component: () => import('~/pages/exception/error.vue'),
+    component: () => import('~/components/Exception/Error.vue'),
   },
 ] as RouteRecordRaw[]
