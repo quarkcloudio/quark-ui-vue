@@ -118,7 +118,7 @@ async function submit() {
               <img src="/logo.svg">
             </span>
             <span class="ant-pro-form-login-title">
-              Antdv Pro
+              QuarkCloud
             </span>
           </div>
           <div class="ant-pro-form-login-desc">
