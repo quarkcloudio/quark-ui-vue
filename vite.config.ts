@@ -4,23 +4,47 @@ import { fileURLToPath } from 'node:url'
 import * as process from 'node:process'
 import { loadEnv } from 'vite'
 import type { ConfigEnv, UserConfig } from 'vite'
-import { createVitePlugins } from './plugins'
-import { OUTPUT_DIR } from './plugins/constants'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
+import GenerateConfig from 'unplugin-config/vite'
+import Components from 'unplugin-vue-components/vite'
+import Unocss from 'unocss/vite'
+import AntdvResolver from 'antdv-component-resolver'
 
 const baseSrc = fileURLToPath(new URL('./src', import.meta.url))
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd())
-  const proxyObj = {}
-  if (mode === 'development' && env.VITE_APP_BASE_API_DEV && env.VITE_APP_BASE_URL_DEV) {
-    proxyObj[env.VITE_APP_BASE_API_DEV] = {
-      target: env.VITE_APP_BASE_URL_DEV,
-      changeOrigin: true,
-      rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_BASE_API_DEV}`), ''),
-    }
-  }
   return {
-    plugins: createVitePlugins(env),
+    plugins: [
+      vue(),
+      vueJsx(),
+      AutoImport({
+        imports: [
+          'vue',
+          'vue-router',
+          'vue-i18n',
+          '@vueuse/core',
+          'pinia',
+        ],
+        dts: 'types/auto-imports.d.ts',
+        dirs: ['src/stores', 'src/composables'],
+      }),
+      Components({
+        resolvers: [AntdvResolver()],
+        dts: 'types/components.d.ts',
+        dirs: ['src/components'],
+      }),
+      // https://github.com/kirklin/unplugin-config
+      GenerateConfig({
+        appName: env.VITE_GLOB_APP_TITLE,
+        configFile: {
+          generate: true,
+        },
+      }),
+      Unocss(),
+    ],
     resolve: {
       alias: [
         {
@@ -79,7 +103,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     },
     build: {
       chunkSizeWarningLimit: 4096,
-      outDir: OUTPUT_DIR,
       rollupOptions: {
         output: {
           manualChunks: {
@@ -91,17 +114,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       },
     },
     server: {
-      // port: 6678,
-      // proxy: {
-      //   ...proxyObj,
-      //   // [env.VITE_APP_BASE_API]: {
-      //   //   target: env.VITE_APP_BASE_URL,
-      //   // //   如果你是https接口，需要配置这个参数
-      //   // //   secure: false,
-      //   //   changeOrigin: true,
-      //   //   rewrite: path => path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), ''),
-      //   // },
-      // },
       proxy: {
         '/api': {
           target: 'http://127.0.0.1:3000/api', // 目标后端API域名
