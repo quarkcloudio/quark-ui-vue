@@ -28,6 +28,7 @@ const { api, logo, title, subTitle } = toRefs(props)
 const captchaIdUrl = '/api/admin/login/index/captchaId'
 const captchaUrl = '/api/admin/login/index/captcha/:id'
 const innerCaptchaUrl = toRef('')
+const captchaId = toRef('')
 
 onMounted(() => {
   refreshCaptcha()
@@ -35,26 +36,29 @@ onMounted(() => {
 
 // 刷新图形验证码
 async function refreshCaptcha() {
-  let captchaId = ''
   const timestamp = new Date().getTime().toString()
   const result: any = await useGet(captchaIdUrl)
   if (result.type === 'error') {
     message.error(result.content)
     return
   }
-  captchaId = result.data.captchaId
-  innerCaptchaUrl.value = `${captchaUrl.replace(/:id|\$\{id\}|\{id\}/g, captchaId)}?t=${timestamp}`
+  captchaId.value = result.data.captchaId
+  innerCaptchaUrl.value = `${captchaUrl.replace(/:id|\$\{id\}|\{id\}/g, captchaId.value)}?t=${timestamp}`
 }
 
-async function submit(values: any) {
+async function finish(values: any) {
   submitLoading.value = true
   try {
     await formRef.value?.validate()
+    values.captcha = {
+      id: captchaId.value,
+      value: values.captcha,
+    }
     const result: any = await usePost(api.value, values)
+    submitLoading.value = false
     if (result.type === 'error') {
       message.error(result.content)
       refreshCaptcha()
-      submitLoading.value = false
       return
     }
     token.value = result?.data.token
@@ -93,7 +97,7 @@ async function submit(values: any) {
           <a-form
             ref="formRef"
             :model="loginModel"
-            @finish="submit"
+            @finish="finish"
           >
             <a-form-item name="username" :rules="[{ required: true, message: '请输入用户名' }]">
               <a-input v-model:value="loginModel.username" allow-clear placeholder="用户名" size="large">
