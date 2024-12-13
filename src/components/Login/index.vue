@@ -4,6 +4,15 @@ import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
 import type { LoginParams } from '~@/api/common/login'
 
+const props = withDefaults(defineProps<{
+  logo?: any
+  title?: string
+  subTitle?: string
+}>(), {
+  logo: '/logo.svg',
+  title: 'QuarkCloud',
+  subTitle: '信息丰富的世界里，唯一稀缺的就是人类的注意力',
+})
 const notification = useNotification()
 const router = useRouter()
 const token = useAuthorization()
@@ -18,6 +27,7 @@ const loginModel = reactive({
 const { t } = useI18nLocale()
 const formRef = shallowRef()
 const submitLoading = shallowRef(false)
+const { logo, title } = toRefs(props)
 
 async function submit() {
   submitLoading.value = true
@@ -55,14 +65,14 @@ async function submit() {
         <div class="ant-pro-form-login-top">
           <div class="ant-pro-form-login-header">
             <span class="ant-pro-form-login-logo">
-              <img src="/logo.svg">
+              <img :src="logo">
             </span>
             <span class="ant-pro-form-login-title">
-              QuarkCloud
+              {{ title }}
             </span>
           </div>
           <div class="ant-pro-form-login-desc">
-            信息丰富的世界里，唯一稀缺的就是人类的注意力
+            {{ subTitle }}
           </div>
         </div>
         <div class="ant-pro-form-login-main" w-335px>
@@ -82,7 +92,7 @@ async function submit() {
               </a-input-password>
             </a-form-item>
             <a-button type="primary" block :loading="submitLoading" size="large" @click="submit">
-              {{ t('pages.login.submit') }}
+              {{ t('login.submit') }}
             </a-button>
           </a-form>
         </div>
