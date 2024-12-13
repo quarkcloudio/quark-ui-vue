@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { AxiosError } from 'axios'
-import GlobalLayoutFooter from '~/components/Layout/GlobalFooter/index.vue'
 import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
 import type { LoginMobileParams, LoginParams } from '~@/api/common/login'
@@ -119,13 +118,6 @@ async function submit() {
         </div>
       </div>
     </div>
-    <div py-24px px-50px :data-theme="layoutSetting.theme" text-14px>
-      <GlobalLayoutFooter :copyright="layoutSetting.copyright">
-        <template #renderFooterLinks>
-          <footer-links />
-        </template>
-      </GlobalLayoutFooter>
-    </div>
   </div>
 </template>
 
@@ -136,11 +128,6 @@ async function submit() {
   height: 100vh;
   overflow: auto;
   background: var(--bg-color-container);
-}
-.login-lang {
-  width: 100%;
-  height: 40px;
-  line-height: 44px;
 }
 .login-content{
   flex: 1 1;
@@ -194,10 +181,6 @@ async function submit() {
   min-width: 328px;
   max-width: 500px;
   margin: 0 auto;
-  .ant-tabs-nav-list {
-    margin: 0 auto;
-    font-size: 16px;
-  }
   .ant-pro-form-login-other {
     margin-top: 24px;
     line-height: 22px;
