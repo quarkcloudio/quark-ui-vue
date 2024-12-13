@@ -28,7 +28,12 @@ const { body } = toRefs(props)
       <image :style="body.style" :src="body.src" />
     </view>
     <view v-if="body.component === 'login'">
-      <login />
+      <login
+        :api="body.api"
+        :logo="body.logo"
+        :title="body.title"
+        :sub-title="body.subTitle"
+      />
     </view>
     <view v-if="body.component.indexOf('Field') !== -1">
       <field :field-props="body" />

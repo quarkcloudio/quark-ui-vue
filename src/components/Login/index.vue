@@ -1,32 +1,30 @@
 <script setup lang="ts">
 import { LockOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { getQueryParam } from '~/utils/tools'
-import type { LoginParams } from '~@/api/common/login'
 
 const props = withDefaults(defineProps<{
+  api?: any
   logo?: any
   title?: string
   subTitle?: string
 }>(), {
+  api: undefined,
   logo: '/logo.svg',
   title: 'QuarkCloud',
   subTitle: '信息丰富的世界里，唯一稀缺的就是人类的注意力',
 })
-const notification = useNotification()
+const message = useMessage()
 const router = useRouter()
 const token = useAuthorization()
 const loginModel = reactive({
   username: undefined,
   password: undefined,
-  mobile: undefined,
-  code: undefined,
-  type: 'account',
-  remember: true,
+  captcha: undefined,
 })
 const { t } = useI18nLocale()
 const formRef = shallowRef()
 const submitLoading = shallowRef(false)
-const { logo, title } = toRefs(props)
+const { api, logo, title, subTitle } = toRefs(props)
 const captchaIdUrl = '/api/admin/login/index/captchaId'
 const captchaUrl = '/api/admin/login/index/captcha/:id'
 const innerCaptchaUrl = toRef('')
@@ -41,33 +39,26 @@ async function refreshCaptcha() {
   const timestamp = new Date().getTime().toString()
   const result: any = await useGet(captchaIdUrl)
   if (result.type === 'error') {
-    notification.error(result.content)
+    message.error(result.content)
     return
   }
   captchaId = result.data.captchaId
   innerCaptchaUrl.value = `${captchaUrl.replace(/:id|\$\{id\}|\{id\}/g, captchaId)}?t=${timestamp}`
 }
 
-async function submit() {
+async function submit(values: any) {
   submitLoading.value = true
   try {
     await formRef.value?.validate()
-    const params: LoginParams = {
-      username: loginModel.username,
-      password: loginModel.password,
-    } as unknown as LoginParams
-
-    const result: any = await usePost('/api/admin/login/index/login', params)
+    const result: any = await usePost(api.value, values)
     if (result.type === 'error') {
-      notification.error(result.content)
+      message.error(result.content)
+      refreshCaptcha()
+      submitLoading.value = false
       return
     }
     token.value = result?.data.token
-    notification.success({
-      message: '登录成功',
-      description: '欢迎回来！',
-      duration: 3,
-    })
+    message.success(result.content)
     // 获取当前是否存在重定向的链接，如果存在就走重定向的地址
     const redirect = getQueryParam('redirect', '/')
     router.push({
@@ -88,7 +79,7 @@ async function submit() {
         <div class="ant-pro-form-login-top">
           <div class="ant-pro-form-login-header">
             <span class="ant-pro-form-login-logo">
-              <img :src="logo">
+              <img :src="logo ? logo : '/logo.svg'">
             </span>
             <span class="ant-pro-form-login-title">
               {{ title }}
@@ -99,16 +90,20 @@ async function submit() {
           </div>
         </div>
         <div class="ant-pro-form-login-main" w-335px>
-          <a-form ref="formRef">
+          <a-form
+            ref="formRef"
+            :model="loginModel"
+            @finish="submit"
+          >
             <a-form-item name="username" :rules="[{ required: true, message: '请输入用户名' }]">
-              <a-input v-model:value="loginModel.username" allow-clear placeholder="用户名" size="large" @press-enter="submit">
+              <a-input v-model:value="loginModel.username" allow-clear placeholder="用户名" size="large">
                 <template #prefix>
                   <UserOutlined />
                 </template>
               </a-input>
             </a-form-item>
             <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
-              <a-input-password v-model:value="loginModel.password" allow-clear placeholder="密码" size="large" @press-enter="submit">
+              <a-input-password v-model:value="loginModel.password" allow-clear placeholder="密码" size="large">
                 <template #prefix>
                   <LockOutlined />
                 </template>
@@ -118,7 +113,7 @@ async function submit() {
               name="captcha"
               :rules="[{ required: true, message: '请输入验证码' }]"
             >
-              <a-input size="large" placeholder=" 验证码">
+              <a-input v-model:value="loginModel.captcha" size="large" placeholder=" 验证码">
                 <template #prefix>
                   <SafetyCertificateOutlined />
                 </template>
@@ -127,7 +122,7 @@ async function submit() {
                 </template>
               </a-input>
             </a-form-item>
-            <a-button type="primary" block :loading="submitLoading" size="large" @click="submit">
+            <a-button type="primary" block :loading="submitLoading" size="large" html-type="submit">
               {{ t('login.submit') }}
             </a-button>
           </a-form>
