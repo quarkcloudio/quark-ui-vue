@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { LockOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons-vue'
-import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
 import type { LoginParams } from '~@/api/common/login'
 
@@ -58,8 +57,12 @@ async function submit() {
       password: loginModel.password,
     } as unknown as LoginParams
 
-    const { data } = await loginApi(params)
-    token.value = data?.token
+    const result: any = await usePost('/api/admin/login/index/login', params)
+    if (result.type === 'error') {
+      notification.error(result.content)
+      return
+    }
+    token.value = result?.data.token
     notification.success({
       message: '登录成功',
       description: '欢迎回来！',
