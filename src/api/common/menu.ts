@@ -1,4 +1,4 @@
-import type { MenuData } from '~@/layouts/BasicLayout/typing'
+import type { MenuData } from '~@/components/Layout/typing'
 
 export function getRouteMenusApi() {
   return useGet<MenuData>('/menu')

@@ -2,7 +2,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import type { CSSProperties } from 'vue'
 import { useLayoutState } from '../../Layout/context'
-import Menu from '../menu/index.vue'
+import Menu from '../Menu/index.vue'
 
 const {
   collapsed,

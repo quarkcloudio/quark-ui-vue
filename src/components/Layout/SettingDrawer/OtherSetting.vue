@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CheckedType } from '~@/layouts/BasicLayout/typing'
+import type { CheckedType } from '~@/components/Layout/typing'
 
 const props = defineProps<{
   colorWeak?: boolean

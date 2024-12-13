@@ -4,8 +4,7 @@ import type { UserInfo } from '~@/api/common/user'
 import { getUserInfoApi } from '~@/api/common/user'
 import type { MenuData } from '~@/components/Layout/typing'
 import { rootRoute } from '~@/router/constant'
-import { generateFlatRoutes, generateRoutes, generateTreeRoutes } from '~@/router/generate-route'
-import { DYNAMIC_LOAD_WAY, DynamicLoadEnum } from '~@/utils/constant'
+import { generateFlatRoutes, generateTreeRoutes } from '~@/router/generate-route'
 
 export const useUserStore = defineStore('user', () => {
   const routerData = shallowRef()
@@ -22,8 +21,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const generateDynamicRoutes = async () => {
-    const dynamicLoadWay = DYNAMIC_LOAD_WAY === DynamicLoadEnum.BACKEND ? getMenuRoutes : generateRoutes
-    const { menuData: treeMenuData, routeData } = await dynamicLoadWay()
+    const { menuData: treeMenuData, routeData } = await getMenuRoutes()
 
     menuData.value = treeMenuData
 

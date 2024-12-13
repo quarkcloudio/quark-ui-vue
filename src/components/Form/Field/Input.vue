@@ -42,10 +42,10 @@ const {
   maxlength,
   prefix,
   showCount,
-  status,
-  size,
+  // status,
+  // size,
   suffix,
-  type,
+  // type,
 } = toRefs(props)
 </script>
 
@@ -61,9 +61,6 @@ const {
     :maxlength="maxlength"
     :prefix="prefix"
     :show-count="showCount"
-    :status="status"
-    :size="size"
     :suffix="suffix"
-    :type="type"
   />
 </template>
