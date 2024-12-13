@@ -6,8 +6,6 @@ import { getQueryParam } from '~/utils/tools'
 import type { LoginMobileParams, LoginParams } from '~@/api/common/login'
 
 const notification = useNotification()
-const appStore = useAppStore()
-const { layoutSetting } = storeToRefs(appStore)
 const router = useRouter()
 const token = useAuthorization()
 const loginModel = reactive({
@@ -67,17 +65,6 @@ async function submit() {
 
 <template>
   <div class="login-container">
-    <div class="login-lang" flex="~" items-center justify-end gap-2 px-24px>
-      <span flex items-center justify-center cursor-pointer text-16px @click="appStore.toggleTheme(layoutSetting.theme === 'dark' ? 'light' : 'dark')">
-        <!-- 亮色和暗黑模式切换按钮 -->
-        <template v-if="layoutSetting.theme === 'light'">
-          <carbon-moon />
-        </template>
-        <template v-else>
-          <carbon-sun />
-        </template>
-      </span>
-    </div>
     <div class="login-content">
       <div class="ant-pro-form-login-container">
         <div class="ant-pro-form-login-top">
@@ -95,8 +82,6 @@ async function submit() {
         </div>
         <div class="ant-pro-form-login-main" w-335px>
           <a-form ref="formRef">
-            <!-- 判断是否存在error -->
-            <a-alert v-if="errorAlert" mb-24px :message="t('pages.login.accountLogin.errorMessage')" type="error" show-icon />
             <a-form-item name="username" :rules="[{ required: true, message: t('pages.login.username.required') }]">
               <a-input v-model:value="loginModel.username" allow-clear :placeholder="t('pages.login.username.placeholder')" size="large" @press-enter="submit">
                 <template #prefix>
@@ -131,7 +116,7 @@ async function submit() {
 }
 .login-content{
   flex: 1 1;
-  padding: 32px 0
+  padding: 84px 0
 }
 .ant-pro-form-login-container{
   display: flex;
@@ -206,7 +191,7 @@ async function submit() {
     background-size: 100%;
   }
   .login-content{
-    padding: 32px 0 24px;
+    padding: 84px 0 24px;
   }
   .ant-pro-form-login-container{
     padding:32px 0 24px;
