@@ -28,6 +28,26 @@ const { t } = useI18nLocale()
 const formRef = shallowRef()
 const submitLoading = shallowRef(false)
 const { logo, title } = toRefs(props)
+const captchaIdUrl = '/api/admin/login/index/captchaId'
+const captchaUrl = '/api/admin/login/index/captcha/:id'
+const innerCaptchaUrl = toRef('')
+
+onMounted(() => {
+  refreshCaptcha()
+})
+
+// 刷新图形验证码
+async function refreshCaptcha() {
+  let captchaId = ''
+  const timestamp = new Date().getTime().toString()
+  const result: any = await useGet(captchaIdUrl)
+  if (result.type === 'error') {
+    notification.error(result.content)
+    return
+  }
+  captchaId = result.data.captchaId
+  innerCaptchaUrl.value = `${captchaUrl.replace(/:id|\$\{id\}|\{id\}/g, captchaId)}?t=${timestamp}`
+}
 
 async function submit() {
   submitLoading.value = true
@@ -100,7 +120,7 @@ async function submit() {
                   <SafetyCertificateOutlined />
                 </template>
                 <template #addonAfter>
-                  <img style="width: 110px; cursor: pointer;" src="/api/admin/login/index/captcha/7DJBGlVBFDP73JWp1rFQ?t=1731735829731">
+                  <img style="width: 110px; cursor: pointer;" :src="innerCaptchaUrl" @click="refreshCaptcha()">
                 </template>
               </a-input>
             </a-form-item>
