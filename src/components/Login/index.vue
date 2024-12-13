@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
-import { AxiosError } from 'axios'
 import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
-import type { LoginMobileParams, LoginParams } from '~@/api/common/login'
+import type { LoginParams } from '~@/api/common/login'
 
 const notification = useNotification()
 const router = useRouter()
@@ -19,27 +18,16 @@ const loginModel = reactive({
 const { t } = useI18nLocale()
 const formRef = shallowRef()
 const submitLoading = shallowRef(false)
-const errorAlert = shallowRef(false)
 
 async function submit() {
   submitLoading.value = true
   try {
     await formRef.value?.validate()
-    let params: LoginParams | LoginMobileParams
+    const params: LoginParams = {
+      username: loginModel.username,
+      password: loginModel.password,
+    } as unknown as LoginParams
 
-    if (loginModel.type === 'account') {
-      params = {
-        username: loginModel.username,
-        password: loginModel.password,
-      } as unknown as LoginParams
-    }
-    else {
-      params = {
-        mobile: loginModel.mobile,
-        code: loginModel.code,
-        type: 'mobile',
-      } as unknown as LoginMobileParams
-    }
     const { data } = await loginApi(params)
     token.value = data?.token
     notification.success({
@@ -55,9 +43,6 @@ async function submit() {
     })
   }
   catch (e) {
-    if (e instanceof AxiosError)
-      errorAlert.value = true
-
     submitLoading.value = false
   }
 }
