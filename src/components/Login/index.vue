@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { LockOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { loginApi } from '~/api/common/login'
 import { getQueryParam } from '~/utils/tools'
 import type { LoginParams } from '~@/api/common/login'
@@ -77,19 +77,32 @@ async function submit() {
         </div>
         <div class="ant-pro-form-login-main" w-335px>
           <a-form ref="formRef">
-            <a-form-item name="username" :rules="[{ required: true, message: t('pages.login.username.required') }]">
-              <a-input v-model:value="loginModel.username" allow-clear :placeholder="t('pages.login.username.placeholder')" size="large" @press-enter="submit">
+            <a-form-item name="username" :rules="[{ required: true, message: '请输入用户名' }]">
+              <a-input v-model:value="loginModel.username" allow-clear placeholder="用户名" size="large" @press-enter="submit">
                 <template #prefix>
                   <UserOutlined />
                 </template>
               </a-input>
             </a-form-item>
-            <a-form-item name="password" :rules="[{ required: true, message: t('pages.login.password.required') }]">
-              <a-input-password v-model:value="loginModel.password" allow-clear :placeholder="t('pages.login.password.placeholder')" size="large" @press-enter="submit">
+            <a-form-item name="password" :rules="[{ required: true, message: '请输入密码' }]">
+              <a-input-password v-model:value="loginModel.password" allow-clear placeholder="密码" size="large" @press-enter="submit">
                 <template #prefix>
                   <LockOutlined />
                 </template>
               </a-input-password>
+            </a-form-item>
+            <a-form-item
+              name="captcha"
+              :rules="[{ required: true, message: '请输入验证码' }]"
+            >
+              <a-input size="large" placeholder=" 验证码">
+                <template #prefix>
+                  <SafetyCertificateOutlined />
+                </template>
+                <template #addonAfter>
+                  <img style="width: 110px; cursor: pointer;" src="/api/admin/login/index/captcha/7DJBGlVBFDP73JWp1rFQ?t=1731735829731">
+                </template>
+              </a-input>
             </a-form-item>
             <a-button type="primary" block :loading="submitLoading" size="large" @click="submit">
               {{ t('login.submit') }}
