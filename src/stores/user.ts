@@ -1,7 +1,7 @@
+import { Base64 } from 'js-base64'
 import { logoutApi } from '~@/api/common/login'
 import { getRouteMenusApi } from '~@/api/common/menu'
 import type { UserInfo } from '~@/api/common/user'
-import { getUserInfoApi } from '~@/api/common/user'
 import type { MenuData } from '~@/components/Layout/typing'
 import { rootRoute } from '~@/router/constant'
 import { generateFlatRoutes, generateTreeRoutes } from '~@/router/generate-route'
@@ -34,9 +34,10 @@ export const useUserStore = defineStore('user', () => {
 
   // 获取用户信息
   const getUserInfo = async () => {
-    // 获取用户信息
-    const { data } = await getUserInfoApi()
-    userInfo.value = data
+    const token = useAuthorization()
+    if (token.value) {
+      userInfo.value = JSON.parse(Base64.decode(token.value.split('.')[1]))
+    }
   }
 
   const logout = async () => {

@@ -35,6 +35,9 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
+      js-base64:
+        specifier: ^3.7.7
+        version: 3.7.7
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3994,6 +3997,9 @@ packages:
   jiti@2.4.0:
     resolution: {integrity: sha512-H5UpaUI+aHOqZXlYOaFP/8AzKsg+guWu+Pr3Y8i7+Y3zr1aXAvCvTAQ1RxSc6oVD8R8c7brgNtTVP91E7upH/g==}
     hasBin: true
+
+  js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
   js-beautify@1.15.1:
     resolution: {integrity: sha512-ESjNzSlt/sWE8sciZH8kBF8BPlwXPwhR6pWKAw8bw4Bwj+iZcnKW6ONWUutJ7eObuBZQpiIb8S7OYspWrKt7rA==}
@@ -10361,6 +10367,8 @@ snapshots:
   jiti@1.21.6: {}
 
   jiti@2.4.0: {}
+
+  js-base64@3.7.7: {}
 
   js-beautify@1.15.1:
     dependencies:
