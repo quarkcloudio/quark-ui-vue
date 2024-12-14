@@ -16,15 +16,13 @@ export const useUserStore = defineStore('user', () => {
   const roles = computed(() => userInfo.value?.roles)
 
   const getMenuRoutes = async () => {
-    const { data } = await getRouteMenusApi()
+    const data = await getRouteMenusApi()
     return generateTreeRoutes(data ?? [])
   }
 
   const generateDynamicRoutes = async () => {
     const { menuData: treeMenuData, routeData } = await getMenuRoutes()
-
     menuData.value = treeMenuData
-
     routerData.value = {
       ...rootRoute,
       children: generateFlatRoutes(routeData),
