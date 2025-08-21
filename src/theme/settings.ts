@@ -15,7 +15,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   resetCacheStrategy: 'close',
   layout: {
     mode: 'vertical',
-    scrollMode: 'content',
+    scrollMode: 'wrapper',
     reverseHorizontalMix: false
   },
   page: {
@@ -52,7 +52,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   },
   watermark: {
     visible: false,
-    text: 'SoybeanAdmin'
+    text: 'QuarkUI'
   },
   tokens: {
     light: {
