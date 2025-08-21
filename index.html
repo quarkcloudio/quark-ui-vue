@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-cmn-Hans">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Engine Loading</title>
-    <script>
-      (function () {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
-        if (setting === 'dark' || (prefersDark && setting !== 'light'))
-          document.documentElement.classList.toggle('dark', true)
-      })()
-    </script>
+    <meta name="color-scheme" content="light dark" />
+    <title>%VITE_APP_TITLE%</title>
   </head>
   <body>
     <div id="app"></div>
-    <script src="/loading.js"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
