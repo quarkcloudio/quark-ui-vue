@@ -6,6 +6,9 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-complete-tag",
+    "formulahendry.auto-rename-tag",
     "lokalise.i18n-ally",
     "mhutchie.git-graph",
     "mikestead.dotenv",
@@ -14,6 +17,7 @@
     "sdras.vue-vscode-snippets",
     "vue.volar",
     "whtouche.vscode-js-console-utils",
-    "zhuangtongfa.material-theme"
+    "zhuangtongfa.material-theme",
+    "alibaba-cloud.tongyi-lingma"
   ]
 }
