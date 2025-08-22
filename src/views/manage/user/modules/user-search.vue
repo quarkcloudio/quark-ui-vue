@@ -43,78 +43,80 @@ async function search() {
 </script>
 
 <template>
-  <ACard :title="$t('common.search')" :bordered="false" class="card-wrapper">
-    <AForm
-      ref="formRef"
-      :model="model"
-      :rules="rules"
-      :label-col="{
-        span: 5,
-        md: 7
-      }"
-    >
-      <ARow :gutter="[16, 16]" wrap>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.userName')" name="userName" class="m-0">
-            <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
-          </AFormItem>
-        </ACol>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.userGender')" name="userGender" class="m-0">
-            <ASelect
-              v-model:value="model.userGender"
-              :placeholder="$t('page.manage.user.form.userGender')"
-              :options="translateOptions(userGenderOptions)"
-              clearable
-            />
-          </AFormItem>
-        </ACol>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.nickName')" name="nickName" class="m-0">
-            <AInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
-          </AFormItem>
-        </ACol>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.userPhone')" name="userPhone" class="m-0">
-            <AInput v-model:value="model.userPhone" :placeholder="$t('page.manage.user.form.userPhone')" />
-          </AFormItem>
-        </ACol>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.userEmail')" name="userEmail" class="m-0">
-            <AInput v-model:value="model.userEmail" :placeholder="$t('page.manage.user.form.userEmail')" />
-          </AFormItem>
-        </ACol>
-        <ACol :span="24" :md="12" :lg="6">
-          <AFormItem :label="$t('page.manage.user.userStatus')" name="userStatus" class="m-0">
-            <ASelect
-              v-model:value="model.status"
-              :placeholder="$t('page.manage.user.form.userStatus')"
-              :options="translateOptions(enableStatusOptions)"
-              clearable
-            />
-          </AFormItem>
-        </ACol>
-        <div class="flex-1">
-          <AFormItem class="m-0">
-            <div class="w-full flex-y-center justify-end gap-12px">
-              <AButton @click="reset">
-                <template #icon>
-                  <icon-ic-round-refresh class="align-sub text-icon" />
-                </template>
-                <span class="ml-8px">{{ $t('common.reset') }}</span>
-              </AButton>
-              <AButton type="primary" ghost @click="search">
-                <template #icon>
-                  <icon-ic-round-search class="align-sub text-icon" />
-                </template>
-                <span class="ml-8px">{{ $t('common.search') }}</span>
-              </AButton>
-            </div>
-          </AFormItem>
-        </div>
-      </ARow>
-    </AForm>
-  </ACard>
+  <ACollapse :bordered="false" default-active-key="1" class="card-wrapper" style="background: rgb(255, 255, 255)">
+    <ACollapsePanel key="1" :header="$t('common.search')">
+      <AForm
+        ref="formRef"
+        :model="model"
+        :rules="rules"
+        :label-col="{
+          span: 5,
+          md: 7
+        }"
+      >
+        <ARow :gutter="[16, 16]" wrap>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.userName')" name="userName" class="m-0">
+              <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
+            </AFormItem>
+          </ACol>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.userGender')" name="userGender" class="m-0">
+              <ASelect
+                v-model:value="model.userGender"
+                :placeholder="$t('page.manage.user.form.userGender')"
+                :options="translateOptions(userGenderOptions)"
+                clearable
+              />
+            </AFormItem>
+          </ACol>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.nickName')" name="nickName" class="m-0">
+              <AInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
+            </AFormItem>
+          </ACol>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.userPhone')" name="userPhone" class="m-0">
+              <AInput v-model:value="model.userPhone" :placeholder="$t('page.manage.user.form.userPhone')" />
+            </AFormItem>
+          </ACol>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.userEmail')" name="userEmail" class="m-0">
+              <AInput v-model:value="model.userEmail" :placeholder="$t('page.manage.user.form.userEmail')" />
+            </AFormItem>
+          </ACol>
+          <ACol :span="24" :md="12" :lg="6">
+            <AFormItem :label="$t('page.manage.user.userStatus')" name="userStatus" class="m-0">
+              <ASelect
+                v-model:value="model.status"
+                :placeholder="$t('page.manage.user.form.userStatus')"
+                :options="translateOptions(enableStatusOptions)"
+                clearable
+              />
+            </AFormItem>
+          </ACol>
+          <div class="flex-1">
+            <AFormItem class="m-0">
+              <div class="w-full flex-y-center justify-end gap-12px">
+                <AButton @click="reset">
+                  <template #icon>
+                    <icon-ic-round-refresh class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ $t('common.reset') }}</span>
+                </AButton>
+                <AButton type="primary" ghost @click="search">
+                  <template #icon>
+                    <icon-ic-round-search class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ $t('common.search') }}</span>
+                </AButton>
+              </div>
+            </AFormItem>
+          </div>
+        </ARow>
+      </AForm>
+    </ACollapsePanel>
+  </ACollapse>
 </template>
 
 <style scoped></style>
