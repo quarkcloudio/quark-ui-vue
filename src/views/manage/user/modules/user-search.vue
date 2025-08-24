@@ -43,7 +43,7 @@ async function search() {
 </script>
 
 <template>
-  <ACollapse :bordered="false" default-active-key="1" class="card-wrapper" style="background: rgb(255, 255, 255)">
+  <ACollapse :bordered="false" default-active-key="1" class="card-wrapper bg-white">
     <ACollapsePanel key="1" :header="$t('common.search')">
       <AForm
         ref="formRef"
