@@ -1,6 +1,15 @@
 import { request } from '../request';
 
 /**
+ * Get login component
+ *
+ * @param api Login component api
+ */
+export function fetchLoginComponent(api?: string) {
+  return request<Api.Auth.LoginComponent>({ url: api || '/api/admin/auth/index/index' });
+}
+
+/**
  * Login
  *
  * @param userName User name

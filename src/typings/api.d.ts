@@ -54,6 +54,16 @@ declare namespace Api {
    * Backend api module: "auth"
    */
   namespace Auth {
+    interface LoginComponent {
+      api?: string;
+      title?: string;
+      logo?: string;
+      redirect?: string;
+      values?: Record<string, any>;
+      initialValues?: Record<string, any>;
+      body?: any;
+    }
+
     interface LoginToken {
       token: string;
       refreshToken: string;
