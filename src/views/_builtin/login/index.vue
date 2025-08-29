@@ -89,20 +89,18 @@ async function handleSubmit() {
           <div class="animation-slide-in-left pt-24px">
             <Transition :name="themeStore.page.animateMode" mode="out-in" appear>
               <AForm ref="formRef" :model="model" :rules="rules" @keyup.enter="handleSubmit">
-                <AFormItem name="userName">
-                  <AInput
-                    v-model:value="model.userName"
-                    size="large"
-                    :placeholder="$t('page.login.common.userNamePlaceholder')"
-                  />
-                </AFormItem>
-                <AFormItem name="password">
-                  <AInputPassword
-                    v-model:value="model.password"
-                    size="large"
-                    :placeholder="$t('page.login.common.passwordPlaceholder')"
-                  />
-                </AFormItem>
+                <ProFormField
+                  v-model:value="model.userName"
+                  component="input"
+                  name="userName"
+                  :field-props="{ size: 'large', placeholder: $t('page.login.common.userNamePlaceholder') }"
+                />
+                <ProFormField
+                  v-model:value="model.password"
+                  component="password"
+                  name="password"
+                  :field-props="{ size: 'large', placeholder: $t('page.login.common.passwordPlaceholder') }"
+                />
                 <ASpace direction="vertical" size="large" class="w-full">
                   <div class="flex-y-center justify-between">
                     <ACheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</ACheckbox>
