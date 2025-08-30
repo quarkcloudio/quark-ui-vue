@@ -15,12 +15,12 @@ const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useAntdForm();
 
 interface FormModel {
-  userName: string;
+  username: string;
   password: string;
 }
 
 const model: FormModel = reactive({
-  userName: 'Soybean',
+  username: 'Soybean',
   password: '123456'
 });
 
@@ -29,21 +29,21 @@ const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
   const { formRules } = useFormRules();
 
   return {
-    userName: formRules.userName,
+    username: formRules.username,
     password: formRules.pwd
   };
 });
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model.userName, model.password);
+  await authStore.login(model);
 }
 </script>
 
 <template>
   <AForm ref="formRef" :model="model" :rules="rules" @keyup.enter="handleSubmit">
-    <AFormItem name="userName">
-      <AInput v-model:value="model.userName" size="large" :placeholder="$t('page.login.common.userNamePlaceholder')" />
+    <AFormItem name="username">
+      <AInput v-model:value="model.username" size="large" :placeholder="$t('page.login.common.usernamePlaceholder')" />
     </AFormItem>
     <AFormItem name="password">
       <AInputPassword

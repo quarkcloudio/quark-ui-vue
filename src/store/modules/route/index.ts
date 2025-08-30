@@ -178,7 +178,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Init auth route */
   async function initAuthRoute() {
     // check if user info is initialized
-    if (!authStore.userInfo.userId) {
+    if (!authStore.userInfo.id) {
       await authStore.initUserInfo();
     }
 
@@ -210,7 +210,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Init dynamic auth route */
   async function initDynamicAuthRoute() {
-    const { data, error } = await fetchGetUserRoutes();
+    const { data, error } = await fetchGetUserRoutes(authStore.authComponent.userRoutesApi);
 
     if (!error) {
       const { routes, home } = data;

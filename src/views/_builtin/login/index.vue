@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { computed, onMounted, reactive, ref } from 'vue';
 import { getColorPalette, mixColor } from '@sa/utils';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { fetchLoginComponent } from '@/service/api';
-import { useAntdForm, useFormRules } from '@/hooks/common/form';
+import { fetchAuthComponent } from '@/service/api';
+import { useAntdForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
 
 const appStore = useAppStore();
@@ -24,38 +24,24 @@ const bgColor = computed(() => {
   return mixColor(COLOR_WHITE, themeStore.themeColor, ratio);
 });
 
-const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
-  // inside computed to make locale reactive, if not apply i18n, you can define it without computed
-  const { formRules } = useFormRules();
-
-  return {
-    userName: formRules.userName,
-    password: formRules.pwd
-  };
+const authComponent = ref<Api.Auth.AuthComponent>({
+  loginApi: '',
+  userInfoApi: '',
+  userRoutesApi: ''
 });
-
-const loginComponent = ref<Api.Auth.LoginComponent>({});
-
-interface FormModel {
-  userName: string;
-  password: string;
-}
-
-const model: FormModel = reactive({
-  userName: '',
-  password: ''
-});
+const model: any = reactive({});
 
 onMounted(async () => {
-  const { data, error } = await fetchLoginComponent();
+  const { data, error } = await fetchAuthComponent();
   if (!error) {
-    loginComponent.value = data;
+    authComponent.value = data;
+    authStore.setAuthComponent(data);
   }
 });
 
 async function handleSubmit() {
   await validate();
-  await authStore.login(model.userName, model.password);
+  await authStore.login(model);
 }
 </script>
 
@@ -67,7 +53,7 @@ async function handleSubmit() {
         <header class="flex-y-center justify-between">
           <SystemLogo class="text-64px text-primary lt-sm:text-48px" />
           <h3 class="text-28px text-primary font-500 lt-sm:text-22px">
-            {{ loginComponent.title ?? $t('system.title') }}
+            {{ authComponent.title ?? $t('system.title') }}
           </h3>
           <div class="i-flex-col">
             <ThemeSchemaSwitch
@@ -88,18 +74,16 @@ async function handleSubmit() {
           <h3 class="text-18px text-primary font-medium">{{ $t('page.login.pwdLogin.title') }}</h3>
           <div class="animation-slide-in-left pt-24px">
             <Transition :name="themeStore.page.animateMode" mode="out-in" appear>
-              <AForm ref="formRef" :model="model" :rules="rules" @keyup.enter="handleSubmit">
+              <AForm ref="formRef" :model="model" @keyup.enter="handleSubmit">
                 <ProFormField
-                  v-model:value="model.userName"
-                  component="input"
-                  name="userName"
-                  :field-props="{ size: 'large', placeholder: $t('page.login.common.userNamePlaceholder') }"
-                />
-                <ProFormField
-                  v-model:value="model.password"
-                  component="password"
-                  name="password"
-                  :field-props="{ size: 'large', placeholder: $t('page.login.common.passwordPlaceholder') }"
+                  v-for="field in authComponent.body"
+                  :key="field.componentkey"
+                  v-model:value="model[field.name]"
+                  :component="field.component"
+                  :name="field.name"
+                  :label="field.label"
+                  :rules="field.frontendRules"
+                  :field-props="{ ...field }"
                 />
                 <ASpace direction="vertical" size="large" class="w-full">
                   <div class="flex-y-center justify-between">

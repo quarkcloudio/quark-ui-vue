@@ -41,16 +41,16 @@ const title = computed(() => {
 
 type Model = Pick<
   Api.SystemManage.User,
-  'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
+  'username' | 'userGender' | 'nickname' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
 >;
 
 const model = ref(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    userName: '',
+    username: '',
     userGender: '1',
-    nickName: '',
+    nickname: '',
     userPhone: '',
     userEmail: '',
     userRoles: [],
@@ -58,10 +58,10 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'userName' | 'status'>;
+type RuleKey = Extract<keyof Model, 'username' | 'status'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  userName: defaultRequiredRule,
+  username: defaultRequiredRule,
   status: defaultRequiredRule
 };
 
@@ -121,8 +121,8 @@ watch(visible, () => {
 <template>
   <ADrawer v-model:open="visible" :title="title" :width="360">
     <AForm ref="formRef" layout="vertical" :model="model" :rules="rules">
-      <AFormItem :label="$t('page.manage.user.userName')" name="userName">
-        <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
+      <AFormItem :label="$t('page.manage.user.username')" name="username">
+        <AInput v-model:value="model.username" :placeholder="$t('page.manage.user.form.username')" />
       </AFormItem>
       <AFormItem :label="$t('page.manage.user.userGender')" name="userGender">
         <ARadioGroup v-model:value="model.userGender">
@@ -131,8 +131,8 @@ watch(visible, () => {
           </ARadio>
         </ARadioGroup>
       </AFormItem>
-      <AFormItem :label="$t('page.manage.user.nickName')" name="nickName">
-        <AInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
+      <AFormItem :label="$t('page.manage.user.nickname')" name="nickname">
+        <AInput v-model:value="model.nickname" :placeholder="$t('page.manage.user.form.nickname')" />
       </AFormItem>
       <AFormItem :label="$t('page.manage.user.userPhone')" name="userPhone">
         <AInput v-model:value="model.userPhone" :placeholder="$t('page.manage.user.form.userPhone')" />

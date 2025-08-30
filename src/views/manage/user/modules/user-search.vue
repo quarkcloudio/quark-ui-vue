@@ -56,8 +56,8 @@ async function search() {
       >
         <ARow :gutter="[16, 16]" wrap>
           <ACol :span="24" :md="12" :lg="6">
-            <AFormItem :label="$t('page.manage.user.userName')" name="userName" class="m-0">
-              <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
+            <AFormItem :label="$t('page.manage.user.username')" name="username" class="m-0">
+              <AInput v-model:value="model.username" :placeholder="$t('page.manage.user.form.username')" />
             </AFormItem>
           </ACol>
           <ACol :span="24" :md="12" :lg="6">
@@ -71,8 +71,8 @@ async function search() {
             </AFormItem>
           </ACol>
           <ACol :span="24" :md="12" :lg="6">
-            <AFormItem :label="$t('page.manage.user.nickName')" name="nickName" class="m-0">
-              <AInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
+            <AFormItem :label="$t('page.manage.user.nickname')" name="nickname" class="m-0">
+              <AInput v-model:value="model.nickname" :placeholder="$t('page.manage.user.form.nickname')" />
             </AFormItem>
           </ACol>
           <ACol :span="24" :md="12" :lg="6">

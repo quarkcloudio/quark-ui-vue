@@ -198,7 +198,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: '登录 / 注册',
-        userNamePlaceholder: '请输入用户名',
+        usernamePlaceholder: '请输入用户名',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
@@ -208,7 +208,7 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{username} ！'
       },
       pwdLogin: {
         title: '密码登录',
@@ -255,7 +255,7 @@ const local: App.I18n.Schema = {
       devDep: '开发依赖'
     },
     home: {
-      greeting: '早安，{userName}, 今天又是充满活力的一天!',
+      greeting: '早安，{username}, 今天又是充满活力的一天!',
       weatherDesc: '今日多云转晴，20℃ - 25℃!',
       projectCount: '项目数',
       todo: '待办',
@@ -346,17 +346,17 @@ const local: App.I18n.Schema = {
       },
       user: {
         title: '用户列表',
-        userName: '用户名',
+        username: '用户名',
         userGender: '性别',
-        nickName: '昵称',
+        nickname: '昵称',
         userPhone: '手机号',
         userEmail: '邮箱',
         userStatus: '用户状态',
         userRole: '用户角色',
         form: {
-          userName: '请输入用户名',
+          username: '请输入用户名',
           userGender: '请选择性别',
-          nickName: '请输入昵称',
+          nickname: '请输入昵称',
           userPhone: '请输入手机号',
           userEmail: '请输入邮箱',
           userStatus: '请选择用户状态',
@@ -441,7 +441,7 @@ const local: App.I18n.Schema = {
   },
   form: {
     required: '不能为空',
-    userName: {
+    username: {
       required: '请输入用户名',
       invalid: '用户名格式不正确'
     },

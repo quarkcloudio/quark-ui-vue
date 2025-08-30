@@ -9,6 +9,7 @@ defineOptions({
 const props = defineProps<{
   component: string;
   name: string;
+  label?: string;
   value?: any;
   rules?: any[];
   fieldProps?: any;
@@ -32,23 +33,46 @@ const updateValue = (value: any) => {
   <AFormItem
     v-if="component === 'input' || component === 'inputField' || component === 'text' || component === 'textField'"
     :name="name"
+    :label="label"
     :rules="rules"
   >
-    <AInput
-      :value="value"
-      :size="fieldProps?.size"
-      :placeholder="fieldProps?.placeholder"
-      @update:value="updateValue"
-    />
+    <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
+      <template #prefix>
+        <div v-if="typeof fieldProps.prefix === 'object'">
+          <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
+        </div>
+        <div v-else>
+          {{ fieldProps.prefix }}
+        </div>
+      </template>
+    </AInput>
   </AFormItem>
-  <AFormItem v-else-if="component === 'password' || component === 'passwordField'" :name="name" :rules="rules">
-    <AInputPassword
-      :value="value"
-      :size="fieldProps?.size"
-      :placeholder="fieldProps?.placeholder"
-      @update:value="updateValue"
-    />
+  <AFormItem
+    v-else-if="component === 'password' || component === 'passwordField'"
+    :name="name"
+    :label="label"
+    :rules="rules"
+  >
+    <AInputPassword :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
+      <template #prefix>
+        <div v-if="typeof fieldProps.prefix === 'object'">
+          <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
+        </div>
+        <div v-else>
+          {{ fieldProps.prefix }}
+        </div>
+      </template>
+    </AInputPassword>
   </AFormItem>
+  <ProFormImageCaptcha
+    v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'"
+    :name="name"
+    :label="label"
+    :rules="rules"
+    :value="value"
+    :field-props="fieldProps"
+    @update:value="updateValue"
+  />
 </template>
 
 <style scoped></style>

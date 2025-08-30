@@ -6,8 +6,8 @@ export function fetchGetConstantRoutes() {
 }
 
 /** get user routes */
-export function fetchGetUserRoutes() {
-  return request<Api.Route.UserRoute>({ url: '/route/getUserRoutes' });
+export function fetchGetUserRoutes(api: string) {
+  return request<Api.Route.UserRoute>({ url: api });
 }
 
 /**

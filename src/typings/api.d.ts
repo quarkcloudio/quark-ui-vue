@@ -54,8 +54,10 @@ declare namespace Api {
    * Backend api module: "auth"
    */
   namespace Auth {
-    interface LoginComponent {
-      api?: string;
+    interface AuthComponent {
+      loginApi: string;
+      userInfoApi: string;
+      userRoutesApi: string;
       title?: string;
       logo?: string;
       redirect?: string;
@@ -64,14 +66,20 @@ declare namespace Api {
       body?: any;
     }
 
+    type LoginCaptcha = {
+      uuid: string;
+      img: string;
+      captchaEnabled: boolean;
+    };
+
     interface LoginToken {
       token: string;
       refreshToken: string;
     }
 
     interface UserInfo {
-      userId: string;
-      userName: string;
+      id: string;
+      username: string;
       roles: string[];
       buttons: string[];
     }
@@ -133,11 +141,11 @@ declare namespace Api {
     /** user */
     type User = Common.CommonRecord<{
       /** user name */
-      userName: string;
+      username: string;
       /** user gender */
       userGender: UserGender;
       /** user nick name */
-      nickName: string;
+      nickname: string;
       /** user phone */
       userPhone: string;
       /** user email */
@@ -148,7 +156,7 @@ declare namespace Api {
 
     /** user search params */
     type UserSearchParams = Partial<
-      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
+      Pick<Api.SystemManage.User, 'username' | 'userGender' | 'nickname' | 'userPhone' | 'userEmail' | 'status'> &
         Common.CommonSearchParams
     >;
 

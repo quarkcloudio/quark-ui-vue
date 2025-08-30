@@ -5,30 +5,31 @@ import { request } from '../request';
  *
  * @param api Login component api
  */
-export function fetchLoginComponent(api?: string) {
-  return request<Api.Auth.LoginComponent>({ url: api || '/api/admin/auth/index/index' });
+export function fetchAuthComponent(api?: string) {
+  return request<Api.Auth.AuthComponent>({ url: api || '/api/admin/auth/index/index' });
+}
+
+/** Get login captcha */
+export function fetchLoginCaptcha(api: string) {
+  return request<Api.Auth.LoginCaptcha>({ url: api });
 }
 
 /**
  * Login
  *
- * @param userName User name
- * @param password Password
+ * @param params params
  */
-export function fetchLogin(userName: string, password: string) {
+export function fetchLogin(api: string, params: any) {
   return request<Api.Auth.LoginToken>({
-    url: '/auth/login',
+    url: api,
     method: 'post',
-    data: {
-      userName,
-      password
-    }
+    data: params
   });
 }
 
 /** Get user info */
-export function fetchGetUserInfo() {
-  return request<Api.Auth.UserInfo>({ url: '/auth/getUserInfo' });
+export function fetchUserInfo(api: string) {
+  return request<Api.Auth.UserInfo>({ url: api });
 }
 
 /**

@@ -10,7 +10,7 @@ defineOptions({
 const { formRef, validate } = useAntdForm();
 
 const model: any = reactive({
-  userName: '',
+  username: '',
   password: ''
 });
 
@@ -21,8 +21,8 @@ async function handleSubmit() {
 
 <template>
   <AForm ref="formRef" :model="model" @keyup.enter="handleSubmit">
-    <AFormItem name="userName">
-      <AInput v-model:value="model.userName" size="large" :placeholder="$t('page.login.common.userNamePlaceholder')" />
+    <AFormItem name="username">
+      <AInput v-model:value="model.username" size="large" :placeholder="$t('page.login.common.usernamePlaceholder')" />
     </AFormItem>
     <AFormItem name="password">
       <AInputPassword
