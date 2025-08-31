@@ -73,7 +73,7 @@ const updateValue = (value: any) => {
         style="width: 40%; border-color: rgb(229, 231, 235); padding: 0"
         @click="refreshCaptcha"
       >
-        <img class="h-100% w-100%" :src="'data:image/png;base64,' + captchaRef.img" />
+        <img v-if="captchaRef.captchaEnabled" class="h-100% w-100%" :src="'data:image/png;base64,' + captchaRef.img" />
       </AButton>
     </AInputGroup>
   </AFormItem>
