@@ -79,7 +79,7 @@ declare module 'vue' {
     PinToggler: typeof import('./../components/common/pin-toggler.vue')['default']
     ProForm: typeof import('./../components/pro-form/pro-form.vue')['default']
     ProFormField: typeof import('./../components/pro-form/pro-form-field.vue')['default']
-    ProFormImageCaptcha: typeof import('./../components/pro-form/field/pro-form-image-captcha.vue')['default']
+    ProFormImageCaptcha: typeof import('./../components/pro-form/pro-field/pro-form-image-captcha.vue')['default']
     ProTable: typeof import('./../components/pro-table/index.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     Render: typeof import('./../components/render/index.vue')['default']
