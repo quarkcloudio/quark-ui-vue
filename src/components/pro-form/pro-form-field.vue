@@ -64,15 +64,9 @@ const updateValue = (value: any) => {
       </template>
     </AInputPassword>
   </AFormItem>
-  <ProFormImageCaptcha
-    v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-    :value="value"
-    :field-props="fieldProps"
-    @update:value="updateValue"
-  />
+  <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
+    <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
+  </AFormItem>
 </template>
 
 <style scoped></style>
