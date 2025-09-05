@@ -51,6 +51,16 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'engine-page',
+    path: '/engine-page/:url',
+    component: 'layout.base$view.engine-page',
+    props: true,
+    meta: {
+      title: 'engine-page',
+      i18nKey: 'route.engine-page'
+    }
+  },
+  {
     name: 'function',
     path: '/function',
     component: 'layout.base',
