@@ -215,7 +215,13 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     if (!error) {
       const { routes, home } = data;
 
-      addAuthRoutes(routes);
+      const transformRoutes = routes.map(item => {
+        return transformRoute(item);
+      });
+
+      console.log(transformRoutes);
+
+      addAuthRoutes(transformRoutes);
 
       handleConstantAndAuthRoutes();
 
@@ -228,6 +234,37 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       // if fetch user routes failed, reset store
       authStore.resetStore();
     }
+  }
+
+  /**
+   * 转换函数（树结构）
+   *
+   * @param node 树节点
+   * @param parentPath 父路径
+   * @returns 转换后的路由
+   */
+  function transformRoute(node: any, parentPath = '') {
+    const fullPath = `${parentPath}/${node.path}`.replace(/\/+/g, '/');
+
+    const route: ElegantConstRoute = {
+      name: node.name,
+      path: fullPath,
+      meta: node.meta
+    };
+
+    // 根节点用 layout，其它带 component 的用 view
+    if (node.pid === 0) {
+      route.component = `layout.base$view.${node.component.replace('/index', '')}`;
+    } else if (node.component) {
+      route.component = `view.${node.component.replace('/index', '')}`;
+    }
+
+    // 递归 children
+    if (node.children && node.children.length > 0) {
+      route.children = node.children.map((child: any) => transformRoute(child, fullPath));
+    }
+
+    return route;
   }
 
   /** handle constant and auth routes */
