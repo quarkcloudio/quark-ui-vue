@@ -247,16 +247,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     const fullPath = `${parentPath}/${node.path}`.replace(/\/+/g, '/');
 
     const route: ElegantConstRoute = {
-      name: node.name,
+      name: fullPath.replace('/', '_').replace(/^_+|_+$/g, ''),
       path: fullPath,
       meta: node.meta
     };
 
     // 根节点用 layout，其它带 component 的用 view
     if (node.pid === 0) {
-      route.component = `layout.base$view.${node.component.replace('/index', '')}`;
+      if (node.component) {
+        route.component = `layout.base$view.${node.component.replace('/index', '')}`;
+      } else {
+        route.component = 'layout.base';
+      }
     } else if (node.component) {
-      route.component = `view.${node.component.replace('/index', '')}`;
+      route.component = `view.${fullPath.replace('/', '_')}`;
     }
 
     // 递归 children
