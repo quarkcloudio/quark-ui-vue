@@ -259,8 +259,24 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       } else {
         route.component = 'layout.base';
       }
+      if (node.type === 2) {
+        route.component = 'layout.base$view.iframe-page';
+        route.props = true;
+      }
     } else if (node.component) {
+      route.component = `layout.base$view.${node.component.replace('/index', '')}`;
+      if (node.type === 2) {
+        route.component = 'layout.base$view.iframe-page';
+        route.props = true;
+      }
+    } else {
       route.component = `view.${fullPath.replace('/', '_')}`;
+      if (node.type === 2) {
+        route.component = 'view.iframe-page';
+        route.props = {
+          url: 'https://cn.vitejs.dev/'
+        };
+      }
     }
 
     // 递归 children
