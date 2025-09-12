@@ -21,9 +21,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const token = ref(getToken());
 
   const authComponent: Api.Auth.AuthComponent = reactive({
-    loginApi: '',
-    userInfoApi: '',
-    userRoutesApi: ''
+    loginApi: localStg.get('authComponent')?.loginApi || '',
+    userInfoApi: localStg.get('authComponent')?.userInfoApi || '',
+    userRoutesApi: localStg.get('authComponent')?.userRoutesApi || ''
   });
 
   const userInfo: Api.Auth.UserInfo = reactive({
@@ -133,6 +133,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   function setAuthComponent(component: Api.Auth.AuthComponent) {
     Object.assign(authComponent, component);
+    localStg.set('authComponent', authComponent);
   }
 
   return {
