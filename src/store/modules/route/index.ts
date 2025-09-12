@@ -250,32 +250,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       meta: node.meta
     };
 
-    // 根节点用 layout，其它带 component 的用 view
-    if (node.pid === 0) {
-      if (node.component) {
-        route.component = `layout.base$view.${node.component.replace('/index', '')}`;
-      } else {
-        route.component = 'layout.base';
-      }
-      if (node.type === 2) {
-        route.component = 'layout.base$view.engine-page';
-        route.props = true;
-      }
+    if (node.type === 2) {
+      // 特殊类型直接走 engine-page
+      route.component = `${node.pid === 0 ? 'layout.base' : 'layout.blank'}$view.engine-page`;
+      route.props = { query: node.query };
     } else if (node.component) {
-      route.component = `layout.base$view.${node.component.replace('/index', '')}`;
-      if (node.type === 2) {
-        route.component = 'layout.blank$view.engine-page';
-        route.props = true;
-      }
+      // 有 component 时
+      const comp = node.component.replace('/index', '');
+      route.component = `layout.base$view.${comp}`;
+    } else if (node.pid === 0) {
+      // 根节点没有 component
+      route.component = 'layout.base';
     } else {
+      // 非根节点没有 component
       route.component = `layout.base$view.${fullPath.replace('/', '_')}`;
-      if (node.type === 2) {
-        route.path = fullPath;
-        route.component = 'layout.blank$view.engine-page';
-        route.props = {
-          query: node.query
-        };
-      }
     }
 
     // 递归 children
