@@ -219,8 +219,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
         return transformRoute(item);
       });
 
-      console.log(transformRoutes);
-
       addAuthRoutes(transformRoutes);
 
       handleConstantAndAuthRoutes();
@@ -260,21 +258,22 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
         route.component = 'layout.base';
       }
       if (node.type === 2) {
-        route.component = 'layout.base$view.iframe-page';
+        route.component = 'layout.base$view.engine-page';
         route.props = true;
       }
     } else if (node.component) {
       route.component = `layout.base$view.${node.component.replace('/index', '')}`;
       if (node.type === 2) {
-        route.component = 'layout.base$view.iframe-page';
+        route.component = 'layout.blank$view.engine-page';
         route.props = true;
       }
     } else {
-      route.component = `view.${fullPath.replace('/', '_')}`;
+      route.component = `layout.base$view.${fullPath.replace('/', '_')}`;
       if (node.type === 2) {
-        route.component = 'view.iframe-page';
+        route.path = fullPath;
+        route.component = 'layout.blank$view.engine-page';
         route.props = {
-          url: 'https://cn.vitejs.dev/'
+          query: node.query
         };
       }
     }
@@ -283,6 +282,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     if (node.children && node.children.length > 0) {
       route.children = node.children.map((child: any) => transformRoute(child, fullPath));
     }
+
+    console.log(route);
 
     return route;
   }

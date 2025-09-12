@@ -2,7 +2,7 @@
 import { onActivated, onMounted } from 'vue';
 
 interface Props {
-  url: string;
+  query: Record<string, string>;
 }
 
 defineProps<Props>();
@@ -18,7 +18,7 @@ onActivated(() => {
 
 <template>
   <div class="h-full">
-    <iframe id="iframePage" class="size-full" :src="url"></iframe>
+    {{ query }}
   </div>
 </template>
 
