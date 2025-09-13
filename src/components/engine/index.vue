@@ -1,4 +1,7 @@
 <script setup lang="tsx">
+import { onActivated, toRefs } from 'vue';
+import { fetchEngineComponent } from '@/service/api';
+
 interface Props {
   api: string;
 }
@@ -8,7 +11,14 @@ defineOptions({
 });
 
 // 定义 props
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const { api } = toRefs(props);
+
+onActivated(async () => {
+  const component = await fetchEngineComponent(api.value);
+  console.log(component);
+});
 </script>
 
 <template>
