@@ -17,9 +17,7 @@ onActivated(() => {
 </script>
 
 <template>
-  <div class="h-full">
-    {{ query }}
-  </div>
+  <Engine :api="query.api" />
 </template>
 
 <style scoped></style>
