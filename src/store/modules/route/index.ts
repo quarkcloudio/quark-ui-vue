@@ -245,33 +245,31 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     const fullPath = `${parentPath}/${node.path}`.replace(/\/+/g, '/');
 
     const route: ElegantConstRoute = {
-      name: fullPath.replace('/', '_').replace(/^_+|_+$/g, ''),
+      name: fullPath.replaceAll('/', '_').replace(/^_+|_+$/g, ''),
       path: fullPath,
       meta: node.meta
     };
 
     if (node.type === 2) {
       // 特殊类型直接走 engine-page
-      route.component = `${node.pid === 0 ? 'layout.base' : 'layout.blank'}$view.engine-page`;
-      route.props = { query: node.query };
+      route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
+      route.props = { query: JSON.parse(node.query || '{}') };
     } else if (node.component) {
       // 有 component 时
       const comp = node.component.replace('/index', '');
-      route.component = `layout.base$view.${comp}`;
-    } else if (node.pid === 0) {
-      // 根节点没有 component
+      route.component = node.pid === 0 ? `layout.base$view.${comp}` : `view.${comp}`;
+    } else if (node.pid === 0 || node.children.length > 0) {
+      // 根节点或有子节点但没有 component
       route.component = 'layout.base';
     } else {
       // 非根节点没有 component
-      route.component = `layout.base$view.${fullPath.replace('/', '_')}`;
+      route.component = `view.${fullPath.replace('/', '_')}`;
     }
 
     // 递归 children
     if (node.children && node.children.length > 0) {
       route.children = node.children.map((child: any) => transformRoute(child, fullPath));
     }
-
-    console.log(route);
 
     return route;
   }
