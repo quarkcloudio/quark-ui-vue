@@ -51,6 +51,19 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'engine-page',
+    path: '/engine-page/:url',
+    component: 'layout.base$view.engine-page',
+    props: true,
+    meta: {
+      title: 'engine-page',
+      i18nKey: 'route.engine-page',
+      constant: true,
+      hideInMenu: true,
+      keepAlive: true
+    }
+  },
+  {
     name: 'function',
     path: '/function',
     component: 'layout.base',
@@ -187,19 +200,6 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'iframe-page',
       i18nKey: 'route.iframe-page',
-      constant: true,
-      hideInMenu: true,
-      keepAlive: true
-    }
-  },
-  {
-    name: 'engine-page',
-    path: '/engine-page/:url',
-    component: 'layout.base$view.engine-page',
-    props: true,
-    meta: {
-      title: 'engine-page',
-      i18nKey: 'route.engine-page',
       constant: true,
       hideInMenu: true,
       keepAlive: true
