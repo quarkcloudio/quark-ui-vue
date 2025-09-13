@@ -242,7 +242,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * @returns 转换后的路由
    */
   function transformRoute(node: any, parentPath = '') {
-    const fullPath = `${parentPath}/${node.path}`.replace(/\/+/g, '/');
+    const fullPath = `${parentPath}/${node.path}`.replaceAll('//', '/');
 
     const route: ElegantConstRoute = {
       name: fullPath.replaceAll('/', '_').replace(/^_+|_+$/g, ''),
@@ -263,7 +263,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       route.component = 'layout.base';
     } else {
       // 非根节点没有 component
-      route.component = `view.${fullPath.replace('/', '_')}`;
+      route.component = `view.${fullPath.replaceAll('/', '_')}`;
     }
 
     // 递归 children
