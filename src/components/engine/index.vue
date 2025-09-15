@@ -14,7 +14,7 @@ defineOptions({
 const props = defineProps<Props>();
 const { api } = toRefs(props);
 const body = ref<any>();
-const loading = ref(true);
+const loading = ref(false);
 
 onActivated(async () => {
   loading.value = true;
@@ -25,15 +25,11 @@ onActivated(async () => {
 </script>
 
 <template>
-  <div class="container">
-    <ASpin tip="Loading..." :spinning="loading" class="loading h-full w-full flex items-center">
+  <div class="grid">
+    <ASpin tip="Loading..." :spinning="loading" class="h-full w-full flex items-center">
       <Render :body="body" />
     </ASpin>
   </div>
 </template>
 
-<style scoped>
-.container {
-  display: grid;
-}
-</style>
+<style scoped></style>

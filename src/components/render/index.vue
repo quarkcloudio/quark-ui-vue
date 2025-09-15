@@ -1,17 +1,17 @@
 <script setup lang="tsx">
 import { toRefs } from 'vue';
 
-interface Props {
+interface RenderProps {
   body: any;
   data?: any;
-  callback?: (component: any) => void;
+  callback?: (data?: any) => void;
 }
 
 defineOptions({
   name: 'Render'
 });
 
-const props = defineProps<Props>();
+const props = defineProps<RenderProps>();
 const { body, data, callback } = toRefs(props);
 </script>
 
