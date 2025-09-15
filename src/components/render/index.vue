@@ -23,12 +23,13 @@ const { body, data, callback } = toRefs(props);
     <view v-if="body.component === 'view'" :style="body.style">
       <Render :body="body.body" :data="data" :callback="callback" />
     </view>
-    <view v-if="body.component === 'image'">
+    <view v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
     </view>
-    <view v-if="body.component === 'table'">
+    <view v-else-if="body.component === 'table'">
       <ProTable v-bind="body" />
     </view>
+    <view v-else>Unknown component: {{ body.component }}.</view>
   </view>
   <view v-else>
     <view v-for="(item, index) in body" :key="index">
