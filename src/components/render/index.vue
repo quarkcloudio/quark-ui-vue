@@ -24,7 +24,10 @@ const { body, data, callback } = toRefs(props);
       <Render :body="body.body" :data="data" :callback="callback" />
     </view>
     <view v-if="body.component === 'image'">
-      <image :style="body.style" :src="body.src" />
+      <AImage v-bind="body" />
+    </view>
+    <view v-if="body.component === 'table'">
+      <ProTable v-bind="body" />
     </view>
   </view>
   <view v-else>
