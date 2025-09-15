@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { onActivated, toRefs } from 'vue';
+import { onActivated, ref, toRefs } from 'vue';
 import { fetchEngineComponent } from '@/service/api';
 
 interface Props {
@@ -12,19 +12,28 @@ defineOptions({
 
 // 定义 props
 const props = defineProps<Props>();
-
 const { api } = toRefs(props);
+const body = ref<any>();
+const loading = ref(true);
 
 onActivated(async () => {
-  const component = await fetchEngineComponent(api.value);
-  console.log(component);
+  loading.value = true;
+  const { data } = await fetchEngineComponent(api.value);
+  body.value = data;
+  loading.value = false;
 });
 </script>
 
 <template>
-  <div class="h-full">
-    {{ api }}
+  <div class="container">
+    <ASpin tip="Loading..." :spinning="loading" class="loading h-full w-full flex items-center">
+      <Render :body="body" />
+    </ASpin>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  display: grid;
+}
+</style>

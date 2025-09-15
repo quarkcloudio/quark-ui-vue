@@ -86,6 +86,17 @@ declare namespace Api {
   }
 
   /**
+   * Namespace Engine
+   *
+   * Backend api module: "engine"
+   */
+  namespace Engine {
+    interface EngineComponent {
+      data: any;
+    }
+  }
+
+  /**
    * Namespace Route
    *
    * Backend api module: "route"
