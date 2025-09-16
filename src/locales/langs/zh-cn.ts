@@ -36,6 +36,7 @@ const local: App.I18n.Schema = {
     refresh: '刷新',
     reset: '重置',
     search: '搜索',
+    export: '导出',
     switch: '切换',
     tip: '提示',
     trigger: '触发',

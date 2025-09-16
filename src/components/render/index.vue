@@ -27,7 +27,7 @@ const { body, data, callback } = toRefs(props);
       <AImage v-bind="body" />
     </view>
     <view v-else-if="body.component === 'table'">
-      <ProTable />
+      <ProTable v-bind="body" />
     </view>
     <view v-else>Unknown component: {{ body.component }}.</view>
   </view>

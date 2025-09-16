@@ -36,6 +36,7 @@ const local: App.I18n.Schema = {
     refresh: 'Refresh',
     reset: 'Reset',
     search: 'Search',
+    export: 'Export',
     switch: 'Switch',
     tip: 'Tip',
     trigger: 'Trigger',

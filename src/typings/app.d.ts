@@ -317,6 +317,7 @@ declare namespace App {
         refresh: string;
         reset: string;
         search: string;
+        export: string;
         switch: string;
         tip: string;
         trigger: string;
