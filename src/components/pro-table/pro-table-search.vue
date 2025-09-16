@@ -35,7 +35,10 @@ async function handleSubmit() {
 
 <template>
   <ACollapse :default-active-key="defaultCollapsed ? '1' : '0'" class="bg-white">
-    <ACollapsePanel key="1" :header="searchText">
+    <ACollapsePanel key="1">
+      <template #header>
+        <span className="text-size-16px font-600">{{ searchText }}</span>
+      </template>
       <AForm ref="formRef" layout="inline" :model="model" @keyup.enter="handleSubmit">
         <ASpace>
           <ProFormField
