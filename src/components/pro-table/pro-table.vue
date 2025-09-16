@@ -30,6 +30,9 @@ const parsedColumns = computed(() => parseColumns());
 <template>
   <ProTableSearch :v-if="search?.items" v-bind="search" />
   <ACard :title="headerTitle" class="mt-16px">
+    <template #extra>
+      <TableHeaderOperation />
+    </template>
     <ATable :columns="parsedColumns" :data-source="datasource" />
   </ACard>
 </template>

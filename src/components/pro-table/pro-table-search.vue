@@ -34,10 +34,10 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <ACollapse :default-active-key="defaultCollapsed ? '1' : '0'" class="bg-white">
+  <ACollapse :default-active-key="defaultCollapsed ? '1' : '0'" :bordered="false" class="card-wrapper bg-white">
     <ACollapsePanel key="1">
       <template #header>
-        <span className="text-size-16px font-600">{{ searchText }}</span>
+        <span class="text-size-16px font-600">{{ searchText }}</span>
       </template>
       <AForm ref="formRef" layout="inline" :model="model" @keyup.enter="handleSubmit">
         <ASpace>
