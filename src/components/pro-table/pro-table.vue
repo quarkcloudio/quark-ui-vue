@@ -28,7 +28,7 @@ const parsedColumns = computed(() => parseColumns());
 </script>
 
 <template>
-  <ProTableSearch :v-if="search?.items" :items="search?.items" />
+  <ProTableSearch :v-if="search?.items" v-bind="search" />
   <ACard :title="headerTitle" class="mt-16px">
     <ATable :columns="parsedColumns" :data-source="datasource" />
   </ACard>

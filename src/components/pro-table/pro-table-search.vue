@@ -17,8 +17,8 @@ defineOptions({
 });
 
 const {
-  defaultCollapsed = false,
-  exportApi = undefined,
+  defaultCollapsed = true,
+  exportApi,
   exportText = $t('common.export'),
   resetText = $t('common.reset'),
   searchText = $t('common.search'),
@@ -34,7 +34,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <ACollapse :default-active-key="defaultCollapsed ? '' : '1'" class="bg-white">
+  <ACollapse :default-active-key="defaultCollapsed ? '1' : '0'" class="bg-white">
     <ACollapsePanel key="1" :header="searchText">
       <AForm ref="formRef" layout="inline" :model="model" @keyup.enter="handleSubmit">
         <ASpace>
