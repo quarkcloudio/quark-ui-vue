@@ -1,5 +1,6 @@
 <script setup lang="tsx">
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
+import DOMPurify from 'dompurify';
 
 interface RenderProps {
   body: any;
@@ -13,29 +14,36 @@ defineOptions({
 
 const props = defineProps<RenderProps>();
 const { body, data, callback } = toRefs(props);
+
+// 安全地处理HTML内容
+const sanitizedHtml = computed(() => {
+  if (typeof body.value === 'string') {
+    return DOMPurify.sanitize(body.value);
+  }
+  return body.value;
+});
 </script>
 
 <template>
-  <view v-if="typeof body === 'string' || typeof body === 'number'">
-    {{ body }}
-  </view>
-  <view v-else-if="body?.component">
-    <view v-if="body.component === 'view'" :style="body.style">
+  <!-- eslint-disable-next-line vue/no-v-html -->
+  <div v-if="typeof body === 'string' || typeof body === 'number'" v-html="sanitizedHtml" />
+  <div v-else-if="body?.component">
+    <div v-if="body.component === 'view'" :style="body.style">
       <Render :body="body.body" :data="data" :callback="callback" />
-    </view>
-    <view v-else-if="body.component === 'image'">
+    </div>
+    <div v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
-    </view>
-    <view v-else-if="body.component === 'table'">
+    </div>
+    <div v-else-if="body.component === 'table'">
       <ProTable v-bind="body" />
-    </view>
-    <view v-else>Unknown component: {{ body.component }}.</view>
-  </view>
-  <view v-else>
-    <view v-for="(item, index) in body" :key="index">
+    </div>
+    <div v-else>Unknown component: {{ body.component }}.</div>
+  </div>
+  <div v-else>
+    <div v-for="(item, index) in body" :key="index">
       <Render :body="item" :data="data" :callback="callback" />
-    </view>
-  </view>
+    </div>
+  </div>
 </template>
 
 <style scoped></style>

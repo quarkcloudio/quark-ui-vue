@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { computed } from 'vue';
+import Render from '@/components/render/index.vue';
 
 interface ProTableProps {
   columns: any[];
@@ -16,10 +17,26 @@ const { columns, datasource, headerTitle, search } = defineProps<ProTableProps>(
 
 const parseColumns = () => {
   return columns.map(item => {
-    const column: any = {};
-    column.key = item.dataIndex;
-    column.dataIndex = item.dataIndex;
-    column.title = item.title;
+    const column: any = item;
+
+    // 解析筛选项
+    if (column.filters) {
+      column.filters = column?.fieldProps?.options?.map((option: any) => ({
+        text: option.label,
+        value: option.value
+      }));
+    }
+
+    // 解析渲染
+    column.customRender = ({ text }: any) => {
+      if (column.valueType === 'radio' || column.valueType === 'select') {
+        return column.valueEnum[text];
+      }
+      if (column.valueType === 'option') {
+        return text;
+      }
+      return <Render body={text} />;
+    };
     return column;
   });
 };
