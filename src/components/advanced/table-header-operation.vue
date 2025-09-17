@@ -59,7 +59,7 @@ function refresh() {
     </slot>
     <AButton size="small" @click="refresh">
       <template #icon>
-        <icon-ant-design:redo-outlined class="align-sub text-icon" :class="{ 'animate-spin': loading }" />
+        <icon-ant-design:reload-outlined class="align-sub text-icon" :class="{ 'animate-spin': loading }" />
       </template>
       <span class="ml-8px">{{ $t('common.refresh') }}</span>
     </AButton>

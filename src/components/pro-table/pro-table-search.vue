@@ -63,7 +63,7 @@ async function handleSubmit() {
               <div class="w-full flex-y-center justify-end gap-12px">
                 <AButton @click="handleSubmit">
                   <template #icon>
-                    <icon-ant-design:redo-outlined class="align-sub text-icon" />
+                    <icon-ant-design:reload-outlined class="align-sub text-icon" />
                   </template>
                   <span class="ml-8px">{{ resetText }}</span>
                 </AButton>

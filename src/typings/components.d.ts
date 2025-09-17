@@ -65,6 +65,7 @@ declare module 'vue' {
     'IconAntDesign:plusOutlined': typeof import('~icons/ant-design/plus-outlined')['default']
     'IconAntDesign:redoOutlined': typeof import('~icons/ant-design/redo-outlined')['default']
     'IconAntDesign:refreshOutlined': typeof import('~icons/ant-design/refresh-outlined')['default']
+    'IconAntDesign:reloadOutlined': typeof import('~icons/ant-design/reload-outlined')['default']
     'IconAntDesign:searchOutlined': typeof import('~icons/ant-design/search-outlined')['default']
     IconAntDesignReloadOutlined: typeof import('~icons/ant-design/reload-outlined')['default']
     IconAntDesignSettingOutlined: typeof import('~icons/ant-design/setting-outlined')['default']
