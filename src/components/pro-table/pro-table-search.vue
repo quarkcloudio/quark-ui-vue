@@ -63,19 +63,19 @@ async function handleSubmit() {
               <div class="w-full flex-y-center justify-end gap-12px">
                 <AButton @click="handleSubmit">
                   <template #icon>
-                    <icon-ic-round-refresh class="align-sub text-icon" />
+                    <icon-ant-design:redo-outlined class="align-sub text-icon" />
                   </template>
                   <span class="ml-8px">{{ resetText }}</span>
                 </AButton>
                 <AButton type="primary" ghost @click="handleSubmit">
                   <template #icon>
-                    <icon-ic-round-search class="align-sub text-icon" />
+                    <icon-ant-design:search-outlined class="align-sub text-icon" />
                   </template>
                   <span class="ml-8px">{{ searchText }}</span>
                 </AButton>
                 <AButton v-if="exportApi" type="primary" ghost>
                   <template #icon>
-                    <icon-ic-round-download class="align-sub text-icon" />
+                    <icon-ant-design:download-outlined class="align-sub text-icon" />
                   </template>
                   {{ exportText }}
                 </AButton>

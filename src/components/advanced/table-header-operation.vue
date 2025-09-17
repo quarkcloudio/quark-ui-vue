@@ -43,14 +43,14 @@ function refresh() {
     <slot name="default">
       <AButton size="small" ghost type="primary" @click="add">
         <template #icon>
-          <icon-ic-round-plus class="align-sub text-icon" />
+          <icon-ant-design:plus-outlined class="align-sub text-icon" />
         </template>
         <span class="ml-8px">{{ $t('common.add') }}</span>
       </AButton>
       <APopconfirm :title="$t('common.confirmDelete')" :disabled="disabledDelete" @confirm="batchDelete">
         <AButton size="small" danger :disabled="disabledDelete">
           <template #icon>
-            <icon-ic-round-delete class="align-sub text-icon" />
+            <icon-ant-design:delete-outlined class="align-sub text-icon" />
           </template>
 
           <span class="ml-8px">{{ $t('common.batchDelete') }}</span>
@@ -59,7 +59,7 @@ function refresh() {
     </slot>
     <AButton size="small" @click="refresh">
       <template #icon>
-        <icon-mdi-refresh class="align-sub text-icon" :class="{ 'animate-spin': loading }" />
+        <icon-ant-design:redo-outlined class="align-sub text-icon" :class="{ 'animate-spin': loading }" />
       </template>
       <span class="ml-8px">{{ $t('common.refresh') }}</span>
     </AButton>
