@@ -37,32 +37,52 @@ async function handleSubmit() {
   <ACollapse :default-active-key="defaultCollapsed ? '1' : '0'" :bordered="false" class="card-wrapper bg-white">
     <ACollapsePanel key="1">
       <template #header>
-        <span class="text-size-16px font-600">{{ searchText }}</span>
+        <span class="text-size-16px">{{ searchText }}</span>
       </template>
-      <AForm ref="formRef" layout="inline" :model="model" @keyup.enter="handleSubmit">
-        <ASpace>
-          <ProFormField
-            v-for="field in items"
-            :key="field.componentkey"
-            v-model:value="model[field.name]"
-            :component="field.component"
-            :name="field.name"
-            :label="field.label"
-            :rules="field.frontendRules"
-            :field-props="{ ...field }"
-          />
-        </ASpace>
-        <ASpace>
-          <AButton @click="handleSubmit">
-            {{ resetText }}
-          </AButton>
-          <AButton type="primary" @click="handleSubmit">
-            {{ searchText }}
-          </AButton>
-          <AButton v-if="exportApi" type="primary">
-            {{ exportText }}
-          </AButton>
-        </ASpace>
+      <AForm
+        ref="formRef"
+        :model="model"
+        :label-col="{
+          span: 5,
+          md: 7
+        }"
+      >
+        <ARow :gutter="[16, 16]" wrap>
+          <ACol v-for="field in items" :key="field.componentkey" :span="24" :md="12" :lg="6">
+            <ProFormField
+              v-model:value="model[field.name]"
+              :component="field.component"
+              :name="field.name"
+              :label="field.label"
+              :rules="field.frontendRules"
+              :field-props="{ ...field }"
+            />
+          </ACol>
+          <div class="flex-1">
+            <AFormItem class="m-0">
+              <div class="w-full flex-y-center justify-end gap-12px">
+                <AButton @click="handleSubmit">
+                  <template #icon>
+                    <icon-ic-round-refresh class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ resetText }}</span>
+                </AButton>
+                <AButton type="primary" ghost @click="handleSubmit">
+                  <template #icon>
+                    <icon-ic-round-search class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ searchText }}</span>
+                </AButton>
+                <AButton v-if="exportApi" type="primary" ghost>
+                  <template #icon>
+                    <icon-ic-round-download class="align-sub text-icon" />
+                  </template>
+                  {{ exportText }}
+                </AButton>
+              </div>
+            </AFormItem>
+          </div>
+        </ARow>
       </AForm>
     </ACollapsePanel>
   </ACollapse>
