@@ -77,7 +77,7 @@ async function handleSubmit() {
                   <template #icon>
                     <icon-ant-design:download-outlined class="align-sub text-icon" />
                   </template>
-                  {{ exportText }}
+                  <span class="ml-8px">{{ exportText }}</span>
                 </AButton>
               </div>
             </AFormItem>
