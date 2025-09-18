@@ -35,7 +35,6 @@ function refresh() {
       <span class="ml-8px">{{ $t('common.refresh') }}</span>
     </AButton>
     <ProTableColumnSetting v-model:columns="columns" />
-    <slot name="suffix"></slot>
   </div>
 </template>
 
