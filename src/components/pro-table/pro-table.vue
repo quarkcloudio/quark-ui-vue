@@ -1,8 +1,11 @@
 <script setup lang="tsx">
-import { computed } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 import Render from '@/components/render/index.vue';
+import { useEngineStore } from '@/store/modules/engine';
+import { fetchEngineComponent } from '@/service/api';
 
 interface ProTableProps {
+  rowKey: string;
   columns: any[];
   datasource?: any[];
   headerTitle?: string;
@@ -13,10 +16,14 @@ defineOptions({
   name: 'ProTable'
 });
 
-const { columns, datasource, headerTitle, search } = defineProps<ProTableProps>();
+const props = defineProps<ProTableProps>();
+const { rowKey, columns, headerTitle, search } = toRefs(props);
+const { engineApi } = useEngineStore();
+const datasource = ref<any[]>(props.datasource || []);
+const loading = ref(false);
 
 const parseColumns = () => {
-  return columns.map(item => {
+  return columns.value.map(item => {
     const column: any = item;
 
     // 解析筛选项
@@ -41,15 +48,35 @@ const parseColumns = () => {
   });
 };
 
-const parsedColumns = computed(() => parseColumns());
+const parsedColumns = ref<any[]>(parseColumns() || []);
+const selectedRowKeys = ref<any[]>([]);
+const hasSelected = computed(() => selectedRowKeys.value.length > 0);
+console.log(hasSelected);
+
+const onSelectChange = (newSelectedRowKeys: any[]) => {
+  selectedRowKeys.value = newSelectedRowKeys;
+};
+
+const onRequest = async () => {
+  loading.value = true;
+  const { data }: any = await fetchEngineComponent(engineApi);
+  datasource.value = data?.datasource || [];
+  loading.value = false;
+};
 </script>
 
 <template>
   <ProTableSearch :v-if="search?.items" v-bind="search" />
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
-      <ProTableHeaderOperation />
+      <ProTableHeaderOperation v-model:columns="parsedColumns" @refresh="onRequest" />
     </template>
-    <ATable :columns="parsedColumns" :data-source="datasource" />
+    <ATable
+      :row-key="rowKey"
+      :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+      :columns="parsedColumns"
+      :data-source="datasource"
+      :loading="loading"
+    />
   </ACard>
 </template>
