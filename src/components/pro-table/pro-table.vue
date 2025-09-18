@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, ref, toRefs } from 'vue';
+import { computed, ref, toRefs, watchEffect } from 'vue';
 import Render from '@/components/render/index.vue';
 import { useEngineStore } from '@/store/modules/engine';
 import { fetchEngineComponent } from '@/service/api';
@@ -22,8 +22,34 @@ const { engineApi } = useEngineStore();
 const datasource = ref<any[]>(props.datasource || []);
 const loading = ref(false);
 
-const parseColumns = () => {
-  return columns.value.map(item => {
+const getColumnChecks = () => {
+  const checks: AntDesign.TableColumnCheck[] = [];
+  columns.value.forEach(column => {
+    if (column.dataIndex) {
+      checks.push({
+        key: column.dataIndex as string,
+        title: column.title as string,
+        checked: true
+      });
+    }
+  });
+  return checks;
+};
+
+const columnChecks = ref<any[]>(getColumnChecks() || []);
+
+const getColumns = () => {
+  const columnMap = new Map<string, any>();
+
+  columns.value.forEach(column => {
+    if (column.dataIndex) {
+      columnMap.set(column.dataIndex as string, column);
+    }
+  });
+
+  const filteredColumns = columnChecks?.value?.filter(item => item.checked).map(check => columnMap.get(check.key));
+
+  return filteredColumns?.map((item: any) => {
     const column: any = item;
 
     // 解析筛选项
@@ -44,14 +70,19 @@ const parseColumns = () => {
       }
       return <Render body={text} />;
     };
+
     return column;
   });
 };
 
-const parsedColumns = ref<any[]>(parseColumns() || []);
+const parsedColumns = ref<any[]>(getColumns() || []);
 const selectedRowKeys = ref<any[]>([]);
 const hasSelected = computed(() => selectedRowKeys.value.length > 0);
 console.log(hasSelected);
+
+watchEffect(() => {
+  parsedColumns.value = getColumns();
+});
 
 const onSelectChange = (newSelectedRowKeys: any[]) => {
   selectedRowKeys.value = newSelectedRowKeys;
@@ -69,7 +100,7 @@ const onRequest = async () => {
   <ProTableSearch :v-if="search?.items" v-bind="search" />
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
-      <ProTableHeaderOperation v-model:columns="parsedColumns" @refresh="onRequest" />
+      <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
     </template>
     <ATable
       :row-key="rowKey"
