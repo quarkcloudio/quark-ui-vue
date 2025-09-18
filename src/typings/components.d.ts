@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    '(1)': typeof import('./../components/pro-table/pro-table-header-operation (1).vue')['default']
+    '(2)': typeof import('./../components/pro-table/pro-table-header-operation (2).vue')['default']
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     AButton: typeof import('ant-design-vue/es')['Button']
@@ -15,6 +17,7 @@ declare module 'vue' {
     ACol: typeof import('ant-design-vue/es')['Col']
     ACollapse: typeof import('ant-design-vue/es')['Collapse']
     ACollapsePanel: typeof import('ant-design-vue/es')['CollapsePanel']
+    Action: typeof import('./../components/action/index.vue')['default']
     ADescriptions: typeof import('ant-design-vue/es')['Descriptions']
     ADescriptionsItem: typeof import('ant-design-vue/es')['DescriptionsItem']
     ADivider: typeof import('ant-design-vue/es')['Divider']
@@ -93,6 +96,8 @@ declare module 'vue' {
     ProFormField: typeof import('./../components/pro-form/pro-form-field.vue')['default']
     ProFormImageCaptcha: typeof import('./../components/pro-form/pro-field/pro-form-image-captcha.vue')['default']
     ProTable: typeof import('./../components/pro-table/pro-table.vue')['default']
+    ProTableColumnSetting: typeof import('./../components/pro-table/pro-table-column-setting.vue')['default']
+    ProTableHeaderOperation: typeof import('./../components/pro-table/pro-table-header-operation.vue')['default']
     ProTableSearch: typeof import('./../components/pro-table/pro-table-search.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     Render: typeof import('./../components/render/index.vue')['default']
