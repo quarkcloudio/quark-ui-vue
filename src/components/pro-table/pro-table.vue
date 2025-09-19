@@ -10,6 +10,7 @@ interface ProTableProps {
   datasource?: any[];
   headerTitle?: string;
   search?: any;
+  toolBar?: any;
 }
 
 defineOptions({
@@ -17,7 +18,7 @@ defineOptions({
 });
 
 const props = defineProps<ProTableProps>();
-const { rowKey, columns, headerTitle, search } = toRefs(props);
+const { rowKey, columns, headerTitle, search, toolBar } = toRefs(props);
 const { engineApi } = useEngineStore();
 const datasource = ref<any[]>(props.datasource || []);
 const loading = ref(false);
@@ -100,7 +101,10 @@ const onRequest = async () => {
   <ProTableSearch :v-if="search?.items" v-bind="search" />
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
-      <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
+      <div class="flex items-center gap-x-12px py-12px">
+        <ProTableToolBar :actions="toolBar?.actions?.body" />
+        <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
+      </div>
     </template>
     <ATable
       :row-key="rowKey"

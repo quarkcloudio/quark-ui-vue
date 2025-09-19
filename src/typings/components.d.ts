@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     '(1)': typeof import('./../components/pro-table/pro-table-header-operation (1).vue')['default']
     '(2)': typeof import('./../components/pro-table/pro-table-header-operation (2).vue')['default']
+    '副本': typeof import('./../components/pro-table/pro-table-header-operation - 副本.vue')['default']
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     AButton: typeof import('ant-design-vue/es')['Button']
@@ -99,6 +100,7 @@ declare module 'vue' {
     ProTableColumnSetting: typeof import('./../components/pro-table/pro-table-column-setting.vue')['default']
     ProTableHeaderOperation: typeof import('./../components/pro-table/pro-table-header-operation.vue')['default']
     ProTableSearch: typeof import('./../components/pro-table/pro-table-search.vue')['default']
+    ProTableToolBar: typeof import('./../components/pro-table/pro-table-tool-bar.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     Render: typeof import('./../components/render/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
