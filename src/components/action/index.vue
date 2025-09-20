@@ -37,7 +37,7 @@ const { size, type, disabled, ghost, block, danger, shape, htmlType, href, targe
     :danger="danger"
     :shape="shape"
     :html-type="htmlType"
-    :href="href"
+    :href="tplEngine(href, data)"
     :target="target"
     @click="onClick"
   >
