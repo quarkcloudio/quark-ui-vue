@@ -37,7 +37,7 @@ const { size, type, disabled, ghost, block, danger, shape, htmlType, href, targe
     :danger="danger"
     :shape="shape"
     :html-type="htmlType"
-    :href="tplEngine(href, data)"
+    :href="tplEngine(href, { ...data, enginePath: $route?.fullPath })"
     :target="target"
     @click="onClick"
   >
