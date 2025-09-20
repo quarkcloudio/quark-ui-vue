@@ -56,6 +56,9 @@ importers:
       json5:
         specifier: 2.2.3
         version: 2.2.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
@@ -93,6 +96,9 @@ importers:
       '@soybeanjs/eslint-config':
         specifier: 1.4.4
         version: 1.4.4(@unocss/eslint-config@65.4.3(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3))(eslint-plugin-vue@9.32.0(eslint@9.20.0(jiti@2.4.2)))(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)(vue-eslint-parser@9.4.3(eslint@9.20.0(jiti@2.4.2)))
+      '@types/lodash':
+        specifier: ^4.17.20
+        version: 4.17.20
       '@types/node':
         specifier: 22.13.1
         version: 22.13.1
@@ -1202,6 +1208,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/lodash@4.17.20':
+    resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -5209,6 +5218,8 @@ snapshots:
   '@types/gensync@1.0.4': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/lodash@4.17.20': {}
 
   '@types/mdast@4.0.4':
     dependencies:

@@ -1,17 +1,51 @@
 <script setup lang="ts">
+import tplEngine from '@/utils/template';
+
 defineOptions({
   name: 'Action'
 });
 
 interface Props {
   loading?: boolean;
+  label?: string;
+  icon?: string;
+  size?: 'small' | 'middle' | 'large';
+  type?: 'primary' | 'dashed' | 'link' | 'text' | 'default';
+  disabled?: boolean;
+  ghost?: boolean;
+  block?: boolean;
+  danger?: boolean;
+  shape?: 'circle' | 'round';
+  htmlType?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
+  href?: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  data?: Record<string, any>;
 }
 
-defineProps<Props>();
+const { label, icon, size } = defineProps<Props>();
 </script>
 
 <template>
-  <div></div>
+  <AButton
+    :size="size"
+    :type="type"
+    :disabled="disabled"
+    :ghost="ghost"
+    :block="block"
+    :danger="danger"
+    :shape="shape"
+    :html-type="htmlType"
+    :href="href"
+    :target="target"
+    @click="onClick"
+  >
+    <template #icon>
+      <Icon :icon="icon" />
+    </template>
+    <span v-if="icon" class="ml-8px">{{ tplEngine(label, data) }}</span>
+    <template v-else>{{ tplEngine(label, data) }}</template>
+  </AButton>
 </template>
 
 <style scoped></style>

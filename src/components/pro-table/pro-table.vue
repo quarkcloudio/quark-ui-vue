@@ -3,6 +3,7 @@ import { computed, ref, toRefs, watchEffect } from 'vue';
 import Render from '@/components/render/index.vue';
 import { useEngineStore } from '@/store/modules/engine';
 import { fetchEngineComponent } from '@/service/api';
+import Action from '@/components/action/index.vue';
 
 interface ProTableProps {
   rowKey: string;
@@ -62,12 +63,14 @@ const getColumns = () => {
     }
 
     // 解析渲染
-    column.customRender = ({ text }: any) => {
+    column.customRender = ({ text, record }: any) => {
       if (column.valueType === 'radio' || column.valueType === 'select') {
         return column.valueEnum[text];
       }
       if (column.valueType === 'option') {
-        return text;
+        return column?.actions?.map((action: any) => {
+          return <Action {...action} data={record} />;
+        });
       }
       return <Render body={text} />;
     };
@@ -102,8 +105,8 @@ const onRequest = async () => {
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
       <div class="flex items-center gap-x-12px py-12px">
-        <ProTableToolBar :actions="toolBar?.actions?.body" />
-        <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
+        <ProTableToolBar :actions="toolBar?.actions" />
+        <ProTableHeaderOperation v-model:columns="columnChecks" :loading="loading" @refresh="onRequest" />
       </div>
     </template>
     <ATable
