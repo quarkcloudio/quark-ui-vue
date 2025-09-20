@@ -23,7 +23,8 @@ interface Props {
   data?: Record<string, any>;
 }
 
-const { label, icon, size } = defineProps<Props>();
+const { size, type, disabled, ghost, block, danger, shape, htmlType, href, target, onClick, data } =
+  defineProps<Props>();
 </script>
 
 <template>
@@ -40,8 +41,8 @@ const { label, icon, size } = defineProps<Props>();
     :target="target"
     @click="onClick"
   >
-    <template #icon>
-      <Icon :icon="icon" />
+    <template v-if="icon" #icon>
+      <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />
     </template>
     <span v-if="icon" class="ml-8px">{{ tplEngine(label, data) }}</span>
     <template v-else>{{ tplEngine(label, data) }}</template>
