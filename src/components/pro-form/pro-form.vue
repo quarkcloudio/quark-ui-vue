@@ -8,11 +8,12 @@ defineOptions({
 });
 
 const { formRef, validate } = useAntdForm();
+const model: any = reactive({});
 
-const model: any = reactive({
-  username: '',
-  password: ''
-});
+const props = defineProps<{
+  componentkey: string;
+  body?: any;
+}>();
 
 async function handleSubmit() {
   await validate();
@@ -20,17 +21,17 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <AForm ref="formRef" :model="model" @keyup.enter="handleSubmit">
-    <AFormItem name="username">
-      <AInput v-model:value="model.username" size="large" :placeholder="$t('page.login.common.usernamePlaceholder')" />
-    </AFormItem>
-    <AFormItem name="password">
-      <AInputPassword
-        v-model:value="model.password"
-        size="large"
-        :placeholder="$t('page.login.common.passwordPlaceholder')"
-      />
-    </AFormItem>
+  <AForm ref="formRef" @keyup.enter="handleSubmit">
+    <ProFormField
+      v-for="field in props.body"
+      :key="field.componentkey"
+      v-model:value="model[field.name]"
+      :component="field.component"
+      :name="field.name"
+      :label="field.label"
+      :rules="field.frontendRules"
+      :field-props="{ ...field }"
+    />
     <ASpace direction="vertical" size="large" class="w-full">
       <AButton type="primary" block size="large" shape="round" @click="handleSubmit">
         {{ $t('common.confirm') }}
