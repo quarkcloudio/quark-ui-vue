@@ -1,5 +1,6 @@
 <script setup lang="tsx">
-import { onActivated, ref, toRefs, watch } from 'vue';
+import { onActivated, ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
 import { fetchEngineComponent } from '@/service/api';
 import { useEngineStore } from '@/store/modules/engine';
 
@@ -13,22 +14,27 @@ defineOptions({
 
 // 定义 props
 const props = defineProps<Props>();
-const { api } = toRefs(props);
 const body = ref<any>();
 const loading = ref(false);
+const route = useRoute();
 const { setEngineApi, setEngineComponent } = useEngineStore();
 
 let isFetching = false;
 
 const fetchEngine = async () => {
+  let api = props.api;
+  if (route.query.api) {
+    api = route.query.api as string;
+  }
+
   if (isFetching) return;
 
   isFetching = true;
   try {
     loading.value = true;
-    const { data } = await fetchEngineComponent(api.value);
+    const { data } = await fetchEngineComponent(api);
     body.value = data;
-    setEngineApi(api.value);
+    setEngineApi(api);
     setEngineComponent(data);
   } finally {
     isFetching = false;
@@ -37,13 +43,9 @@ const fetchEngine = async () => {
 };
 
 // 仅监听 api prop 变化
-watch(
-  api,
-  async () => {
-    await fetchEngine();
-  },
-  { immediate: true }
-);
+watchEffect(() => {
+  fetchEngine();
+});
 
 // onActivated 时检查是否需要重新加载
 onActivated(() => {

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
 import tplEngine from '@/utils/template';
 
 defineOptions({
@@ -26,12 +25,6 @@ interface Props {
 
 const { size, type, disabled, ghost, block, danger, shape, htmlType, href, target, onClick, data } =
   defineProps<Props>();
-
-const route = useRoute();
-const router = useRouter();
-
-// 获取当前路由的完整路径
-const getEnginePath = () => router.resolve(route).href;
 </script>
 
 <template>
@@ -44,7 +37,7 @@ const getEnginePath = () => router.resolve(route).href;
     :danger="danger"
     :shape="shape"
     :html-type="htmlType"
-    :href="tplEngine(href, { ...data, enginePath: getEnginePath() })"
+    :href="tplEngine(href, { ...data, enginePath: $route?.fullPath })"
     :target="target"
     @click="onClick"
   >
