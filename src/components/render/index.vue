@@ -34,6 +34,9 @@ const sanitizedHtml = computed(() => {
     <div v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
     </div>
+    <div v-else-if="body.component === 'card'">
+      <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" />
+    </div>
     <div v-else-if="body.component === 'table'">
       <ProTable v-bind="body" />
     </div>
