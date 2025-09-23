@@ -32,8 +32,8 @@ async function handleSubmit() {
       :rules="field.frontendRules"
       :field-props="{ ...field }"
     />
-    <ASpace direction="vertical" size="large" class="w-full">
-      <AButton type="primary" block size="large" shape="round" @click="handleSubmit">
+    <ASpace class="w-full">
+      <AButton type="primary" @click="handleSubmit">
         {{ $t('common.confirm') }}
       </AButton>
     </ASpace>
