@@ -57,6 +57,7 @@ declare module 'vue' {
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATree: typeof import('ant-design-vue/es')['Tree']
     AWatermark: typeof import('ant-design-vue/es')['Watermark']
+    Back: typeof import('./../components/action/item/back.vue')['default']
     BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     ButtonIcon: typeof import('./../components/custom/button-icon.vue')['default']
     Card: typeof import('./../components/card/index.vue')['default']
