@@ -64,6 +64,25 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
       <template v-else>{{ tplEngine(label, data) }}</template>
     </AButton>
   </div>
+  <div v-else>
+    <AButton
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :html-type="htmlType"
+      @click="onClick"
+    >
+      <template v-if="icon" #icon>
+        <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />
+      </template>
+      <span v-if="icon" class="ml-8px">{{ tplEngine(label, data) }}</span>
+      <template v-else>{{ tplEngine(label, data) }}</template>
+    </AButton>
+  </div>
 </template>
 
 <style scoped></style>
