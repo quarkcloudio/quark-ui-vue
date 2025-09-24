@@ -44,7 +44,11 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
     />
   </div>
   <div v-else-if="actionType === 'link'">
-    <AButton
+    <ALink
+      :href="href"
+      :target="target"
+      :label="label"
+      :icon="icon"
       :size="size"
       :type="type"
       :disabled="disabled"
@@ -52,17 +56,8 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
       :block="block"
       :danger="danger"
       :shape="shape"
-      :html-type="htmlType"
-      :href="tplEngine(href, { ...data, enginePath: $route?.fullPath })"
-      :target="target"
-      @click="onClick"
-    >
-      <template v-if="icon" #icon>
-        <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />
-      </template>
-      <span v-if="icon" class="ml-8px">{{ tplEngine(label, data) }}</span>
-      <template v-else>{{ tplEngine(label, data) }}</template>
-    </AButton>
+      :data="data"
+    />
   </div>
   <div v-else>
     <AButton
