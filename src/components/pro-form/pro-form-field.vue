@@ -36,12 +36,7 @@ const updateValue = (value: any) => {
     :label="label"
     :rules="rules"
   >
-    <AInput
-      :value="value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
-      style="width: 200px"
-      @update:value="updateValue"
-    >
+    <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
       <template #prefix>
         <div v-if="typeof fieldProps.prefix === 'object'">
           <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
