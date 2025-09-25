@@ -44,9 +44,40 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
     />
   </div>
   <div v-else-if="actionType === 'link'">
-    <ALink
-      :href="href"
+    <AButton
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :href="tplEngine(href, { ...data, enginePath: $route?.fullPath })"
       :target="target"
+    >
+      <template v-if="icon" #icon>
+        <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />
+      </template>
+      <span v-if="icon" class="ml-8px">{{ tplEngine(label, data) }}</span>
+      <template v-else>{{ tplEngine(label, data) }}</template>
+    </AButton>
+  </div>
+  <div v-else-if="actionType === 'modal'">
+    <Modal
+      :label="label"
+      :icon="icon"
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :data="data"
+    />
+  </div>
+  <div v-else-if="actionType === 'drawer'">
+    <Drawer
       :label="label"
       :icon="icon"
       :size="size"

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import tplEngine from '@/utils/template';
 
 defineOptions({
-  name: 'ALink'
+  name: 'Modal'
 });
 
 interface Props {
@@ -15,15 +16,23 @@ interface Props {
   block?: boolean;
   danger?: boolean;
   shape?: 'circle' | 'round';
-  href?: string;
-  target?: '_blank' | '_self' | '_parent' | '_top';
   data?: Record<string, any>;
 }
 
 const { size, type, disabled, ghost, block, danger, shape, data } = defineProps<Props>();
+const open = ref(false);
+const showModal = () => {
+  open.value = true;
+};
+
+const handleOk = (e: MouseEvent) => {
+  console.log(e);
+  open.value = false;
+};
 </script>
 
 <template>
+  <AModal v-model:open="open" title="确认" @ok="handleOk"></AModal>
   <AButton
     :size="size"
     :type="type"
@@ -32,8 +41,7 @@ const { size, type, disabled, ghost, block, danger, shape, data } = defineProps<
     :block="block"
     :danger="danger"
     :shape="shape"
-    :href="tplEngine(href, { ...data, enginePath: $route?.fullPath })"
-    :target="target"
+    @click="showModal"
   >
     <template v-if="icon" #icon>
       <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />

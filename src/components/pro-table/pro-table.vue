@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { computed, ref, toRefs, watchEffect } from 'vue';
+import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
 import { useEngineStore } from '@/store/modules/engine';
 import { fetchEngineComponent } from '@/service/api';
@@ -68,9 +69,13 @@ const getColumns = () => {
         return column.valueEnum[text];
       }
       if (column.valueType === 'option') {
-        return column?.actions?.map((action: any) => {
-          return <Action {...action} data={record} />;
-        });
+        return (
+          <Space>
+            {column?.actions?.map((action: any) => {
+              return <Action {...action} data={record} />;
+            })}
+          </Space>
+        );
       }
       return <Render body={text} />;
     };
