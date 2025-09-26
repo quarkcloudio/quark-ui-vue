@@ -35,6 +35,11 @@ const handleOk = (e: MouseEvent) => {
 <template>
   <AModal v-bind="modal" v-model:open="open" @ok="handleOk">
     <Render v-if="modal.body" :body="modal.body" />
+    <template #footer>
+      <ASpace>
+        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" />
+      </ASpace>
+    </template>
   </AModal>
   <AButton
     :size="size"
