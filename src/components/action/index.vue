@@ -22,10 +22,27 @@ interface Props {
   href?: string;
   target?: '_blank' | '_self' | '_parent' | '_top';
   data?: Record<string, any>;
+  modal?: any;
+  drawer?: any;
 }
 
-const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType, href, target, onClick, data } =
-  defineProps<Props>();
+const {
+  actionType,
+  size,
+  type,
+  disabled,
+  ghost,
+  block,
+  danger,
+  shape,
+  htmlType,
+  href,
+  target,
+  onClick,
+  data,
+  modal,
+  drawer
+} = defineProps<Props>();
 </script>
 
 <template>
@@ -74,6 +91,7 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
       :danger="danger"
       :shape="shape"
       :data="data"
+      :modal="modal"
     />
   </div>
   <div v-else-if="actionType === 'drawer'">
@@ -88,6 +106,7 @@ const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType,
       :danger="danger"
       :shape="shape"
       :data="data"
+      :drawer="drawer"
     />
   </div>
   <div v-else>

@@ -16,10 +16,11 @@ interface Props {
   block?: boolean;
   danger?: boolean;
   shape?: 'circle' | 'round';
+  modal?: any;
   data?: Record<string, any>;
 }
 
-const { size, type, disabled, ghost, block, danger, shape, data } = defineProps<Props>();
+const { size, type, disabled, ghost, block, danger, shape, modal, data } = defineProps<Props>();
 const open = ref(false);
 const showModal = () => {
   open.value = true;
@@ -32,7 +33,9 @@ const handleOk = (e: MouseEvent) => {
 </script>
 
 <template>
-  <AModal v-model:open="open" title="确认" @ok="handleOk"></AModal>
+  <AModal v-bind="modal" v-model:open="open" @ok="handleOk">
+    <Render v-if="modal.body" :body="modal.body" />
+  </AModal>
   <AButton
     :size="size"
     :type="type"

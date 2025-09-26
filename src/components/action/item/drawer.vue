@@ -17,22 +17,34 @@ interface Props {
   danger?: boolean;
   shape?: 'circle' | 'round';
   data?: Record<string, any>;
+  drawer?: any;
 }
 
-const { size, type, disabled, ghost, block, danger, shape, data } = defineProps<Props>();
+const { size, type, disabled, ghost, block, danger, shape, data, drawer } = defineProps<Props>();
 const open = ref(false);
-const showModal = () => {
+const showDrawer = () => {
   open.value = true;
 };
-
-const handleOk = (e: MouseEvent) => {
-  console.log(e);
+const onClose = () => {
   open.value = false;
 };
 </script>
 
 <template>
-  <ADrawer v-model:open="open" title="确认" @ok="handleOk"></ADrawer>
+  <ADrawer
+    :key="drawer.componentkey"
+    v-bind="drawer"
+    v-model:open="open"
+    :footer-style="{ textAlign: 'right' }"
+    @close="onClose"
+  >
+    <Render v-if="drawer.body" :body="drawer.body" />
+    <template #footer>
+      <ASpace>
+        <Action v-for="action in drawer.actions" :key="action.componentkey" v-bind="action" />
+      </ASpace>
+    </template>
+  </ADrawer>
   <AButton
     :size="size"
     :type="type"
@@ -41,7 +53,7 @@ const handleOk = (e: MouseEvent) => {
     :block="block"
     :danger="danger"
     :shape="shape"
-    @click="showModal"
+    @click="showDrawer"
   >
     <template v-if="icon" #icon>
       <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />
