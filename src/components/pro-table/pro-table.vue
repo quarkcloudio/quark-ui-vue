@@ -110,7 +110,7 @@ const onRequest = async () => {
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
       <div class="flex items-center gap-x-12px py-12px">
-        <ProTableToolBar :actions="toolBar?.actions" />
+        <ProTableToolBar :actions="toolBar?.actions" @refresh="onRequest" />
         <ProTableHeaderOperation v-model:columns="columnChecks" :loading="loading" @refresh="onRequest" />
       </div>
     </template>

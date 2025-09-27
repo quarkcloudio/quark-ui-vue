@@ -6,8 +6,8 @@ defineOptions({
 });
 
 interface Props {
+  api?: string;
   actionType?: string;
-  loading?: boolean;
   label?: string;
   icon?: string;
   size?: 'small' | 'middle' | 'large';
@@ -25,8 +25,25 @@ interface Props {
   drawer?: any;
 }
 
-const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType, href, target, data, modal, drawer } =
-  defineProps<Props>();
+const {
+  api,
+  actionType,
+  label,
+  icon,
+  size,
+  type,
+  disabled,
+  ghost,
+  block,
+  danger,
+  shape,
+  htmlType,
+  href,
+  target,
+  data,
+  modal,
+  drawer
+} = defineProps<Props>();
 
 const emit = defineEmits(['click']);
 const onClick = ($event: MouseEvent) => {
@@ -35,7 +52,23 @@ const onClick = ($event: MouseEvent) => {
 </script>
 
 <template>
-  <div v-if="actionType === 'back'">
+  <div v-if="actionType === 'ajax'">
+    <Ajax
+      :api="api"
+      :label="label"
+      :icon="icon"
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :data="data"
+      @click="onClick"
+    />
+  </div>
+  <div v-else-if="actionType === 'back'">
     <Back
       :label="label"
       :icon="icon"
