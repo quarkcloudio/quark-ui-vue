@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { ref, toRefs, watchEffect } from 'vue';
 import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
 import { useEngineStore } from '@/store/modules/engine';
@@ -86,8 +86,6 @@ const getColumns = () => {
 
 const parsedColumns = ref<any[]>(getColumns() || []);
 const selectedRowKeys = ref<any[]>([]);
-const hasSelected = computed(() => selectedRowKeys.value.length > 0);
-console.log(hasSelected);
 
 watchEffect(() => {
   parsedColumns.value = getColumns();
@@ -110,7 +108,7 @@ const onRequest = async () => {
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
       <div class="flex items-center gap-x-12px py-12px">
-        <ProTableToolBar :actions="toolBar?.actions" @refresh="onRequest" />
+        <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onRequest" />
         <ProTableHeaderOperation v-model:columns="columnChecks" :loading="loading" @refresh="onRequest" />
       </div>
     </template>
