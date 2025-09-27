@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import tplEngine from '@/utils/template';
 
 defineOptions({
-  name: 'Drawer'
+  name: 'Cancel'
 });
 
 interface Props {
@@ -17,34 +16,16 @@ interface Props {
   danger?: boolean;
   shape?: 'circle' | 'round';
   data?: Record<string, any>;
-  drawer?: any;
 }
 
-const { size, type, disabled, ghost, block, danger, shape, data, drawer } = defineProps<Props>();
-const open = ref(false);
-const showDrawer = () => {
-  open.value = true;
-};
-const onClose = () => {
-  open.value = false;
+const { size, type, disabled, ghost, block, danger, shape, data } = defineProps<Props>();
+const emit = defineEmits(['click']);
+const onClick = ($event: MouseEvent) => {
+  emit('click', $event);
 };
 </script>
 
 <template>
-  <ADrawer
-    :key="drawer.componentkey"
-    v-bind="drawer"
-    v-model:open="open"
-    :footer-style="{ textAlign: 'right' }"
-    @close="onClose"
-  >
-    <Render v-if="drawer.body" :body="drawer.body" />
-    <template #footer>
-      <ASpace>
-        <Action v-for="action in drawer.actions" :key="action.componentkey" v-bind="action" @click="onClose" />
-      </ASpace>
-    </template>
-  </ADrawer>
   <AButton
     :size="size"
     :type="type"
@@ -53,7 +34,7 @@ const onClose = () => {
     :block="block"
     :danger="danger"
     :shape="shape"
-    @click="showDrawer"
+    @click="onClick"
   >
     <template v-if="icon" #icon>
       <SvgIcon class="inline-block align-sub text-icon" :icon="icon" />

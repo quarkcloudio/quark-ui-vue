@@ -18,7 +18,6 @@ interface Props {
   danger?: boolean;
   shape?: 'circle' | 'round';
   htmlType?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
   href?: string;
   target?: '_blank' | '_self' | '_parent' | '_top';
   data?: Record<string, any>;
@@ -26,23 +25,13 @@ interface Props {
   drawer?: any;
 }
 
-const {
-  actionType,
-  size,
-  type,
-  disabled,
-  ghost,
-  block,
-  danger,
-  shape,
-  htmlType,
-  href,
-  target,
-  onClick,
-  data,
-  modal,
-  drawer
-} = defineProps<Props>();
+const { actionType, size, type, disabled, ghost, block, danger, shape, htmlType, href, target, data, modal, drawer } =
+  defineProps<Props>();
+
+const emit = defineEmits(['click']);
+const onClick = ($event: MouseEvent) => {
+  emit('click', $event);
+};
 </script>
 
 <template>
@@ -58,6 +47,21 @@ const {
       :danger="danger"
       :shape="shape"
       :data="data"
+    />
+  </div>
+  <div v-else-if="actionType === 'cancel'">
+    <Cancel
+      :label="label"
+      :icon="icon"
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :data="data"
+      @click="onClick"
     />
   </div>
   <div v-else-if="actionType === 'link'">

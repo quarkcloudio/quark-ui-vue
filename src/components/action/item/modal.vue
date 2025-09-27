@@ -37,7 +37,7 @@ const handleOk = (e: MouseEvent) => {
     <Render v-if="modal.body" :body="modal.body" />
     <template #footer>
       <ASpace>
-        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" />
+        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" @click="handleOk" />
       </ASpace>
     </template>
   </AModal>
