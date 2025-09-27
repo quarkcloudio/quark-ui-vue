@@ -5,7 +5,6 @@ import DOMPurify from 'dompurify';
 interface RenderProps {
   body: any;
   data?: any;
-  callback?: (data?: any) => void;
 }
 
 defineOptions({
@@ -13,7 +12,7 @@ defineOptions({
 });
 
 const props = defineProps<RenderProps>();
-const { body, data, callback } = toRefs(props);
+const { body, data } = toRefs(props);
 
 // 安全地处理HTML内容
 const sanitizedHtml = computed(() => {
@@ -29,7 +28,7 @@ const sanitizedHtml = computed(() => {
   <div v-if="typeof body === 'string' || typeof body === 'number'" v-html="sanitizedHtml" />
   <div v-else-if="body?.component">
     <div v-if="body.component === 'view'" :style="body.style">
-      <Render :body="body.body" :data="data" :callback="callback" />
+      <Render :body="body.body" :data="data" />
     </div>
     <div v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
@@ -47,7 +46,7 @@ const sanitizedHtml = computed(() => {
   </div>
   <div v-else>
     <div v-for="(item, index) in body" :key="index">
-      <Render :body="item" :data="data" :callback="callback" />
+      <Render :body="item" :data="data" />
     </div>
   </div>
 </template>
