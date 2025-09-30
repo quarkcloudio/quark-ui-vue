@@ -176,7 +176,7 @@ const onExport = () => {
     <template #extra>
       <div class="flex items-center gap-x-12px py-12px">
         <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
-        <ProTableHeaderOperation v-model:columns="columnChecks" :loading="loading" @refresh="onReset" />
+        <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
       </div>
     </template>
     <ATable
