@@ -27,7 +27,7 @@ const emit = defineEmits(['click']);
 const onClick = async ($event: MouseEvent) => {
   if (api) {
     loading.value = true;
-    const res = await fetchAjaxAction(api);
+    const res = await fetchAjaxAction(tplEngine(api, data));
     loading.value = false;
 
     if (!res.error) {

@@ -35,6 +35,7 @@ const batchActionDisabled = (action: any) => {
       :key="action.componentkey"
       v-bind="action"
       :disabled="batchActionDisabled(action)"
+      :data="{ id: selectedRowKeys }"
       @click="onClick"
     />
   </div>
