@@ -1,9 +1,10 @@
 <script setup lang="tsx">
 import { ref, toRefs, watchEffect } from 'vue';
+import type { TableProps } from 'ant-design-vue';
 import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
 import { useEngineStore } from '@/store/modules/engine';
-import { fetchEngineComponent } from '@/service/api';
+import { fetchTableData } from '@/service/api';
 import Action from '@/components/action/index.vue';
 
 interface ProTableProps {
@@ -13,6 +14,7 @@ interface ProTableProps {
   headerTitle?: string;
   search?: any;
   toolBar?: any;
+  pagination?: any;
 }
 
 defineOptions({
@@ -87,6 +89,18 @@ const getColumns = () => {
 const parsedColumns = ref<any[]>(getColumns() || []);
 const selectedRowKeys = ref<any[]>([]);
 
+const pagination = ref<any>({
+  total: props.pagination?.total || 0,
+  current: props.pagination?.current || 1,
+  pageSize: props.pagination?.pageSize || 10
+});
+
+const queryParams = ref<any>({
+  filters: '',
+  sorter: '',
+  search: ''
+});
+
 watchEffect(() => {
   parsedColumns.value = getColumns();
 });
@@ -97,10 +111,21 @@ const onSelectChange = (newSelectedRowKeys: any[]) => {
 
 const onRequest = async () => {
   loading.value = true;
-  const { data }: any = await fetchEngineComponent(engineApi);
+  const { data }: any = await fetchTableData(engineApi, queryParams.value);
   datasource.value = data?.datasource || [];
   selectedRowKeys.value = [];
   loading.value = false;
+  return data;
+};
+
+const handleTableChange: TableProps['onChange'] = async (page: any, filters: any, sorter: any) => {
+  queryParams.value = {
+    search: JSON.stringify(page),
+    filters: JSON.stringify(filters),
+    sorter: JSON.stringify(sorter)
+  };
+  const data = await onRequest();
+  pagination.value = { ...data.pagination, current: page.current };
 };
 </script>
 
@@ -119,6 +144,8 @@ const onRequest = async () => {
       :columns="parsedColumns"
       :data-source="datasource"
       :loading="loading"
+      :pagination="pagination"
+      @change="handleTableChange"
     />
   </ACard>
 </template>
