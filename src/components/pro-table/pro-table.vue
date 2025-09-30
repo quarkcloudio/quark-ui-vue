@@ -99,6 +99,7 @@ const onRequest = async () => {
   loading.value = true;
   const { data }: any = await fetchEngineComponent(engineApi);
   datasource.value = data?.datasource || [];
+  selectedRowKeys.value = [];
   loading.value = false;
 };
 </script>

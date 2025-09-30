@@ -23,6 +23,9 @@ interface Props {
   data?: Record<string, any>;
   modal?: any;
   drawer?: any;
+  confirmTitle?: string;
+  confirmText?: string;
+  confirmType?: string;
 }
 
 const {
@@ -42,7 +45,10 @@ const {
   target,
   data,
   modal,
-  drawer
+  drawer,
+  confirmTitle,
+  confirmText,
+  confirmType
 } = defineProps<Props>();
 
 const emit = defineEmits(['click']);
@@ -65,6 +71,9 @@ const onClick = ($event: MouseEvent) => {
       :danger="danger"
       :shape="shape"
       :data="data"
+      :confirm-title="confirmTitle"
+      :confirm-text="confirmText"
+      :confirm-type="confirmType"
       @click="onClick"
     />
   </div>
