@@ -1,6 +1,7 @@
 <script setup lang="tsx">
-import { reactive } from 'vue';
-import { useAntdForm } from '@/hooks/common/form';
+import { reactive, ref, watch } from 'vue';
+import type { FormInstance } from 'ant-design-vue';
+import { useEngineStore } from '@/store/modules/engine';
 
 defineOptions({
   name: 'ProForm'
@@ -22,8 +23,8 @@ interface Props {
   wrapperCol?: any;
   actions?: any[];
 }
-
-const { formRef, validate } = useAntdForm();
+const formRef = ref<FormInstance | null>(null);
+const { setEngineFromRef } = useEngineStore();
 const model: any = reactive({});
 const {
   body,
@@ -43,14 +44,25 @@ const {
 } = defineProps<Props>();
 
 async function handleSubmit() {
-  await validate();
+  await formRef?.value?.validate();
 }
+
+watch(
+  formRef,
+  newVal => {
+    if (newVal) {
+      setEngineFromRef(formRef.value);
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
   <AForm
     ref="formRef"
     :key="componentkey"
+    :model="model"
     :colon="colon"
     :disabled="disabled"
     :hide-rquired-mark="hideRquiredMark"
