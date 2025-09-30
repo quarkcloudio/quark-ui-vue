@@ -96,9 +96,10 @@ const pagination = ref<any>({
 });
 
 const queryParams = ref<any>({
-  filters: '',
-  sorter: '',
-  search: ''
+  filters: {},
+  sorter: {},
+  search: {},
+  pagination: {}
 });
 
 watchEffect(() => {
@@ -111,7 +112,11 @@ const onSelectChange = (newSelectedRowKeys: any[]) => {
 
 const onRequest = async () => {
   loading.value = true;
-  const { data }: any = await fetchTableData(engineApi, queryParams.value);
+  const { data }: any = await fetchTableData(engineApi, {
+    filters: JSON.stringify(queryParams.value.filters),
+    sorter: JSON.stringify(queryParams.value.sorter),
+    search: JSON.stringify({ ...queryParams.value.search, ...queryParams.value.pagination })
+  });
   datasource.value = data?.datasource || [];
   selectedRowKeys.value = [];
   loading.value = false;
@@ -120,17 +125,51 @@ const onRequest = async () => {
 
 const handleTableChange: TableProps['onChange'] = async (page: any, filters: any, sorter: any) => {
   queryParams.value = {
-    search: JSON.stringify(page),
-    filters: JSON.stringify(filters),
-    sorter: JSON.stringify(sorter)
+    ...queryParams.value,
+    pagination: page,
+    filters,
+    sorter
   };
   const data = await onRequest();
   pagination.value = { ...data.pagination, current: page.current };
 };
+
+const onSearch = async (values: any) => {
+  queryParams.value = {
+    ...queryParams.value,
+    pagination: {
+      current: 1,
+      pageSize: 10
+    },
+    search: values
+  };
+
+  const data = await onRequest();
+  pagination.value = { ...data.pagination };
+};
+
+const onReset = async () => {
+  queryParams.value = {
+    filters: {},
+    sorter: {},
+    search: {},
+    pagination: {
+      current: 1,
+      pageSize: 10
+    }
+  };
+
+  const data = await onRequest();
+  pagination.value = { ...data.pagination };
+};
+
+const onExport = async () => {
+  await onRequest();
+};
 </script>
 
 <template>
-  <ProTableSearch :v-if="search?.items" v-bind="search" />
+  <ProTableSearch :v-if="search?.items" v-bind="search" @search="onSearch" @reset="onReset" @export="onExport" />
   <ACard :title="headerTitle" class="mt-16px">
     <template #extra>
       <div class="flex items-center gap-x-12px py-12px">

@@ -1,7 +1,6 @@
 <script setup lang="tsx">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { $t } from '@/locales';
-import { useAntdForm } from '@/hooks/common/form';
 
 interface ProTableSearchProps {
   defaultCollapsed?: boolean;
@@ -24,12 +23,21 @@ const {
   searchText = $t('common.search'),
   items = []
 } = defineProps<ProTableSearchProps>();
-
-const { formRef, validate } = useAntdForm();
 const model: any = reactive({});
+const formRef = ref();
+const emit = defineEmits(['search', 'reset', 'export']);
 
 async function handleSubmit() {
-  await validate();
+  emit('search', model);
+}
+
+async function handleReset() {
+  formRef.value?.resetFields();
+  emit('reset');
+}
+
+async function handleExport() {
+  emit('export', model);
 }
 </script>
 
@@ -61,7 +69,7 @@ async function handleSubmit() {
           <div class="flex-1">
             <AFormItem class="m-0">
               <div class="w-full flex-y-center justify-end gap-12px">
-                <AButton @click="handleSubmit">
+                <AButton @click="handleReset">
                   <template #icon>
                     <icon-ant-design:reload-outlined class="align-sub text-icon" />
                   </template>
@@ -73,7 +81,7 @@ async function handleSubmit() {
                   </template>
                   <span class="ml-8px">{{ searchText }}</span>
                 </AButton>
-                <AButton v-if="exportApi" type="primary" ghost>
+                <AButton v-if="exportApi" type="primary" ghost @click="handleExport">
                   <template #icon>
                     <icon-ant-design:download-outlined class="align-sub text-icon" />
                   </template>
