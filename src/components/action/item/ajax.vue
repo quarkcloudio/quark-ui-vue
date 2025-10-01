@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { createVNode, ref } from 'vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-import { Modal } from 'ant-design-vue';
+import { Modal, message } from 'ant-design-vue';
 import { fetchAjaxAction } from '@/service/api';
 import tplEngine from '@/utils/template';
 
@@ -43,7 +43,7 @@ const showConfirm = ($event: MouseEvent) => {
         loading.value = false;
 
         if (!res.error) {
-          console.log(res.data);
+          message.success(res.response.data.msg);
           emit('click', $event);
         }
       }
@@ -62,7 +62,7 @@ const onClick = async ($event: MouseEvent) => {
     loading.value = false;
 
     if (!res.error) {
-      console.log(res.data);
+      message.success(res.response.data.msg);
       emit('click', $event);
     }
   }

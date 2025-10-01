@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { createVNode, ref } from 'vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-import { Modal } from 'ant-design-vue';
+import { Modal, message } from 'ant-design-vue';
 import { useEngineStore } from '@/store/modules/engine';
 import { fetchPostForm } from '@/service/api';
 import tplEngine from '@/utils/template';
@@ -47,7 +47,7 @@ const showConfirm = ($event: MouseEvent) => {
           console.log('values', values);
           fetchPostForm(tplEngine(engineFormApi, data), values)
             .then(res => {
-              console.log('res', res);
+              message.success(res.response.data.msg);
               loading.value = false;
               emit('click', $event);
             })
@@ -78,7 +78,7 @@ const onClick = async ($event: MouseEvent) => {
       console.log('values', values);
       fetchPostForm(tplEngine(engineFormApi, data), values)
         .then(res => {
-          console.log('res', res);
+          message.success(res.response.data.msg);
           loading.value = false;
           emit('click', $event);
         })
