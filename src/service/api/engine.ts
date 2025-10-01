@@ -27,3 +27,13 @@ export function fetchAjaxAction(api: string) {
 export function fetchTableData(api: string, queryParams: any) {
   return request<Api.Engine.EngineComponent>({ url: api, params: queryParams });
 }
+
+/**
+ * Post form data
+ *
+ * @param api Post form api
+ * @param data Form data
+ */
+export function fetchPostForm(api: string, data: any) {
+  return request<Api.Engine.PostForm>({ url: api, method: 'POST', data });
+}

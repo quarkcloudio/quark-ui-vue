@@ -24,9 +24,33 @@ defineOptions({
 const props = defineProps<ProTableProps>();
 const { rowKey, columns, headerTitle, search, toolBar } = toRefs(props);
 const { engineApi } = useEngineStore();
-
 const datasource = ref<Record<string, any>[]>(props.datasource || []);
 const loading = ref(false);
+const pagination = ref<any>({
+  total: props.pagination?.total || 0,
+  current: props.pagination?.current || 1,
+  pageSize: props.pagination?.pageSize || 10,
+  showSizeChanger: true
+});
+const queryParams = ref<any>({
+  filters: {},
+  sorter: {},
+  search: {},
+  pagination: {
+    current: pagination.value?.current,
+    pageSize: pagination.value?.pageSize
+  }
+});
+
+// 重置
+const onReset = () => {
+  queryParams.value = {
+    filters: {},
+    sorter: {},
+    search: {},
+    pagination: { current: 1, pageSize: pagination.value?.pageSize || 10 }
+  };
+};
 
 // 列选择器
 const getColumnChecks = () =>
@@ -69,7 +93,11 @@ const getColumns = () => {
           case 'select':
             return col.valueEnum?.[text] ?? text;
           case 'option':
-            return <Space>{col?.actions?.map((action: any) => <Action {...action} data={record} />)}</Space>;
+            return (
+              <Space>
+                {col?.actions?.map((action: any) => <Action {...action} data={record} onClick={onReset} />)}
+              </Space>
+            );
           default:
             return <Render body={text} />;
         }
@@ -81,23 +109,6 @@ const getColumns = () => {
 
 const parsedColumns = ref<any[]>(getColumns());
 const selectedRowKeys = ref<any[]>([]);
-
-const pagination = ref<any>({
-  total: props.pagination?.total || 0,
-  current: props.pagination?.current || 1,
-  pageSize: props.pagination?.pageSize || 10,
-  showSizeChanger: true
-});
-
-const queryParams = ref<any>({
-  filters: {},
-  sorter: {},
-  search: {},
-  pagination: {
-    current: pagination.value?.current,
-    pageSize: pagination.value?.pageSize
-  }
-});
 
 // 监听列变化
 watch(
@@ -151,16 +162,6 @@ const onSearch = (values: any) => {
     ...queryParams.value,
     pagination: { current: 1, pageSize: pagination.value?.pageSize || 10 },
     search: values
-  };
-};
-
-// 重置
-const onReset = () => {
-  queryParams.value = {
-    filters: {},
-    sorter: {},
-    search: {},
-    pagination: { current: 1, pageSize: pagination.value?.pageSize || 10 }
   };
 };
 

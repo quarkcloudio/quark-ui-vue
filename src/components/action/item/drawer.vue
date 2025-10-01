@@ -25,8 +25,15 @@ const open = ref(false);
 const showDrawer = () => {
   open.value = true;
 };
+
 const onClose = () => {
   open.value = false;
+};
+
+const emit = defineEmits(['click']);
+const onClick = ($event: MouseEvent) => {
+  onClose();
+  emit('click', $event);
 };
 </script>
 
@@ -41,7 +48,7 @@ const onClose = () => {
     <Render v-if="drawer.body" :body="drawer.body" />
     <template #footer>
       <ASpace>
-        <Action v-for="action in drawer.actions" :key="action.componentkey" v-bind="action" @click="onClose" />
+        <Action v-for="action in drawer.actions" :key="action.componentkey" v-bind="action" @click="onClick" />
       </ASpace>
     </template>
   </ADrawer>

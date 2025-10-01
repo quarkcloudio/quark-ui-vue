@@ -30,6 +30,12 @@ const handleOk = (e: MouseEvent) => {
   console.log(e);
   open.value = false;
 };
+
+const emit = defineEmits(['click']);
+const onClick = ($event: MouseEvent) => {
+  handleOk($event);
+  emit('click', $event);
+};
 </script>
 
 <template>
@@ -37,7 +43,7 @@ const handleOk = (e: MouseEvent) => {
     <Render v-if="modal.body" :body="modal.body" />
     <template #footer>
       <ASpace>
-        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" @click="handleOk" />
+        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" @click="onClick" />
       </ASpace>
     </template>
   </AModal>

@@ -8,6 +8,7 @@ defineOptions({
 });
 
 interface Props {
+  api: string;
   body?: any;
   buttonWrapperCol?: any;
   colon?: boolean;
@@ -24,9 +25,10 @@ interface Props {
   actions?: any[];
 }
 const formRef = ref<FormInstance | null>(null);
-const { setEngineFromRef } = useEngineStore();
+const { setEngineFormRef, setEngineFormApi } = useEngineStore();
 const model: any = reactive({});
 const {
+  api,
   body,
   buttonWrapperCol,
   colon,
@@ -43,15 +45,12 @@ const {
   actions
 } = defineProps<Props>();
 
-async function handleSubmit() {
-  await formRef?.value?.validate();
-}
-
 watch(
   formRef,
   newVal => {
     if (newVal) {
-      setEngineFromRef(formRef.value);
+      setEngineFormRef(newVal);
+      setEngineFormApi(api);
     }
   },
   { immediate: true }
@@ -73,7 +72,6 @@ watch(
     :name="name"
     :scroll-to-first-error="scrollToFirstError"
     :wrapper-col="wrapperCol"
-    @keyup.enter="handleSubmit"
   >
     <ProFormField
       v-for="field in body"

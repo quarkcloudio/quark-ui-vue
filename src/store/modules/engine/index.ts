@@ -6,7 +6,8 @@ import { SetupStoreId } from '@/enum';
 export const useEngineStore = defineStore(SetupStoreId.Engine, () => {
   const engineApi = ref('');
   const engineComponent = reactive({});
-  const engineFromRef = ref<FormInstance | null>(null);
+  const engineFormApi = ref('');
+  const engineFormRef = ref<FormInstance | null>(null);
 
   const setEngineApi = (api: string) => {
     engineApi.value = api;
@@ -16,23 +17,29 @@ export const useEngineStore = defineStore(SetupStoreId.Engine, () => {
     Object.assign(engineComponent, component);
   };
 
-  const setEngineFromRef = (formRef: FormInstance | null) => {
-    Object.assign(engineFromRef, formRef);
+  const setEngineFormApi = (api: string) => {
+    engineFormApi.value = api;
+  };
+
+  const setEngineFormRef = (formRef: FormInstance | null) => {
+    engineFormRef.value = formRef;
   };
 
   const resetStore = () => {
     engineApi.value = '';
     Object.assign(engineComponent, {});
-    engineFromRef.value = null;
+    engineFormRef.value = null;
   };
 
   return {
     engineApi,
     engineComponent,
-    engineFromRef,
+    engineFormApi,
+    engineFormRef,
     setEngineApi,
     setEngineComponent,
-    setEngineFromRef,
+    setEngineFormApi,
+    setEngineFormRef,
     resetStore
   };
 });

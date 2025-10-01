@@ -3,6 +3,7 @@ import { createVNode, ref } from 'vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { Modal } from 'ant-design-vue';
 import { useEngineStore } from '@/store/modules/engine';
+import { fetchPostForm } from '@/service/api';
 import tplEngine from '@/utils/template';
 
 defineOptions({
@@ -29,7 +30,6 @@ interface Props {
 const { size, type, disabled, ghost, block, danger, shape, data, confirmTitle, confirmText, confirmType } =
   defineProps<Props>();
 const loading = ref(false);
-const { engineFromRef } = useEngineStore();
 const emit = defineEmits(['click']);
 
 const showConfirm = ($event: MouseEvent) => {
@@ -38,11 +38,28 @@ const showConfirm = ($event: MouseEvent) => {
     icon: createVNode(ExclamationCircleOutlined),
     content: confirmText,
     async onOk() {
-      loading.value = true;
-      const values = engineFromRef?.getFieldsValue();
-      loading.value = false;
-      console.log(values);
-      emit('click', $event);
+      const { engineFormRef, engineFormApi } = useEngineStore();
+      engineFormRef
+        ?.validate()
+        ?.then(() => {
+          loading.value = true;
+          const values = engineFormRef?.getFieldsValue();
+          console.log('values', values);
+          fetchPostForm(tplEngine(engineFormApi, data), values)
+            .then(res => {
+              console.log('res', res);
+              loading.value = false;
+              emit('click', $event);
+            })
+            .catch(error => {
+              console.log('error', error);
+              loading.value = false;
+            });
+        })
+        .catch(error => {
+          console.log('error', error);
+          loading.value = false;
+        });
     }
   });
 };
@@ -52,11 +69,28 @@ const onClick = async ($event: MouseEvent) => {
     showConfirm($event);
     return;
   }
-  loading.value = true;
-  const values = engineFromRef?.getFieldsValue();
-  loading.value = false;
-  console.log(values);
-  emit('click', $event);
+  const { engineFormRef, engineFormApi } = useEngineStore();
+  engineFormRef
+    ?.validate()
+    ?.then(() => {
+      loading.value = true;
+      const values = engineFormRef?.getFieldsValue();
+      console.log('values', values);
+      fetchPostForm(tplEngine(engineFormApi, data), values)
+        .then(res => {
+          console.log('res', res);
+          loading.value = false;
+          emit('click', $event);
+        })
+        .catch(error => {
+          console.log('error', error);
+          loading.value = false;
+        });
+    })
+    .catch(error => {
+      console.log('error', error);
+      loading.value = false;
+    });
 };
 </script>
 

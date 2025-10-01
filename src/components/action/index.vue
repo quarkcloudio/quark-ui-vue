@@ -138,6 +138,7 @@ const onClick = ($event: MouseEvent) => {
       :shape="shape"
       :data="data"
       :modal="modal"
+      @click="onClick"
     />
   </div>
   <div v-else-if="actionType === 'drawer'">
@@ -153,6 +154,7 @@ const onClick = ($event: MouseEvent) => {
       :shape="shape"
       :data="data"
       :drawer="drawer"
+      @click="onClick"
     />
   </div>
   <div v-else-if="actionType === 'submit'">
