@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { reactive, ref, watch } from 'vue';
 import type { FormInstance } from 'ant-design-vue';
-import { useEngineStore } from '@/store/modules/engine';
+import { useEngine } from '@/hooks/common/engine';
 
 defineOptions({
   name: 'ProForm'
@@ -25,7 +25,7 @@ interface Props {
   actions?: any[];
 }
 const formRef = ref<FormInstance | null>(null);
-const { setEngineFormRef, setEngineFormApi } = useEngineStore();
+const { setEngineFormRef, setEngineFormApi } = useEngine();
 const model: any = reactive({});
 const {
   api,

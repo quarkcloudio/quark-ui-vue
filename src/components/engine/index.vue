@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { onActivated, ref, watchEffect } from 'vue';
+import { computed, onActivated, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchEngineComponent } from '@/service/api';
-import { useEngineStore } from '@/store/modules/engine';
+import { useEngine } from '@/hooks/common/engine';
 
 interface Props {
   api: string;
@@ -12,47 +12,44 @@ defineOptions({
   name: 'Engine'
 });
 
-// 定义 props
 const props = defineProps<Props>();
 const body = ref<any>();
 const loading = ref(false);
 const route = useRoute();
-const { setEngineApi, setEngineComponent } = useEngineStore();
+const { setEngineApi, setEngineComponent } = useEngine();
 
-let isFetching = false;
+// 计算最终 API（优先 query）
+const currentApi = computed(() => {
+  return (route.query.api as string) || props.api;
+});
 
-const fetchEngine = async () => {
-  let api = props.api;
-  if (route.query.api) {
-    api = route.query.api as string;
-  }
+const fetchEngine = async (api: string) => {
+  if (!api) return;
 
-  if (isFetching) return;
-
-  isFetching = true;
+  loading.value = true;
   try {
-    loading.value = true;
+    setEngineApi(api);
     const { data } = await fetchEngineComponent(api);
     body.value = data;
-    setEngineApi(api);
     setEngineComponent(data);
+    console.log('api', api);
   } finally {
-    isFetching = false;
     loading.value = false;
   }
 };
 
-// 仅监听 api prop 变化
-watchEffect(() => {
-  fetchEngine();
-});
+// 监听 api 变化 -> 请求数据
+watch(
+  () => route.query.api,
+  () => {
+    fetchEngine(currentApi.value);
+  },
+  { immediate: true }
+);
 
-// onActivated 时检查是否需要重新加载
+// tab 切换回来（keep-alive 激活时） -> 再请求一次
 onActivated(() => {
-  // 如果没有数据或 api 改变，则重新加载
-  if (!body.value) {
-    fetchEngine();
-  }
+  fetchEngine(currentApi.value);
 });
 </script>
 

@@ -2,7 +2,7 @@
 import { createVNode, ref } from 'vue';
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { Modal, message } from 'ant-design-vue';
-import { useEngineStore } from '@/store/modules/engine';
+import { useEngine } from '@/hooks/common/engine';
 import { fetchPostForm } from '@/service/api';
 import tplEngine from '@/utils/template';
 
@@ -38,14 +38,14 @@ const showConfirm = ($event: MouseEvent) => {
     icon: createVNode(ExclamationCircleOutlined),
     content: confirmText,
     async onOk() {
-      const { engineFormRef, engineFormApi } = useEngineStore();
-      engineFormRef
+      const { getEngineFormRef, getEngineFormApi } = useEngine();
+      getEngineFormRef()
         ?.validate()
         ?.then(() => {
           loading.value = true;
-          const values = engineFormRef?.getFieldsValue();
+          const values = getEngineFormRef()?.getFieldsValue();
           console.log('values', values);
-          fetchPostForm(tplEngine(engineFormApi, data), values)
+          fetchPostForm(tplEngine(getEngineFormApi(), data), values)
             .then(res => {
               message.success(res.response.data.msg);
               loading.value = false;
@@ -56,7 +56,7 @@ const showConfirm = ($event: MouseEvent) => {
               loading.value = false;
             });
         })
-        .catch(error => {
+        .catch((error: any) => {
           console.log('error', error);
           loading.value = false;
         });
@@ -69,14 +69,14 @@ const onClick = async ($event: MouseEvent) => {
     showConfirm($event);
     return;
   }
-  const { engineFormRef, engineFormApi } = useEngineStore();
-  engineFormRef
+  const { getEngineFormRef, getEngineFormApi } = useEngine();
+  getEngineFormRef()
     ?.validate()
     ?.then(() => {
       loading.value = true;
-      const values = engineFormRef?.getFieldsValue();
+      const values = getEngineFormRef()?.getFieldsValue();
       console.log('values', values);
-      fetchPostForm(tplEngine(engineFormApi, data), values)
+      fetchPostForm(tplEngine(getEngineFormApi(), data), values)
         .then(res => {
           message.success(res.response.data.msg);
           loading.value = false;
@@ -87,7 +87,7 @@ const onClick = async ($event: MouseEvent) => {
           loading.value = false;
         });
     })
-    .catch(error => {
+    .catch((error: any) => {
       console.log('error', error);
       loading.value = false;
     });

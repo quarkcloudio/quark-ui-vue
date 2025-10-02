@@ -3,7 +3,7 @@ import { ref, toRefs, watch } from 'vue';
 import type { TableColumnType, TableProps } from 'ant-design-vue';
 import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
-import { useEngineStore } from '@/store/modules/engine';
+import { useEngine } from '@/hooks/common/engine';
 import { fetchTableData } from '@/service/api';
 import Action from '@/components/action/index.vue';
 
@@ -23,7 +23,7 @@ defineOptions({
 
 const props = defineProps<ProTableProps>();
 const { rowKey, columns, headerTitle, search, toolBar } = toRefs(props);
-const { engineApi } = useEngineStore();
+const { getEngineApi } = useEngine();
 const datasource = ref<Record<string, any>[]>(props.datasource || []);
 const loading = ref(false);
 const pagination = ref<any>({
@@ -126,7 +126,7 @@ watch(
     if (loading.value) return;
     loading.value = true;
     try {
-      const { data }: any = await fetchTableData(engineApi, {
+      const { data }: any = await fetchTableData(getEngineApi(), {
         filters: JSON.stringify(newVal.filters),
         sorter: JSON.stringify(newVal.sorter),
         search: JSON.stringify({ ...newVal.search, ...newVal.pagination })
