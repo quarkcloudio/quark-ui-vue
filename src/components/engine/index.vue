@@ -28,9 +28,9 @@ const fetchEngine = async (api: string) => {
 
   loading.value = true;
   try {
-    setEngineApi(api);
     const { data } = await fetchEngineComponent(api);
     body.value = data;
+    setEngineApi(api);
     setEngineComponent(data);
     console.log('api', api);
   } finally {
