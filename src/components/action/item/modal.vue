@@ -36,14 +36,22 @@ const onClick = ($event: MouseEvent) => {
   handleOk($event);
   emit('click', $event);
 };
+
+console.log('data', data);
 </script>
 
 <template>
   <AModal v-bind="modal" v-model:open="open" @ok="handleOk">
-    <Render v-if="modal.body" :body="modal.body" />
+    <Render v-if="modal.body" :body="modal.body" :data="data" />
     <template #footer>
       <ASpace>
-        <Action v-for="action in modal.actions" :key="action.componentkey" v-bind="action" @click="onClick" />
+        <Action
+          v-for="action in modal.actions"
+          :key="action.componentkey"
+          v-bind="action"
+          :data="data"
+          @click="onClick"
+        />
       </ASpace>
     </template>
   </AModal>

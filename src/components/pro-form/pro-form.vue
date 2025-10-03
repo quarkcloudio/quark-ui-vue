@@ -24,6 +24,8 @@ interface Props {
   wrapperCol?: any;
   actions?: any[];
   initialValues: any;
+  data: any;
+  initApi?: string;
 }
 const formRef = ref<FormInstance | null>(null);
 const { setEngineFormRef, setEngineFormApi } = useEngine();
@@ -43,10 +45,11 @@ const {
   scrollToFirstError,
   wrapperCol,
   actions,
-  initialValues
+  initialValues,
+  data
 } = defineProps<Props>();
 
-const model = reactive({ ...initialValues });
+const model = reactive({ ...initialValues, ...data });
 
 watch(
   formRef,

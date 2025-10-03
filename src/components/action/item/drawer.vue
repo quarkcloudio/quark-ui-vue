@@ -48,7 +48,13 @@ const onClick = ($event: MouseEvent) => {
     <Render v-if="drawer.body" :body="drawer.body" />
     <template #footer>
       <ASpace>
-        <Action v-for="action in drawer.actions" :key="action.componentkey" v-bind="action" @click="onClick" />
+        <Action
+          v-for="action in drawer.actions"
+          :key="action.componentkey"
+          v-bind="action"
+          :data="data"
+          @click="onClick"
+        />
       </ASpace>
     </template>
   </ADrawer>

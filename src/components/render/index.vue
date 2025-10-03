@@ -37,7 +37,7 @@ const sanitizedHtml = computed(() => {
       <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" />
     </div>
     <div v-else-if="body.component === 'form'">
-      <ProForm v-bind="body" />
+      <ProForm v-bind="body" :data="data" />
     </div>
     <div v-else-if="body.component === 'table'">
       <ProTable v-bind="body" />
