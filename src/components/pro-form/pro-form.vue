@@ -2,6 +2,7 @@
 import { reactive, ref, watch } from 'vue';
 import type { FormInstance } from 'ant-design-vue';
 import { useEngine } from '@/hooks/common/engine';
+import tplEngine from '@/utils/template';
 
 defineOptions({
   name: 'ProForm'
@@ -56,7 +57,7 @@ watch(
   newVal => {
     if (newVal) {
       setEngineFormRef(newVal);
-      setEngineFormApi(api);
+      setEngineFormApi(tplEngine(api, model));
     }
   },
   { immediate: true }

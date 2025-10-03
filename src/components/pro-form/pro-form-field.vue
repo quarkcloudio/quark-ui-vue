@@ -64,6 +64,26 @@ const updateValue = (value: any) => {
       </template>
     </AInputPassword>
   </AFormItem>
+  <AFormItem
+    v-else-if="component === 'textArea' || component === 'textAreaField'"
+    :name="name"
+    :label="label"
+    :rules="rules"
+  >
+    <ATextarea :value="value" v-bind="fieldProps" @update:value="updateValue" />
+  </AFormItem>
+  <AFormItem v-if="component === 'id' || component === 'idField'" hidden :name="name" :label="label" :rules="rules">
+    <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
+      <template #prefix>
+        <div v-if="typeof fieldProps.prefix === 'object'">
+          <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
+        </div>
+        <div v-else>
+          {{ fieldProps.prefix }}
+        </div>
+      </template>
+    </AInput>
+  </AFormItem>
   <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
     <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
