@@ -72,6 +72,14 @@ const updateValue = (value: any) => {
   >
     <ATextarea :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
+  <AFormItem
+    v-else-if="component === 'inputNumber' || component === 'inputNumberField'"
+    :name="name"
+    :label="label"
+    :rules="rules"
+  >
+    <AInputNumber :value="value" v-bind="fieldProps" @update:value="updateValue" />
+  </AFormItem>
   <AFormItem v-if="component === 'id' || component === 'idField'" hidden :name="name" :label="label" :rules="rules">
     <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
       <template #prefix>
