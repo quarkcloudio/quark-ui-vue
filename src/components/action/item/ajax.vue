@@ -33,9 +33,9 @@ const emit = defineEmits(['click']);
 
 const showConfirm = ($event: MouseEvent) => {
   Modal.confirm({
-    title: confirmTitle,
+    title: tplEngine(confirmTitle, data),
     icon: createVNode(ExclamationCircleOutlined),
-    content: confirmText,
+    content: tplEngine(confirmText, data),
     async onOk() {
       if (api) {
         loading.value = true;
@@ -70,7 +70,7 @@ const onClick = async ($event: MouseEvent) => {
 </script>
 
 <template>
-  <APopconfirm v-if="confirmType === 'pop'" :title="confirmTitle" @confirm="onClick">
+  <APopconfirm v-if="confirmType === 'pop'" :title="tplEngine(confirmTitle, data)" @confirm="onClick">
     <AButton
       :size="size"
       :type="type"
