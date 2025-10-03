@@ -1,8 +1,9 @@
 <script setup lang="tsx">
-import { reactive, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import type { FormInstance } from 'ant-design-vue';
 import { useEngine } from '@/hooks/common/engine';
 import tplEngine from '@/utils/template';
+import { fetchFormData } from '@/service/api';
 
 defineOptions({
   name: 'ProForm'
@@ -47,17 +48,23 @@ const {
   wrapperCol,
   actions,
   initialValues,
+  initApi,
   data
 } = defineProps<Props>();
 
-const model = reactive({ ...initialValues, ...data });
+const model = ref({ ...initialValues, ...data });
 
 watch(
   formRef,
   newVal => {
     if (newVal) {
       setEngineFormRef(newVal);
-      setEngineFormApi(tplEngine(api, model));
+      setEngineFormApi(tplEngine(api, model.value));
+      if (initApi) {
+        fetchFormData(tplEngine(initApi, model.value)).then(res => {
+          model.value = { ...model.value, ...res.data };
+        });
+      }
     }
   },
   { immediate: true }
