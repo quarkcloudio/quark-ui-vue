@@ -30,14 +30,16 @@ const batchActionDisabled = (action: any) => {
 
 <template>
   <div class="flex flex-wrap justify-end gap-x-12px gap-y-8px lt-sm:(w-200px py-12px)">
-    <Action
-      v-for="action in actions"
-      :key="action.componentkey"
-      v-bind="action"
-      :disabled="batchActionDisabled(action)"
-      :data="{ id: selectedRowKeys }"
-      @click="onClick"
-    />
+    <div v-for="action in actions" :key="action.componentkey">
+      <Action
+        v-if="action.batch"
+        v-bind="action"
+        :disabled="batchActionDisabled(action)"
+        :data="{ id: selectedRowKeys }"
+        @click="onClick"
+      />
+      <Action v-else v-bind="action" @click="onClick" />
+    </div>
   </div>
 </template>
 
