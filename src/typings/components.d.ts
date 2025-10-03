@@ -100,6 +100,7 @@ declare module 'vue' {
     ProCard: typeof import('./../components/pro-card/index.vue')['default']
     ProForm: typeof import('./../components/pro-form/pro-form.vue')['default']
     ProFormField: typeof import('./../components/pro-form/pro-form-field.vue')['default']
+    ProFormIcon: typeof import('./../components/pro-form/pro-field/pro-form-icon.vue')['default']
     ProFormImageCaptcha: typeof import('./../components/pro-form/pro-field/pro-form-image-captcha.vue')['default']
     ProTable: typeof import('./../components/pro-table/pro-table.vue')['default']
     ProTableColumnSetting: typeof import('./../components/pro-table/pro-table-column-setting.vue')['default']
