@@ -45,7 +45,7 @@ const onClick = ($event: MouseEvent) => {
     :footer-style="{ textAlign: 'right' }"
     @close="onClose"
   >
-    <Render v-if="drawer.body" :body="drawer.body" />
+    <Render v-if="drawer.body" :body="drawer.body" :data="data" />
     <template #footer>
       <ASpace>
         <Action

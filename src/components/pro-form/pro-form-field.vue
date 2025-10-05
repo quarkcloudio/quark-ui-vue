@@ -98,6 +98,9 @@ const updateValue = (value: any) => {
   <AFormItem v-else-if="component === 'hidden' || component === 'hiddenField'" :name="name" hidden>
     <AInput :value="value" @update:value="updateValue" />
   </AFormItem>
+  <AFormItem v-else-if="component === 'checkbox' || component === 'checkboxField'" :label="label" :rules="rules">
+    <ACheckboxGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+  </AFormItem>
   <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
     <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
