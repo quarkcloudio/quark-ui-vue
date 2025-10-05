@@ -30,21 +30,12 @@ const updateValue = (value: any) => {
 </script>
 
 <template>
-  <AInput
-    :value="value?.value"
-    v-bind="{ ...fieldProps, prefix: undefined }"
-    style="width: 60%"
-    @change="updateValue($event.target.value)"
-  >
-    <template #prefix>
-      <div v-if="typeof fieldProps.prefix === 'object'">
-        <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
-      </div>
-      <div v-else>
-        {{ fieldProps.prefix }}
-      </div>
-    </template>
-  </AInput>
+  <ASelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @change="updateValue(value)">
+    <ASelectOption v-for="option in fieldProps?.options" :key="option" :value="option">
+      <SvgIcon :icon="option" />
+      {{ option }}
+    </ASelectOption>
+  </ASelect>
 </template>
 
 <style scoped></style>

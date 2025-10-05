@@ -92,6 +92,9 @@ const updateValue = (value: any) => {
       </template>
     </AInput>
   </AFormItem>
+  <AFormItem v-else-if="component === 'icon' || component === 'iconField'" :name="name" :label="label" :rules="rules">
+    <ProFormIcon :value="value" :field-props="fieldProps" @update:value="updateValue" />
+  </AFormItem>
   <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
     <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
