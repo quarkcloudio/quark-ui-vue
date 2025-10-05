@@ -101,6 +101,9 @@ const updateValue = (value: any) => {
   <AFormItem v-else-if="component === 'checkbox' || component === 'checkboxField'" :label="label" :rules="rules">
     <ACheckboxGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
+  <AFormItem v-else-if="component === 'radio' || component === 'radioField'" :label="label" :rules="rules">
+    <ARadioGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+  </AFormItem>
   <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
     <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
