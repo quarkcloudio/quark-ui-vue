@@ -30,7 +30,11 @@ const updateValue = (value: any) => {
 </script>
 
 <template>
-  <ASelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @change="updateValue(value)">
+  <ASelect
+    :value="value"
+    v-bind="{ ...fieldProps, prefix: undefined, options: undefined }"
+    @change="updateValue(value)"
+  >
     <ASelectOption v-for="option in fieldProps?.options" :key="option" :value="option">
       <SvgIcon :icon="option" />
       {{ option }}
