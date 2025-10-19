@@ -90,12 +90,14 @@ watch(
     <ProFormField
       v-for="field in body"
       :key="field.componentkey"
-      v-model:value="model[field.name]"
+      :model="model"
+      :value="model[field.name]"
       :component="field.component"
       :name="field.name"
       :label="field.label"
       :rules="field.frontendRules"
       :field-props="{ ...field }"
+      @update:value="val => (model[field.name] = val)"
     />
     <AFormItem :wrapper-col="buttonWrapperCol">
       <ASpace class="w-full">

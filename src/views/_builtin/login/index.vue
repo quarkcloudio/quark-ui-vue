@@ -79,6 +79,7 @@ async function handleSubmit() {
                   v-for="field in authComponent.body"
                   :key="field.componentkey"
                   v-model:value="model[field.name]"
+                  :model="model"
                   :component="field.component"
                   :name="field.name"
                   :label="field.label"

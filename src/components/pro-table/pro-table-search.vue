@@ -59,6 +59,7 @@ async function handleExport() {
           <ACol v-for="field in items" :key="field.componentkey" :span="24" :md="12" :lg="6">
             <ProFormField
               v-model:value="model[field.name]"
+              :model="model"
               :component="field.component"
               :name="field.name"
               :label="field.label"

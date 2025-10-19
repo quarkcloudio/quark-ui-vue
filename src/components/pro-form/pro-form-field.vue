@@ -5,9 +5,9 @@ defineOptions({
   name: 'ProFormField'
 });
 
-// 定义 props
 const props = defineProps<{
   component: string;
+  model: any;
   name: string;
   label?: string;
   value?: any;
@@ -15,127 +15,139 @@ const props = defineProps<{
   fieldProps?: any;
 }>();
 
-// 定义 emits
 const emit = defineEmits<{
   (e: 'update:value', value: any): void;
 }>();
 
-// 初始化变量
-const { component, name, rules, fieldProps } = toRefs(props);
+const { component, name, rules, fieldProps, model } = toRefs(props);
 
 // 更新字段值
-const updateValue = (value: any) => {
-  emit('update:value', value);
-};
+const updateValue = (value: any) => emit('update:value', value);
 </script>
 
 <template>
+  <!-- 输入框 -->
   <AFormItem
-    v-if="component === 'input' || component === 'inputField' || component === 'text' || component === 'textField'"
+    v-if="['input', 'inputField', 'text', 'textField'].includes(component)"
     :name="name"
     :label="label"
     :rules="rules"
   >
-    <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
+    <AInput :value="value" v-bind="fieldProps" @update:value="updateValue">
       <template #prefix>
-        <div v-if="typeof fieldProps.prefix === 'object'">
+        <div v-if="typeof fieldProps?.prefix === 'object'">
           <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
         </div>
-        <div v-else>
-          {{ fieldProps.prefix }}
-        </div>
+        <template v-else>{{ fieldProps?.prefix }}</template>
       </template>
     </AInput>
   </AFormItem>
-  <AFormItem
-    v-else-if="component === 'password' || component === 'passwordField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
-    <AInputPassword :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
+
+  <!-- 密码框 -->
+  <AFormItem v-else-if="['password', 'passwordField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <AInputPassword :value="value" v-bind="fieldProps" @update:value="updateValue">
       <template #prefix>
-        <div v-if="typeof fieldProps.prefix === 'object'">
+        <div v-if="typeof fieldProps?.prefix === 'object'">
           <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
         </div>
-        <div v-else>
-          {{ fieldProps.prefix }}
-        </div>
+        <template v-else>{{ fieldProps?.prefix }}</template>
       </template>
     </AInputPassword>
   </AFormItem>
-  <AFormItem
-    v-else-if="component === 'textArea' || component === 'textAreaField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+
+  <!-- 多行输入 -->
+  <AFormItem v-else-if="['textArea', 'textAreaField'].includes(component)" :name="name" :label="label" :rules="rules">
     <ATextarea :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
+
+  <!-- 数字输入 -->
   <AFormItem
-    v-else-if="component === 'inputNumber' || component === 'inputNumberField'"
+    v-else-if="['inputNumber', 'inputNumberField'].includes(component)"
     :name="name"
     :label="label"
     :rules="rules"
   >
     <AInputNumber :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem v-if="component === 'id' || component === 'idField'" hidden :name="name" :label="label" :rules="rules">
-    <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
-      <template #prefix>
-        <div v-if="typeof fieldProps.prefix === 'object'">
-          <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
-        </div>
-        <div v-else>
-          {{ fieldProps.prefix }}
-        </div>
-      </template>
-    </AInput>
+
+  <!-- ID 隐藏域 -->
+  <AFormItem v-else-if="['id', 'idField'].includes(component)" hidden :name="name" :label="label" :rules="rules">
+    <AInput :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem v-else-if="component === 'icon' || component === 'iconField'" :name="name" :label="label" :rules="rules">
+
+  <!-- 图标选择 -->
+  <AFormItem v-else-if="['icon', 'iconField'].includes(component)" :name="name" :label="label" :rules="rules">
     <ProFormIcon :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem v-else-if="component === 'hidden' || component === 'hiddenField'" :name="name" hidden>
+
+  <!-- 隐藏域 -->
+  <AFormItem v-else-if="['hidden', 'hiddenField'].includes(component)" :name="name" hidden>
     <AInput :value="value" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem
-    v-else-if="component === 'checkbox' || component === 'checkboxField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
-    <ACheckboxGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+
+  <!-- 复选框 -->
+  <AFormItem v-else-if="['checkbox', 'checkboxField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <ACheckboxGroup :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem v-else-if="component === 'radio' || component === 'radioField'" :name="name" :label="label" :rules="rules">
-    <ARadioGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+
+  <!-- 单选框 -->
+  <AFormItem v-else-if="['radio', 'radioField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <ARadioGroup :value="value" v-bind="fieldProps" @update:value="updateValue" />
   </AFormItem>
-  <AFormItem
-    v-else-if="component === 'select' || component === 'selectField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
-    <ASelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
-      <template v-for="item in fieldProps.options" :key="item.value">
-        <ASelectOption :value="item.value">{{ item.label }}</ASelectOption>
-      </template>
+
+  <!-- 下拉框 -->
+  <AFormItem v-else-if="['select', 'selectField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <ASelect :value="value" v-bind="fieldProps" @update:value="updateValue">
+      <ASelectOption v-for="item in fieldProps?.options || []" :key="item.value" :value="item.value">
+        {{ item.label }}
+      </ASelectOption>
     </ASelect>
   </AFormItem>
-  <AFormItem
-    v-else-if="component === 'switch' || component === 'switchField'"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+
+  <!-- 开关 -->
+  <AFormItem v-else-if="['switch', 'switchField'].includes(component)" :name="name" :label="label" :rules="rules">
     <ASwitch
-      :checked="value === 1 || value === '1' || value === true || value === 'true' ? true : false"
-      v-bind="{ ...fieldProps, prefix: undefined }"
-      @change="updateValue"
+      :checked="value === 1 || value === '1' || value === true || value === 'true'"
+      v-bind="fieldProps"
+      @update:checked="updateValue"
     />
   </AFormItem>
-  <AFormItem v-else-if="component === 'imageCaptcha' || component === 'imageCaptchaField'" :name="name" :rules="rules">
+
+  <!-- 图形验证码 -->
+  <AFormItem v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)" :name="name" :rules="rules">
     <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
-</template>
 
-<style scoped></style>
+  <!-- 分组 -->
+  <ProFormGroup v-else-if="['group', 'groupField'].includes(component)">
+    <template #default>
+      <ProFormField
+        v-if="Object.hasOwn(fieldProps?.body ?? {}, 'component')"
+        :key="fieldProps?.body?.componentkey"
+        v-bind="{ ...fieldProps?.body }"
+      />
+
+      <!-- 用 template 包裹 v-else 分支 -->
+      <template v-else>
+        <ProFormField
+          v-for="field in fieldProps?.body"
+          :key="field?.componentkey"
+          :model="model"
+          :component="field.component"
+          :name="field.name"
+          :label="field.label"
+          :rules="field.frontendRules"
+          :value="model[field.name]"
+          @update:value="val => (model[field.name] = val)"
+        />
+      </template>
+    </template>
+  </ProFormGroup>
+
+  <!-- 依赖字段 -->
+  <ProFormDependency v-else-if="['dependency', 'dependencyField'].includes(component)" :name="fieldProps?.names">
+    <template #default="{ values }">
+      <div>{{ values }}</div>
+    </template>
+  </ProFormDependency>
+</template>
