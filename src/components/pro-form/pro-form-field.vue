@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { toRefs } from 'vue';
+import tplEngine from '@/utils/template';
 
 defineOptions({
   name: 'ProFormField'
@@ -155,7 +156,24 @@ const updateValue = (value: any) => emit('update:value', value);
   <!-- 依赖字段 -->
   <ProFormDependency v-else-if="['dependency', 'dependencyField'].includes(component)" :name="fieldProps?.names">
     <template #default="{ values }">
-      <div>{{ values }}</div>
+      <template v-if="fieldProps.when">
+        <template v-for="item in fieldProps.when.items">
+          <template v-if="tplEngine(item.condition, values) === 'true'">
+            <ProFormField
+              v-for="subItem in item.body"
+              :key="subItem?.componentkey"
+              :model="model"
+              :component="subItem.component"
+              :name="subItem.name"
+              :label="subItem.label"
+              :rules="subItem.frontendRules"
+              :value="model[subItem.name]"
+              :field-props="{ ...subItem }"
+              @update:value="val => (model[subItem.name] = val)"
+            />
+          </template>
+        </template>
+      </template>
     </template>
   </ProFormDependency>
 </template>
