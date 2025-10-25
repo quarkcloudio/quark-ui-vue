@@ -36,8 +36,10 @@ const updateValue = (value: any) => {
     @change="updateValue(value)"
   >
     <ASelectOption v-for="option in fieldProps?.options" :key="option" :value="option">
-      <SvgIcon :icon="option" />
-      {{ option }}
+      <div class="flex items-center gap-2">
+        <SvgIcon :icon="option" />
+        {{ option.replace('ant-design:', '').replace('-outlined', '') }}
+      </div>
     </ASelectOption>
   </ASelect>
 </template>
