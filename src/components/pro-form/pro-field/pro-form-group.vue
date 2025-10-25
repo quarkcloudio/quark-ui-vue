@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <ASpace>
-    <slot />
-  </ASpace>
+  <div>
+    <ASpace :size="[32, 0]">
+      <slot />
+    </ASpace>
+  </div>
 </template>
