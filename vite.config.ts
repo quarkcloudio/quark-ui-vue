@@ -33,12 +33,12 @@ export default defineConfig(configEnv => {
     },
     server: {
       host: '0.0.0.0',
-      port: 5173,
+      port: 8173,
       open: true,
       proxy: createViteProxy(viteEnv, enableProxy)
     },
     preview: {
-      port: 5173
+      port: 8173
     },
     build: {
       reportCompressedSize: false,
