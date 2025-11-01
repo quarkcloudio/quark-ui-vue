@@ -20,21 +20,17 @@ const emit = defineEmits<{
 const formItemContext = Form.useInjectFormItemContext();
 
 // 初始化变量
-const { fieldProps } = toRefs(props);
+const { fieldProps, value } = toRefs(props);
 
 // 更新字段值
-const updateValue = (value: any) => {
-  emit('update:value', value);
+const updateValue = (newValue: any) => {
+  emit('update:value', newValue);
   formItemContext.onFieldChange();
 };
 </script>
 
 <template>
-  <ASelect
-    :value="value"
-    v-bind="{ ...fieldProps, prefix: undefined, options: undefined }"
-    @change="updateValue(value)"
-  >
+  <ASelect :value="value" v-bind="{ ...fieldProps, prefix: undefined, options: undefined }" @change="updateValue">
     <ASelectOption v-for="option in fieldProps?.options" :key="option" :value="option">
       <div class="flex items-center gap-2">
         <SvgIcon :icon="option" />
