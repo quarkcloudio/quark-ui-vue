@@ -1,20 +1,20 @@
 <script setup lang="tsx">
 import { toRefs } from 'vue';
+import type { FormItemProps } from 'ant-design-vue/es/form';
 import tplEngine from '@/utils/template';
 
 defineOptions({
   name: 'ProFormField'
 });
 
-const props = defineProps<{
-  component: string;
-  model: any;
-  name: string;
-  label?: string;
-  value?: any;
-  rules?: any[];
-  fieldProps?: any;
-}>();
+const props = defineProps<
+  {
+    component: string;
+    model: any;
+    value?: any;
+    fieldProps?: any;
+  } & Partial<FormItemProps>
+>();
 
 const emit = defineEmits<{
   (e: 'update:value', value: any): void;
@@ -94,6 +94,11 @@ const updateValue = (value: any) => emit('update:value', value);
   <!-- 单选框 -->
   <AFormItem v-else-if="['radio', 'radioField'].includes(component)" :name="name" :label="label" :rules="rules">
     <ARadioGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+  </AFormItem>
+
+  <!-- 图片上传 -->
+  <AFormItem v-else-if="['image', 'imageField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <ProFormImage :value="value" :field-props="fieldProps" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 下拉框 -->
