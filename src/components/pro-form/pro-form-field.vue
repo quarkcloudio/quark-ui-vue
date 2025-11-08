@@ -78,7 +78,7 @@ const updateValue = (value: any) => emit('update:value', value);
 
   <!-- 图标选择 -->
   <AFormItem v-else-if="['icon', 'iconField'].includes(component)" :name="name" :label="label" :rules="rules">
-    <ProFormIcon :value="value" :field-props="fieldProps" @update:value="updateValue" />
+    <ProFormIcon :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 隐藏域 -->
@@ -121,7 +121,7 @@ const updateValue = (value: any) => emit('update:value', value);
 
   <!-- 图形验证码 -->
   <AFormItem v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)" :name="name" :rules="rules">
-    <ProFormImageCaptcha :value="value" :field-props="fieldProps" @update:value="updateValue" />
+    <ProFormImageCaptcha :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 分组 -->

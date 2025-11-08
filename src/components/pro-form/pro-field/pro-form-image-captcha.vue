@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import { onMounted, ref, toRefs } from 'vue';
-import Form from 'ant-design-vue/es/form/Form';
+import { Form } from 'ant-design-vue';
+import type { InputProps } from 'ant-design-vue';
 import { fetchLoginCaptcha } from '@/service/api';
 
 defineOptions({
@@ -8,10 +9,13 @@ defineOptions({
 });
 
 // 定义 props
-const props = defineProps<{
-  value?: any;
-  fieldProps?: any;
-}>();
+const props = defineProps<
+  {
+    value?: any;
+    captchaUrl: string;
+    maxLength: number;
+  } & InputProps
+>();
 
 // 定义 emits
 const emit = defineEmits<{
@@ -21,7 +25,24 @@ const emit = defineEmits<{
 const formItemContext = Form.useInjectFormItemContext();
 
 // 初始化变量
-const { fieldProps } = toRefs(props);
+const {
+  addonAfter,
+  addonBefore,
+  allowClear,
+  defaultValue,
+  disabled,
+  id,
+  maxLength,
+  showCount,
+  status,
+  prefix,
+  size,
+  suffix,
+  type,
+  value,
+  placeholder,
+  captchaUrl
+} = toRefs(props);
 const captchaRef = ref<Api.Auth.LoginCaptcha>({
   uuid: '',
   img: '',
@@ -29,7 +50,7 @@ const captchaRef = ref<Api.Auth.LoginCaptcha>({
 });
 
 const refreshCaptcha = async () => {
-  const { data, error } = await fetchLoginCaptcha(fieldProps?.value?.captchaUrl);
+  const { data, error } = await fetchLoginCaptcha(captchaUrl.value);
   if (!error) {
     captchaRef.value = data;
   }
@@ -40,9 +61,9 @@ onMounted(() => {
 });
 
 // 更新字段值
-const updateValue = (value: any) => {
+const updateValue = (newValue: any) => {
   emit('update:value', {
-    value,
+    newValue,
     uuid: captchaRef.value.uuid
   });
   formItemContext.onFieldChange();
@@ -53,16 +74,28 @@ const updateValue = (value: any) => {
   <AInputGroup compact>
     <AInput
       :value="value?.value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
+      :addon-after="addonAfter"
+      :addon-before="addonBefore"
+      :id="id"
+      :allow-clear="allowClear"
+      :default-value="defaultValue"
+      :disabled="disabled"
+      :maxlength="maxLength"
+      :placeholder="placeholder"
+      :show-count="showCount"
+      :status="status"
+      :size="size"
+      :suffix="suffix"
+      :type="type"
       style="width: 60%"
       @change="updateValue($event.target.value)"
     >
       <template #prefix>
-        <div v-if="typeof fieldProps.prefix === 'object'">
-          <SvgIcon :icon="fieldProps?.prefix?.type" v-bind="fieldProps?.prefix" />
+        <div v-if="typeof prefix === 'object'">
+          <SvgIcon :icon="prefix?.type" v-bind="prefix" />
         </div>
         <div v-else>
-          {{ fieldProps.prefix }}
+          {{ prefix }}
         </div>
       </template>
     </AInput>
