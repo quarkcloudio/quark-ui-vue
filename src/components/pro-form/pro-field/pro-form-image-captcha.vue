@@ -63,7 +63,7 @@ onMounted(() => {
 // 更新字段值
 const updateValue = (newValue: any) => {
   emit('update:value', {
-    newValue,
+    value: newValue,
     uuid: captchaRef.value.uuid
   });
   formItemContext.onFieldChange();
@@ -73,10 +73,10 @@ const updateValue = (newValue: any) => {
 <template>
   <AInputGroup compact>
     <AInput
+      :id="id"
       :value="value?.value"
       :addon-after="addonAfter"
       :addon-before="addonBefore"
-      :id="id"
       :allow-clear="allowClear"
       :default-value="defaultValue"
       :disabled="disabled"
