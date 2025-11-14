@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { computed, defineProps, ref } from 'vue';
 import { Upload as AUpload, message } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import { fetchCropperData } from '@/service/api';
@@ -18,14 +18,14 @@ const props = defineProps({
   limitNum: { type: Number, required: true },
   limitWH: { type: Object, default: () => ({ width: null, height: null }) },
   mode: { type: String, required: true },
-  value: { type: [Array, String, Object], default: null },
+  value: { type: any, default: [] },
   disabled: { type: Boolean, default: false },
   typeErrorMsg: { type: String, required: true },
   sizeErrorMsg: { type: String, required: true },
   onChange: { type: Function, default: null }
 });
 
-const getFileList = ref(null);
+const getFileList = ref([]);
 const isModalOpen = ref(false);
 const imgSrc = ref('');
 const imgId = ref('');
