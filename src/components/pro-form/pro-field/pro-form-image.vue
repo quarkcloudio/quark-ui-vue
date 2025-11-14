@@ -18,7 +18,7 @@ const props = defineProps({
   limitNum: { type: Number, required: true },
   limitWH: { type: Object, default: () => ({ width: null, height: null }) },
   mode: { type: String, required: true },
-  value: { type: any, default: [] },
+  value: { type: [Array, String, Object], default: null },
   disabled: { type: Boolean, default: false },
   typeErrorMsg: { type: String, required: true },
   sizeErrorMsg: { type: String, required: true },
