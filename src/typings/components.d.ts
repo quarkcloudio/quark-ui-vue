@@ -54,6 +54,7 @@ declare module 'vue' {
     ButtonIcon: typeof import('./../components/custom/button-icon.vue')['default']
     Cancel: typeof import('./../components/action/item/cancel.vue')['default']
     CountTo: typeof import('./../components/custom/count-to.vue')['default']
+    Cropper: typeof import('./../components/cropper/index.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
     Drawer: typeof import('./../components/action/item/drawer.vue')['default']
     Engine: typeof import('./../components/engine/index.vue')['default']
