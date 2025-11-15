@@ -47,7 +47,6 @@ const uploadAction = computed(() => {
 const checkUpload = file => {
   let canUpload = false;
 
-  // 使用 for...of 替代 for 循环 with ++
   for (const type of props.limitType) {
     if (file.type.includes(type)) {
       canUpload = true;
@@ -122,14 +121,9 @@ const handlePreview = file => {
 };
 
 const onCrop = async value => {
-  const result = await fetchCropperData(props.cropAction, { id: imgId.value, file: value });
-
-  if (result.type === 'success') {
-    message.success(result.content);
+  fetchCropperData(props.cropAction, { id: imgId.value, file: value }).then(() => {
     isModalOpen.value = false;
-  } else {
-    message.error(result.content, 3);
-  }
+  });
 };
 
 const closeModal = () => {
