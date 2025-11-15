@@ -98,7 +98,7 @@ const updateValue = (value: any) => emit('update:value', value);
 
   <!-- 图片上传 -->
   <AFormItem v-else-if="['image', 'imageField'].includes(component)" :name="name" :label="label" :rules="rules">
-    <ProFormImage :value="value" :field-props="fieldProps" @update:value="updateValue" />
+    <ProFormImage :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 下拉框 -->
