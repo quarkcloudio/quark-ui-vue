@@ -8,6 +8,10 @@ const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1615691_3pgkh5uyob.js'
 });
 
+defineOptions({
+  name: 'ImageManager'
+});
+
 // 定义组件属性
 interface ImageManagerProps {
   cropAction?: string;
