@@ -2,7 +2,7 @@
 import { computed, defineProps, ref } from 'vue';
 import { Upload as AUpload, message } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
-import { fetchCropperData } from '@/service/api';
+import { fetchImageCrop } from '@/service/api';
 import { localStg } from '@/utils/storage';
 
 defineOptions({
@@ -121,7 +121,7 @@ const handlePreview = file => {
 };
 
 const onCrop = async value => {
-  fetchCropperData(props.cropAction, { id: imgId.value, file: value }).then(() => {
+  fetchImageCrop(props.cropAction, { id: imgId.value, file: value }).then(() => {
     isModalOpen.value = false;
   });
 };

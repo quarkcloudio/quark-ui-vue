@@ -18,6 +18,10 @@ import {
 
 import 'cropperjs/dist/cropper.css';
 
+defineOptions({
+  name: 'Cropper'
+});
+
 const props = defineProps({
   title: String,
   width: { type: Number, default: 980 },

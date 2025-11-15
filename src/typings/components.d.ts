@@ -69,6 +69,7 @@ declare module 'vue' {
     IconGridiconsFullscreenExit: typeof import('~icons/gridicons/fullscreen-exit')['default']
     IconLocalLogo: typeof import('~icons/local/logo')['default']
     IconMdiDrag: typeof import('~icons/mdi/drag')['default']
+    ImageManager: typeof import('./../components/image-manager/index.vue')['default']
     LangSwitch: typeof import('./../components/common/lang-switch.vue')['default']
     LookForward: typeof import('./../components/custom/look-forward.vue')['default']
     MenuToggler: typeof import('./../components/common/menu-toggler.vue')['default']
