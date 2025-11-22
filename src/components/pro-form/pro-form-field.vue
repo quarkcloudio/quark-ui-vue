@@ -110,6 +110,15 @@ const updateValue = (value: any) => emit('update:value', value);
     </ASelect>
   </AFormItem>
 
+  <AFormItem
+    v-else-if="['treeSelect', 'treeSelectField'].includes(component)"
+    :name="name"
+    :label="label"
+    :rules="rules"
+  >
+    <ATreeSelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+  </AFormItem>
+
   <!-- 开关 -->
   <AFormItem v-else-if="['switch', 'switchField'].includes(component)" :name="name" :label="label" :rules="rules">
     <ASwitch
@@ -120,8 +129,18 @@ const updateValue = (value: any) => emit('update:value', value);
   </AFormItem>
 
   <!-- 图形验证码 -->
-  <AFormItem v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)" :name="name" :rules="rules">
+  <AFormItem
+    v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)"
+    :name="name"
+    :label="label"
+    :rules="rules"
+  >
     <ProFormImageCaptcha :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
+  </AFormItem>
+
+  <!-- 穿梭框 -->
+  <AFormItem v-else-if="['transfer', 'transferField'].includes(component)" :name="name" :label="label" :rules="rules">
+    <ProFormTransfer :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 分组 -->
