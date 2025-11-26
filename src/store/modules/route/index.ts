@@ -219,6 +219,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
         return transformRoute(item);
       });
 
+      console.log(transformRoutes);
+
       addAuthRoutes(transformRoutes);
 
       handleConstantAndAuthRoutes();
@@ -250,7 +252,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       meta: node.meta
     };
 
-    if (node.type === 2) {
+    if (node.is_engine === 1) {
       // 特殊类型直接走 engine-page
       route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
       route.props = { query: JSON.parse(node.query || '{}') };
@@ -258,7 +260,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       // 有 component 时
       const comp = node.component.replace('/index', '');
       route.component = node.pid === 0 ? `layout.base$view.${comp}` : `view.${comp}`;
-    } else if (node.pid === 0 || node.children.length > 0) {
+    } else if (node.pid === 0 || node?.children?.length > 0) {
       // 根节点或有子节点但没有 component
       route.component = 'layout.base';
     } else {

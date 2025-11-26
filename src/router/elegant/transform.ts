@@ -179,6 +179,7 @@ const routeMap: RouteMap = {
   "404": "/404",
   "500": "/500",
   "about": "/about",
+  "demo": "/demo",
   "engine-page": "/engine-page/:url",
   "function": "/function",
   "function_hide-child": "/function/hide-child",
