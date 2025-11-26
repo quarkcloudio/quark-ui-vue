@@ -55,6 +55,7 @@
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
     "@sa/utils": "workspace:*",
+    "@tinymce/tinymce-vue": "^6.3.0",
     "@vueuse/core": "12.5.0",
     "ant-design-vue": "4.2.6",
     "clipboard": "2.0.11",
