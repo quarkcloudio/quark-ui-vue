@@ -40,12 +40,12 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'demo',
-    path: '/demo',
-    component: 'layout.base$view.demo',
+    name: 'develop',
+    path: '/develop',
+    component: 'layout.base$view.develop',
     meta: {
-      title: 'demo',
-      i18nKey: 'route.demo'
+      title: 'develop',
+      i18nKey: 'route.develop'
     }
   },
   {
