@@ -256,6 +256,10 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       // 特殊类型直接走 engine-page
       route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
       route.props = { query: JSON.parse(node.query || '{}') };
+    } else if (node.page_type === 4) {
+      // 特殊类型直接走 iframe-page
+      route.component = node.pid === 0 ? 'layout.base$view.iframe-page' : 'view.iframe-page';
+      route.props = JSON.parse(node.query || '{}');
     } else if (node.component) {
       // 有 component 时
       const comp = node.component.replace('/index', '');
