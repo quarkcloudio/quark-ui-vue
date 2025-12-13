@@ -256,6 +256,13 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       // 特殊类型直接走 engine-page
       route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
       route.props = { query: JSON.parse(node.query || '{}') };
+    } else if (node.page_type === 3) {
+      // 特殊类型直接走 iframe-page
+      route.component = node.pid === 0 ? 'layout.base$view.iframe-page' : 'view.iframe-page';
+      route.meta = {
+        ...node.meta,
+        href: node.path
+      };
     } else if (node.page_type === 4) {
       // 特殊类型直接走 iframe-page
       route.component = node.pid === 0 ? 'layout.base$view.iframe-page' : 'view.iframe-page';
