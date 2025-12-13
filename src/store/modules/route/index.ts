@@ -252,7 +252,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       meta: node.meta
     };
 
-    if (node.is_engine === 1) {
+    if (node.page_type === 2) {
       // 特殊类型直接走 engine-page
       route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
       route.props = { query: JSON.parse(node.query || '{}') };
