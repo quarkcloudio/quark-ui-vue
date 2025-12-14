@@ -87,24 +87,7 @@ watch(
     :scroll-to-first-error="scrollToFirstError"
     :wrapper-col="wrapperCol"
   >
-    <ProFormField
-      v-for="field in body"
-      :key="field.componentkey"
-      :model="model"
-      :value="model[field.name]"
-      :component="field.component"
-      :name="field.name"
-      :label="field.label"
-      :rules="field.frontendRules"
-      :tooltip="field.tooltip"
-      :colon="field.colon"
-      :extra="field.extra"
-      :required="field.required"
-      :help="field.help"
-      :wrapper-col="field.wrapperCol"
-      :field-props="{ ...field }"
-      @update:value="val => (model[field.name] = val)"
-    />
+    <Render :body="body" :data="model" />
     <AFormItem :wrapper-col="buttonWrapperCol">
       <ASpace class="w-full">
         <Action v-for="action in actions" :key="action.componentkey" v-bind="action" />

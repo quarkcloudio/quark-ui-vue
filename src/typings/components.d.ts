@@ -97,6 +97,7 @@ declare module 'vue' {
     ProTableHeaderOperation: typeof import('./../components/pro-table/pro-table-header-operation.vue')['default']
     ProTableSearch: typeof import('./../components/pro-table/pro-table-search.vue')['default']
     ProTableToolBar: typeof import('./../components/pro-table/pro-table-tool-bar.vue')['default']
+    ProTabs: typeof import('./../components/pro-tabs/index.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     Render: typeof import('./../components/render/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
