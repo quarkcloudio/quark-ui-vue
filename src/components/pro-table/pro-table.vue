@@ -64,6 +64,12 @@ const getColumnChecks = () =>
 
 const columnChecks = ref<any[]>(getColumnChecks());
 
+// 获取 value 对应的 label
+const getValueLabel = (options: any[], value: any) => {
+  const option = options.find(item => item.value === value);
+  return option ? option.label : value;
+};
+
 // 渲染列
 const getColumns = () => {
   const columnMap = new Map<string, any>();
@@ -80,18 +86,24 @@ const getColumns = () => {
 
       // 解析筛选项
       if (col.filters) {
-        col.filters = col?.fieldProps?.options?.map((opt: any) => ({
-          text: opt.label,
-          value: opt.value
+        col.filters = Object.entries(col.valueEnum || {}).map(([key, value]) => ({
+          text: value,
+          value: key
         }));
       }
 
       // 自定义渲染
       col.customRender = ({ text, record }: any) => {
+        if (col.valueEnum?.[text]) {
+          return col.valueEnum?.[text];
+        }
         switch (col.valueType) {
           case 'radio':
+            return getValueLabel(col?.fieldProps?.options || [], text);
+          case 'checkbox':
+            return getValueLabel(col?.fieldProps?.options || [], text);
           case 'select':
-            return col.valueEnum?.[text] ?? text;
+            return getValueLabel(col?.fieldProps?.options || [], text);
           case 'option':
             return (
               <Space>
