@@ -101,13 +101,7 @@ watch(
       :extra="field.extra"
       :required="field.required"
       :help="field.help"
-      :placeholder="field.placeholder"
-      :disabled="field.disabled"
-      :addon-after="field.addonAfter"
-      :addon-before="field.addonBefore"
       :wrapper-col="field.wrapperCol"
-      :col-props="field.colProps"
-      :secondary="field.secondary"
       :field-props="{ ...field }"
       @update:value="val => (model[field.name] = val)"
     />

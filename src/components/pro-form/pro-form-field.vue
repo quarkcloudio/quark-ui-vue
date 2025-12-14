@@ -32,13 +32,7 @@ const baseProps = (currentProps: any) => {
     extra: currentProps?.extra,
     required: currentProps?.required,
     help: currentProps?.help,
-    placeholder: currentProps?.placeholder,
-    disabled: currentProps?.disabled,
-    addonAfter: currentProps?.addonAfter,
-    addonBefore: currentProps?.addonBefore,
-    wrapperCol: currentProps?.wrapperCol,
-    colProps: currentProps?.colProps,
-    secondary: currentProps?.secondary
+    wrapperCol: currentProps?.wrapperCol
   };
 };
 
