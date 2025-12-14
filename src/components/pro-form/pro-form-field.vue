@@ -20,7 +20,27 @@ const emit = defineEmits<{
   (e: 'update:value', value: any): void;
 }>();
 
-const { component, name, rules, fieldProps, model } = toRefs(props);
+const { component, fieldProps, model } = toRefs(props);
+
+const baseProps = (currentProps: any) => {
+  return {
+    name: currentProps?.name,
+    label: currentProps?.label,
+    tooltip: currentProps?.tooltip,
+    rules: currentProps?.rules,
+    colon: currentProps?.colon,
+    extra: currentProps?.extra,
+    required: currentProps?.required,
+    help: currentProps?.help,
+    placeholder: currentProps?.placeholder,
+    disabled: currentProps?.disabled,
+    addonAfter: currentProps?.addonAfter,
+    addonBefore: currentProps?.addonBefore,
+    wrapperCol: currentProps?.wrapperCol,
+    colProps: currentProps?.colProps,
+    secondary: currentProps?.secondary
+  };
+};
 
 // 更新字段值
 const updateValue = (value: any) => emit('update:value', value);
@@ -28,12 +48,7 @@ const updateValue = (value: any) => emit('update:value', value);
 
 <template>
   <!-- 输入框 -->
-  <AFormItem
-    v-if="['input', 'inputField', 'text', 'textField'].includes(component)"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+  <AFormItem v-if="['input', 'inputField', 'text', 'textField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
       <template #prefix>
         <div v-if="typeof fieldProps?.prefix === 'object'">
@@ -45,7 +60,7 @@ const updateValue = (value: any) => emit('update:value', value);
   </AFormItem>
 
   <!-- 密码框 -->
-  <AFormItem v-else-if="['password', 'passwordField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['password', 'passwordField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <AInputPassword :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
       <template #prefix>
         <div v-if="typeof fieldProps?.prefix === 'object'">
@@ -57,52 +72,47 @@ const updateValue = (value: any) => emit('update:value', value);
   </AFormItem>
 
   <!-- 多行输入 -->
-  <AFormItem v-else-if="['textArea', 'textAreaField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['textArea', 'textAreaField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ATextarea :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 数字输入 -->
-  <AFormItem
-    v-else-if="['inputNumber', 'inputNumberField'].includes(component)"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+  <AFormItem v-else-if="['inputNumber', 'inputNumberField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <AInputNumber :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- ID 隐藏域 -->
-  <AFormItem v-else-if="['id', 'idField'].includes(component)" hidden :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['id', 'idField'].includes(component)" hidden v-bind="{ ...baseProps(props) }">
     <AInput :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 图标选择 -->
-  <AFormItem v-else-if="['icon', 'iconField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['icon', 'iconField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ProFormIcon :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 隐藏域 -->
-  <AFormItem v-else-if="['hidden', 'hiddenField'].includes(component)" :name="name" hidden>
+  <AFormItem v-else-if="['hidden', 'hiddenField'].includes(component)" hidden v-bind="{ ...baseProps(props) }">
     <AInput :value="value" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 复选框 -->
-  <AFormItem v-else-if="['checkbox', 'checkboxField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['checkbox', 'checkboxField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ACheckboxGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 单选框 -->
-  <AFormItem v-else-if="['radio', 'radioField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['radio', 'radioField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ARadioGroup :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 图片上传 -->
-  <AFormItem v-else-if="['image', 'imageField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['image', 'imageField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ProFormImage :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 下拉框 -->
-  <AFormItem v-else-if="['select', 'selectField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['select', 'selectField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ASelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue">
       <ASelectOption v-for="item in fieldProps?.options || []" :key="item.value" :value="item.value">
         {{ item.label }}
@@ -110,17 +120,12 @@ const updateValue = (value: any) => emit('update:value', value);
     </ASelect>
   </AFormItem>
 
-  <AFormItem
-    v-else-if="['treeSelect', 'treeSelectField'].includes(component)"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+  <AFormItem v-else-if="['treeSelect', 'treeSelectField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ATreeSelect :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 开关 -->
-  <AFormItem v-else-if="['switch', 'switchField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['switch', 'switchField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ASwitch
       :checked="value === 1 || value === '1' || value === true || value === 'true'"
       v-bind="{ ...fieldProps, prefix: undefined }"
@@ -129,17 +134,12 @@ const updateValue = (value: any) => emit('update:value', value);
   </AFormItem>
 
   <!-- 图形验证码 -->
-  <AFormItem
-    v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)"
-    :name="name"
-    :label="label"
-    :rules="rules"
-  >
+  <AFormItem v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ProFormImageCaptcha :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
   <!-- 穿梭框 -->
-  <AFormItem v-else-if="['transfer', 'transferField'].includes(component)" :name="name" :label="label" :rules="rules">
+  <AFormItem v-else-if="['transfer', 'transferField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ProFormTransfer :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
   </AFormItem>
 
@@ -151,8 +151,7 @@ const updateValue = (value: any) => emit('update:value', value);
         :key="fieldProps?.body?.componentkey"
         :model="model"
         :component="fieldProps?.body?.component"
-        :name="fieldProps?.body?.name"
-        :label="fieldProps?.body?.label"
+        v-bind="{ ...baseProps(fieldProps?.body) }"
         :rules="fieldProps?.body?.frontendRules"
         :value="model[fieldProps?.body?.name]"
         :field-props="{ ...fieldProps?.body }"
@@ -166,8 +165,7 @@ const updateValue = (value: any) => emit('update:value', value);
           :key="field?.componentkey"
           :model="model"
           :component="field.component"
-          :name="field.name"
-          :label="field.label"
+          v-bind="{ ...baseProps(field) }"
           :rules="field.frontendRules"
           :value="model[field.name]"
           :field-props="{ ...field }"
@@ -188,8 +186,7 @@ const updateValue = (value: any) => emit('update:value', value);
               :key="subItem?.componentkey"
               :model="model"
               :component="subItem.component"
-              :name="subItem.name"
-              :label="subItem.label"
+              v-bind="{ ...baseProps(subItem) }"
               :rules="subItem.frontendRules"
               :value="model[subItem.name]"
               :field-props="{ ...subItem }"
