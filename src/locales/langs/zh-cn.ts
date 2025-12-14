@@ -164,7 +164,8 @@ const local: App.I18n.Schema = {
     exception_403: '403',
     exception_404: '404',
     exception_500: '500',
-    'engine-page': '引擎页面'
+    'engine-page': '引擎页面',
+    account_setting: '账号设置'
   },
   page: {
     login: {

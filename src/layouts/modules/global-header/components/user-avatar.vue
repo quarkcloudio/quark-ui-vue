@@ -9,7 +9,7 @@ defineOptions({
 });
 
 const authStore = useAuthStore();
-const { toLogin } = useRouterPush();
+const { routerPushByKey, toLogin } = useRouterPush();
 
 function loginOrRegister() {
   toLogin();
@@ -37,7 +37,7 @@ function logout() {
     </ButtonIcon>
     <template #overlay>
       <AMenu>
-        <AMenuItem>
+        <AMenuItem @click="routerPushByKey('account_setting')">
           <div class="flex-center gap-8px">
             <SvgIcon icon="ph:user-circle" class="text-icon" />
             {{ $t('common.userCenter') }}

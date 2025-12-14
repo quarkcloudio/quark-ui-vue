@@ -24,6 +24,7 @@ declare module "@elegant-router/types" {
     "403": "/403";
     "404": "/404";
     "500": "/500";
+    "account_setting": "/account/setting";
     "develop": "/develop";
     "engine-page": "/engine-page/:url";
     "home": "/home";
