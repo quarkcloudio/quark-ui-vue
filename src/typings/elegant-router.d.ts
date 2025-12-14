@@ -21,14 +21,6 @@ declare module "@elegant-router/types" {
     "exception_403": "/exception/403";
     "exception_404": "/exception/404";
     "exception_500": "/exception/500";
-    "document": "/document";
-    "document_project": "/document/project";
-    "document_project-link": "/document/project-link";
-    "document_vue": "/document/vue";
-    "document_vite": "/document/vite";
-    "document_unocss": "/document/unocss";
-    "document_naive": "/document/naive";
-    "document_antd": "/document/antd";
     "403": "/403";
     "404": "/404";
     "500": "/500";
@@ -60,14 +52,6 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
   >;
 
   /**
@@ -98,7 +82,6 @@ declare module "@elegant-router/types" {
     | "root"
     | "not-found"
     | "exception"
-    | "document"
   >;
 
   /**
@@ -126,13 +109,6 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
   >;
 
   /**
@@ -195,7 +171,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-  
+
   /**
    * the center level route
    */
@@ -218,7 +194,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-  
+
   /**
    * the custom first level route
    */
