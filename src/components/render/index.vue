@@ -108,7 +108,7 @@ const sanitizedHtml = computed(() => {
       <ProTable v-bind="body" />
     </div>
     <div v-else-if="body.component === 'tabs'">
-      <ProTabs v-bind="body" />
+      <ProTabs v-bind="body" :data="data" />
     </div>
     <div v-else>Unknown component: {{ body.component }}.</div>
   </div>
