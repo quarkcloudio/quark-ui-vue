@@ -21,10 +21,11 @@ declare module "@elegant-router/types" {
     "exception_403": "/exception/403";
     "exception_404": "/exception/404";
     "exception_500": "/exception/500";
+    "account": "/account";
+    "account_setting": "/account/setting";
     "403": "/403";
     "404": "/404";
     "500": "/500";
-    "account_setting": "/account/setting";
     "develop": "/develop";
     "engine-page": "/engine-page/:url";
     "home": "/home";
@@ -53,6 +54,8 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
+    | "account"
+    | "account_setting"
   >;
 
   /**
@@ -83,6 +86,7 @@ declare module "@elegant-router/types" {
     | "root"
     | "not-found"
     | "exception"
+    | "account"
   >;
 
   /**
@@ -110,6 +114,7 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
+    | "account_setting"
   >;
 
   /**
@@ -172,7 +177,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-
+  
   /**
    * the center level route
    */
@@ -195,7 +200,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-
+  
   /**
    * the custom first level route
    */
