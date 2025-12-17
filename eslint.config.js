@@ -18,6 +18,7 @@ export default defineConfig(
           ignores: ['/^icon-/']
         }
       ],
+      'vue/no-reserved-component-names': 'off',
       'unocss/order-attributify': 'off'
     }
   }

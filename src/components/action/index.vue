@@ -26,6 +26,10 @@ interface Props {
   confirmTitle?: string;
   confirmText?: string;
   confirmType?: string;
+  checkedChildren?: string;
+  unCheckedChildren?: string;
+  fieldName?: string;
+  fieldValue?: any;
 }
 
 const {
@@ -48,7 +52,11 @@ const {
   drawer,
   confirmTitle,
   confirmText,
-  confirmType
+  confirmType,
+  checkedChildren,
+  unCheckedChildren,
+  fieldName,
+  fieldValue
 } = defineProps<Props>();
 
 const emit = defineEmits(['click']);
@@ -186,6 +194,21 @@ const onClick = ($event: MouseEvent) => {
       :block="block"
       :danger="danger"
       :shape="shape"
+      :data="data"
+      :confirm-title="confirmTitle"
+      :confirm-text="confirmText"
+      :confirm-type="confirmType"
+      @click="onClick"
+    />
+  </div>
+  <div v-else-if="actionType === 'switch'">
+    <Switch
+      :api="api"
+      :size="size"
+      :field-name="fieldName"
+      :field-value="fieldValue"
+      :checked-children="checkedChildren"
+      :un-checked-children="unCheckedChildren"
       :data="data"
       :confirm-title="confirmTitle"
       :confirm-text="confirmText"

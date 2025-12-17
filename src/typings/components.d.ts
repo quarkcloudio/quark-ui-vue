@@ -108,6 +108,7 @@ declare module 'vue' {
     SoybeanAvatar: typeof import('./../components/custom/soybean-avatar.vue')['default']
     Submit: typeof import('./../components/action/item/submit.vue')['default']
     SvgIcon: typeof import('./../components/custom/svg-icon.vue')['default']
+    Switch: typeof import('./../components/action/item/switch.vue')['default']
     SystemLogo: typeof import('./../components/common/system-logo.vue')['default']
     TableColumnSetting: typeof import('./../components/advanced/table-column-setting.vue')['default']
     TableHeaderOperation: typeof import('./../components/advanced/table-header-operation.vue')['default']
