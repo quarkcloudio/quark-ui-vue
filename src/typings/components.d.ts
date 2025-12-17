@@ -102,6 +102,7 @@ declare module 'vue' {
     ProTabs: typeof import('./../components/pro-tabs/index.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     Render: typeof import('./../components/render/index.vue')['default']
+    Reset: typeof import('./../components/action/item/reset.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SoybeanAvatar: typeof import('./../components/custom/soybean-avatar.vue')['default']

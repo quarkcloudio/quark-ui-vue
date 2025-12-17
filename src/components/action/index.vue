@@ -175,6 +175,24 @@ const onClick = ($event: MouseEvent) => {
       @click="onClick"
     />
   </div>
+  <div v-else-if="actionType === 'reset'">
+    <Reset
+      :label="label"
+      :icon="icon"
+      :size="size"
+      :type="type"
+      :disabled="disabled"
+      :ghost="ghost"
+      :block="block"
+      :danger="danger"
+      :shape="shape"
+      :data="data"
+      :confirm-title="confirmTitle"
+      :confirm-text="confirmText"
+      :confirm-type="confirmType"
+      @click="onClick"
+    />
+  </div>
   <div v-else>
     <AButton
       :size="size"
