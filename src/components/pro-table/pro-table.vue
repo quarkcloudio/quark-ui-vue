@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { ref, toRefs, watch } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import type { TableColumnType, TableProps } from 'ant-design-vue';
 import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
@@ -14,6 +14,7 @@ interface ProTableProps {
   headerTitle?: string;
   search?: Record<string, any>;
   toolBar?: Record<string, any>;
+  treeBar?: Record<string, any>;
   pagination?: any;
 }
 
@@ -22,7 +23,7 @@ defineOptions({
 });
 
 const props = defineProps<ProTableProps>();
-const { rowKey, columns, headerTitle, search, toolBar } = toRefs(props);
+const { rowKey, columns, headerTitle, search, toolBar, treeBar } = toRefs(props);
 const { getEngineApi } = useEngine();
 const datasource = ref<Record<string, any>[]>(props.datasource || []);
 const loading = ref(false);
@@ -41,6 +42,7 @@ const queryParams = ref<any>({
     pageSize: pagination.value?.pageSize
   }
 });
+const searchValue = ref<string>('');
 
 // 重置
 const onReset = () => {
@@ -138,11 +140,13 @@ watch(
     if (loading.value) return;
     loading.value = true;
     try {
-      const { data }: any = await fetchTableData(getEngineApi(), {
-        filters: JSON.stringify(newVal.filters),
-        sorter: JSON.stringify(newVal.sorter),
-        search: JSON.stringify({ ...newVal.search, ...newVal.pagination })
-      });
+      const queryData: any = {};
+      queryData[treeBar?.value?.name || ''] = JSON.stringify(newVal[treeBar?.value?.name || '']);
+      queryData.filters = JSON.stringify(newVal.filters);
+      queryData.sorter = JSON.stringify(newVal.sorter);
+      queryData.search = JSON.stringify(newVal.search);
+      queryData.pagination = JSON.stringify(newVal.pagination);
+      const { data }: any = await fetchTableData(getEngineApi(), queryData);
       datasource.value = data?.datasource || [];
       selectedRowKeys.value = [];
       pagination.value = { ...pagination.value, ...data.pagination };
@@ -181,25 +185,100 @@ const onSearch = (values: any) => {
 const onExport = () => {
   queryParams.value = { ...queryParams.value };
 };
+
+// 计算属性会自动追踪依赖变化
+const treeData = computed(() => {
+  const loop = (data: any): any => {
+    return (
+      data?.reduce((acc: any, item: any) => {
+        const strTitle = item.title as string;
+        const index = strTitle.indexOf(searchValue.value);
+
+        if (index > -1) {
+          acc.push({ ...item });
+        } else if (item.children) {
+          const filteredChildren = loop(item.children);
+          if (filteredChildren.length > 0) {
+            acc.push({ ...item, children: filteredChildren });
+          }
+        }
+        return acc;
+      }, []) || []
+    );
+  };
+
+  return loop(treeBar.value?.treeData);
+});
+
+// 树形选择改变
+const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
+  const data: any = {};
+  data[treeBar?.value?.name || ''] = newSelectedKeys;
+  queryParams.value = {
+    ...queryParams.value,
+    pagination: { current: 1, pageSize: pagination.value?.pageSize || 10 },
+    ...data
+  };
+};
 </script>
 
 <template>
-  <ProTableSearch v-if="search?.items" v-bind="search" @search="onSearch" @reset="onReset" @export="onExport" />
-  <ACard :title="headerTitle" class="mt-16px">
-    <template #extra>
-      <div class="flex items-center gap-x-12px py-12px">
-        <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
-        <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
-      </div>
-    </template>
-    <ATable
-      :row-key="rowKey"
-      :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
-      :columns="parsedColumns"
-      :data-source="datasource"
-      :loading="loading"
-      :pagination="pagination"
-      @change="handleTableChange"
-    />
-  </ACard>
+  <ARow v-if="treeBar?.treeData" :gutter="16">
+    <ACol :span="4">
+      <ACard class="h-full w-full">
+        <AInputSearch
+          v-model:value="searchValue"
+          style="margin-bottom: 8px"
+          :placeholder="treeBar?.placeholder"
+          :allow-clear="true"
+        />
+        <ATree
+          :show-line="treeBar?.showLine"
+          :tree-data="treeData"
+          :default-expand-all="treeBar?.defaultExpandAll"
+          @select="onTreeBarSelectChange"
+        />
+      </ACard>
+    </ACol>
+    <ACol :span="20">
+      <ProTableSearch v-if="search?.items" v-bind="search" @search="onSearch" @reset="onReset" @export="onExport" />
+      <ACard :title="headerTitle" class="mt-16px">
+        <template #extra>
+          <div class="flex items-center gap-x-12px py-12px">
+            <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
+            <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
+          </div>
+        </template>
+        <ATable
+          :row-key="rowKey"
+          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+          :columns="parsedColumns"
+          :data-source="datasource"
+          :loading="loading"
+          :pagination="pagination"
+          @change="handleTableChange"
+        />
+      </ACard>
+    </ACol>
+  </ARow>
+  <div v-else>
+    <ProTableSearch v-if="search?.items" v-bind="search" @search="onSearch" @reset="onReset" @export="onExport" />
+    <ACard :title="headerTitle" class="mt-16px">
+      <template #extra>
+        <div class="flex items-center gap-x-12px py-12px">
+          <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
+          <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
+        </div>
+      </template>
+      <ATable
+        :row-key="rowKey"
+        :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+        :columns="parsedColumns"
+        :data-source="datasource"
+        :loading="loading"
+        :pagination="pagination"
+        @change="handleTableChange"
+      />
+    </ACard>
+  </div>
 </template>
