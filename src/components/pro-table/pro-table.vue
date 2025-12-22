@@ -257,7 +257,13 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
           :loading="loading"
           :pagination="pagination"
           @change="handleTableChange"
-        />
+        >
+          <template #bodyCell="{ column, text, record }">
+            <template v-if="(column as any)?.editable">
+              <ProTableEditable :data-index="column.dataIndex" :column="column" :text="text" :record="record" />
+            </template>
+          </template>
+        </ATable>
       </ACard>
     </ACol>
   </ARow>

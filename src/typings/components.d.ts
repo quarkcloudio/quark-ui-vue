@@ -98,6 +98,7 @@ declare module 'vue' {
     ProFormTransfer: typeof import('./../components/pro-form/pro-field/pro-form-transfer.vue')['default']
     ProTable: typeof import('./../components/pro-table/pro-table.vue')['default']
     ProTableColumnSetting: typeof import('./../components/pro-table/pro-table-column-setting.vue')['default']
+    ProTableEditable: typeof import('./../components/pro-table/pro-table-editable.vue')['default']
     ProTableHeaderOperation: typeof import('./../components/pro-table/pro-table-header-operation.vue')['default']
     ProTableSearch: typeof import('./../components/pro-table/pro-table-search.vue')['default']
     ProTableToolBar: typeof import('./../components/pro-table/pro-table-tool-bar.vue')['default']
