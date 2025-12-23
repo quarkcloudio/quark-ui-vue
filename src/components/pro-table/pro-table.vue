@@ -4,7 +4,7 @@ import type { TableColumnType, TableProps } from 'ant-design-vue';
 import { Space } from 'ant-design-vue';
 import Render from '@/components/render/index.vue';
 import { useEngine } from '@/hooks/common/engine';
-import { fetchTableData } from '@/service/api';
+import { fetchTableData, fetchTableEditableAction } from '@/service/api';
 import Action from '@/components/action/index.vue';
 
 interface ProTableProps {
@@ -124,6 +124,24 @@ const getColumns = () => {
 const parsedColumns = ref<any[]>(getColumns());
 const selectedRowKeys = ref<any[]>([]);
 
+const onRequest = async (newQueryParams: any = queryParams.value) => {
+  loading.value = true;
+  try {
+    const queryData: any = {};
+    queryData[treeBar?.value?.name || ''] = JSON.stringify(newQueryParams[treeBar?.value?.name || '']);
+    queryData.filters = JSON.stringify(newQueryParams.filters);
+    queryData.sorter = JSON.stringify(newQueryParams.sorter);
+    queryData.search = JSON.stringify(newQueryParams.search);
+    queryData.pagination = JSON.stringify(newQueryParams.pagination);
+    const { data }: any = await fetchTableData(getEngineApi(), queryData);
+    datasource.value = data?.datasource || [];
+    selectedRowKeys.value = [];
+    pagination.value = { ...pagination.value, ...data.pagination };
+  } finally {
+    loading.value = false;
+  }
+};
+
 // 监听列变化
 watch(
   [columns, columnChecks],
@@ -138,21 +156,7 @@ watch(
   queryParams,
   async newVal => {
     if (loading.value) return;
-    loading.value = true;
-    try {
-      const queryData: any = {};
-      queryData[treeBar?.value?.name || ''] = JSON.stringify(newVal[treeBar?.value?.name || '']);
-      queryData.filters = JSON.stringify(newVal.filters);
-      queryData.sorter = JSON.stringify(newVal.sorter);
-      queryData.search = JSON.stringify(newVal.search);
-      queryData.pagination = JSON.stringify(newVal.pagination);
-      const { data }: any = await fetchTableData(getEngineApi(), queryData);
-      datasource.value = data?.datasource || [];
-      selectedRowKeys.value = [];
-      pagination.value = { ...pagination.value, ...data.pagination };
-    } finally {
-      loading.value = false;
-    }
+    await onRequest(newVal);
   },
   { deep: true, immediate: true }
 );
@@ -220,6 +224,13 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
     ...data
   };
 };
+
+const onSave = async (record: any, model: any, editable: any) => {
+  const res = await fetchTableEditableAction(editable.action, { id: record.id, ...model });
+  if (!res.error) {
+    await onRequest();
+  }
+};
 </script>
 
 <template>
@@ -245,8 +256,8 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
       <ACard :title="headerTitle" class="mt-16px">
         <template #extra>
           <div class="flex items-center gap-x-12px py-12px">
-            <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
-            <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
+            <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onRequest" />
+            <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
           </div>
         </template>
         <ATable
@@ -260,7 +271,13 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
         >
           <template #bodyCell="{ column, text, record }">
             <template v-if="(column as any)?.editable">
-              <ProTableEditable :data-index="column.dataIndex" :column="column" :text="text" :record="record" />
+              <ProTableEditable
+                :data-index="column.dataIndex"
+                :column="column"
+                :text="text"
+                :record="record"
+                @save="onSave"
+              />
             </template>
           </template>
         </ATable>
@@ -272,8 +289,8 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
     <ACard :title="headerTitle" class="mt-16px">
       <template #extra>
         <div class="flex items-center gap-x-12px py-12px">
-          <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onReset" />
-          <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onReset" />
+          <ProTableToolBar :actions="toolBar?.actions" :selected-row-keys="selectedRowKeys" @refresh="onRequest" />
+          <ProTableHeaderOperation v-model:columns="columnChecks" @refresh="onRequest" />
         </div>
       </template>
       <ATable
@@ -284,7 +301,19 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
         :loading="loading"
         :pagination="pagination"
         @change="handleTableChange"
-      />
+      >
+        <template #bodyCell="{ column, text, record }">
+          <template v-if="(column as any)?.editable">
+            <ProTableEditable
+              :data-index="column.dataIndex"
+              :column="column"
+              :text="text"
+              :record="record"
+              @save="onSave"
+            />
+          </template>
+        </template>
+      </ATable>
     </ACard>
   </div>
 </template>

@@ -14,7 +14,9 @@ defineOptions({
 });
 
 const { alwaysEditing, text, column, dataIndex, record } = defineProps<ProTableEditableProps>();
-const model: any = reactive(record);
+const model: any = reactive({
+  [dataIndex]: record[dataIndex]
+});
 const editing = ref(false);
 const emit = defineEmits(['save']);
 const handleEdit = () => {
@@ -33,7 +35,8 @@ const switchChecked = computed<boolean>({
 
 async function handleSave() {
   editing.value = false;
-  emit('save', model);
+  console.log('model:', model);
+  emit('save', record, model, column?.editable);
 }
 </script>
 
