@@ -225,7 +225,7 @@ const onTreeBarSelectChange = (newSelectedKeys: any[], _info: any) => {
   };
 };
 
-const onSave = async (record: any, model: any, editable: any) => {
+const onEditableSave = async (record: any, model: any, editable: any) => {
   const res = await fetchTableEditableAction(editable.action, { id: record.id, ...model });
   if (!res.error) {
     await onRequest();
@@ -276,7 +276,7 @@ const onSave = async (record: any, model: any, editable: any) => {
                 :column="column"
                 :text="text"
                 :record="record"
-                @save="onSave"
+                @save="onEditableSave"
               />
             </template>
           </template>
@@ -309,7 +309,7 @@ const onSave = async (record: any, model: any, editable: any) => {
               :column="column"
               :text="text"
               :record="record"
-              @save="onSave"
+              @save="onEditableSave"
             />
           </template>
         </template>
