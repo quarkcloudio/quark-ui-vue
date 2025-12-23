@@ -43,10 +43,7 @@ async function handleSave() {
 <template>
   <div v-if="column?.editable" class="editable-cell">
     <template v-if="column?.editable.name === 'textField'">
-      <div
-        v-if="alwaysEditing || editing"
-        class="hover:px-[11px]editable-cell-input-wrapper cursor-pointer p-[5px] px-[12px] hover:min-h-[32px] hover:border hover:border-[#d9d9d9] hover:rounded-[2px] hover:p-[4px]"
-      >
+      <div v-if="alwaysEditing || editing">
         <AInput v-model:value="model[dataIndex]" @press-enter="handleSave()" @blur="handleSave()" />
       </div>
       <div
@@ -58,10 +55,7 @@ async function handleSave() {
       </div>
     </template>
     <template v-else-if="column?.editable.name === 'inputNumberField'">
-      <div
-        v-if="alwaysEditing || editing"
-        class="hover:px-[11px]editable-cell-input-wrapper cursor-pointer p-[5px] px-[12px] hover:min-h-[32px] hover:border hover:border-[#d9d9d9] hover:rounded-[2px] hover:p-[4px]"
-      >
+      <div v-if="alwaysEditing || editing">
         <AInputNumber v-model:value="model[dataIndex]" @press-enter="handleSave()" @blur="handleSave()" />
       </div>
       <div
@@ -84,10 +78,7 @@ async function handleSave() {
       <ASelect v-model:value="model[dataIndex]" :options="column?.editable.options" @change="handleSave()" />
     </template>
     <template v-else>
-      <div
-        v-if="alwaysEditing || editing"
-        class="hover:px-[11px]editable-cell-input-wrapper cursor-pointer p-[5px] px-[12px] hover:min-h-[32px] hover:border hover:border-[#d9d9d9] hover:rounded-[2px] hover:p-[4px]"
-      >
+      <div v-if="alwaysEditing || editing">
         <AInput v-model:value="model[dataIndex]" @press-enter="handleSave()" @blur="handleSave()" />
       </div>
       <div
