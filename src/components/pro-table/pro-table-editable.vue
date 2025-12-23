@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 
 interface ProTableEditableProps {
   alwaysEditing?: boolean;
@@ -23,6 +23,15 @@ const handleEdit = () => {
   editing.value = true;
 };
 
+// 监听 record 变化，同步到 model
+watch(
+  () => record[dataIndex],
+  (newValue: any) => {
+    model[dataIndex] = newValue;
+  },
+  { immediate: true }
+);
+
 // 计算 switch 绑定的布尔值
 const switchChecked = computed<boolean>({
   get() {
@@ -35,7 +44,6 @@ const switchChecked = computed<boolean>({
 
 async function handleSave() {
   editing.value = false;
-  console.log('model:', model);
   emit('save', record, model, column?.editable);
 }
 </script>
