@@ -128,13 +128,17 @@ const updateValue = (value: any) => emit('update:value', value);
   </AFormItem>
 
   <AFormItem v-else-if="['date', 'dateField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ADatePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+    <ADatePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['week', 'weekField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ADatePicker
       :value="value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
       picker="week"
       @update:value="updateValue"
     />
@@ -143,7 +147,7 @@ const updateValue = (value: any) => emit('update:value', value);
   <AFormItem v-else-if="['month', 'monthField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ADatePicker
       :value="value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
       picker="month"
       @update:value="updateValue"
     />
@@ -152,7 +156,7 @@ const updateValue = (value: any) => emit('update:value', value);
   <AFormItem v-else-if="['quarter', 'quarterField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ADatePicker
       :value="value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
       picker="quarter"
       @update:value="updateValue"
     />
@@ -161,30 +165,52 @@ const updateValue = (value: any) => emit('update:value', value);
   <AFormItem v-else-if="['year', 'yearField'].includes(component)" v-bind="{ ...baseProps(props) }">
     <ADatePicker
       :value="value"
-      v-bind="{ ...fieldProps, prefix: undefined }"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
       picker="year"
       @update:value="updateValue"
     />
   </AFormItem>
 
   <AFormItem v-else-if="['datetime', 'datetimeField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ADatePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" show-time @update:value="updateValue" />
+    <ADatePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      show-time
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['dateRange', 'dateRangeField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ARangePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+    <ARangePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['datetimeRange', 'datetimeRangeField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ARangePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" show-time @update:value="updateValue" />
+    <ARangePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      show-time
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['time', 'timeField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ATimePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+    <ATimePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['timeRange', 'timeRangeField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ATimeRangePicker :value="value" v-bind="{ ...fieldProps, prefix: undefined }" @update:value="updateValue" />
+    <ATimeRangePicker
+      :value="value"
+      v-bind="{ ...fieldProps, prefix: undefined, valueFormat: fieldProps?.format }"
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <AFormItem v-else-if="['display', 'displayField'].includes(component)" v-bind="{ ...baseProps(props) }">
