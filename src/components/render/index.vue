@@ -80,7 +80,7 @@ const sanitizedHtml = computed(() => {
       <AImage v-bind="body" />
     </div>
     <div v-else-if="body.component === 'card'">
-      <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" />
+      <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" :data="data" />
     </div>
     <div v-else-if="body.component === 'form'">
       <ProForm v-bind="body" :data="data" />
@@ -101,6 +101,7 @@ const sanitizedHtml = computed(() => {
         :required="body.required"
         :help="body.help"
         :wrapper-col="body.wrapperCol"
+        :data="data"
         @update:value="val => (data[body.name] = val)"
       />
     </div>
