@@ -19,6 +19,7 @@ export default defineConfig(
         }
       ],
       'vue/no-reserved-component-names': 'off',
+      complexity: 'off',
       'unocss/order-attributify': 'off'
     }
   }

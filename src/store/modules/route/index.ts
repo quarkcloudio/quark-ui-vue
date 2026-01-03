@@ -252,18 +252,18 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       meta: node.meta
     };
 
-    if (node.page_type === 2) {
+    if (node?.page_type === 2 || node?.pageType === 2) {
       // 引擎页面
       route.component = node.pid === 0 ? 'layout.base$view.engine-page' : 'view.engine-page';
       route.props = { query: JSON.parse(node.query || '{}') };
-    } else if (node.page_type === 3) {
+    } else if (node?.page_type === 3 || node?.pageType === 3) {
       // 外链页面
       route.component = 'view.iframe-page';
       route.meta = {
         ...node.meta,
         href: node.path
       };
-    } else if (node.page_type === 4) {
+    } else if (node?.page_type === 4 || node?.pageType === 4) {
       // iframe页面
       route.component = node.pid === 0 ? 'layout.base$view.iframe-page' : 'view.iframe-page';
       route.props = JSON.parse(node.query || '{}');
