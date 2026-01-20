@@ -287,17 +287,30 @@ const updateValue = (value: any) => emit('update:value', value);
       <template v-if="fieldProps.when">
         <template v-for="item in fieldProps.when.items">
           <template v-if="tplEngine(item.condition, values) === 'true'">
-            <ProFormField
-              v-for="subItem in item.body"
-              :key="subItem?.componentkey"
-              :model="model"
-              :component="subItem.component"
-              v-bind="{ ...baseProps(subItem) }"
-              :rules="subItem.frontendRules"
-              :value="model[subItem.name]"
-              :field-props="{ ...subItem }"
-              @update:value="val => (model[subItem.name] = val)"
-            />
+            <template v-if="Array.isArray(item.body)">
+              <ProFormField
+                v-for="subItem in item.body"
+                :key="subItem?.componentkey"
+                :model="model"
+                :component="subItem.component"
+                v-bind="{ ...baseProps(subItem) }"
+                :rules="subItem.frontendRules"
+                :value="model[subItem.name]"
+                :field-props="{ ...subItem }"
+                @update:value="val => (model[subItem.name] = val)"
+              />
+            </template>
+            <template v-else>
+              <ProFormField
+                :key="item?.body?.componentkey"
+                :model="model"
+                :component="item?.body?.component"
+                v-bind="{ ...baseProps(item?.body) }"
+                :rules="item?.body?.frontendRules"
+                :value="model[item?.body?.name]"
+                :field-props="{ ...item?.body }"
+              />
+            </template>
           </template>
         </template>
       </template>
