@@ -26,8 +26,7 @@ const showModal = () => {
   open.value = true;
 };
 
-const handleOk = (e: MouseEvent) => {
-  console.log(e);
+const handleOk = (_: MouseEvent) => {
   open.value = false;
 };
 
@@ -36,8 +35,6 @@ const onClick = ($event: MouseEvent) => {
   handleOk($event);
   emit('click', $event);
 };
-
-console.log('data', data);
 </script>
 
 <template>
