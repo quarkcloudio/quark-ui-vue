@@ -22,18 +22,25 @@ interface Props {
 
 const { size, type, disabled, ghost, block, danger, shape, modal, data } = defineProps<Props>();
 const open = ref(false);
+
 const showModal = () => {
   open.value = true;
 };
 
 const handleOk = (_: MouseEvent) => {
-  open.value = false;
+  // 使用 Promise 微任务，避免同步状态变更冲突
+  Promise.resolve().then(() => {
+    open.value = false;
+  });
 };
 
 const emit = defineEmits(['click']);
 const onClick = ($event: MouseEvent) => {
   handleOk($event);
-  emit('click', $event);
+  // 确保点击事件在模态框状态更新后触发
+  Promise.resolve().then(() => {
+    emit('click', $event);
+  });
 };
 </script>
 
