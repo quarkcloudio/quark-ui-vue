@@ -28,7 +28,6 @@ const showModal = () => {
 };
 
 const handleOk = (_: MouseEvent) => {
-  // 使用 Promise 微任务，避免同步状态变更冲突
   Promise.resolve().then(() => {
     open.value = false;
   });
@@ -36,8 +35,7 @@ const handleOk = (_: MouseEvent) => {
 
 const emit = defineEmits(['click']);
 const onClick = ($event: MouseEvent) => {
-  handleOk($event);
-  // 确保点击事件在模态框状态更新后触发
+  open.value = false;
   Promise.resolve().then(() => {
     emit('click', $event);
   });

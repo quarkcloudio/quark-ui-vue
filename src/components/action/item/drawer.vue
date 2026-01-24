@@ -27,13 +27,17 @@ const showDrawer = () => {
 };
 
 const onClose = () => {
-  open.value = false;
+  Promise.resolve().then(() => {
+    open.value = false;
+  });
 };
 
 const emit = defineEmits(['click']);
 const onClick = ($event: MouseEvent) => {
-  onClose();
-  emit('click', $event);
+  open.value = false;
+  Promise.resolve().then(() => {
+    emit('click', $event);
+  });
 };
 </script>
 
