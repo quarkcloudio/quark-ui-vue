@@ -71,21 +71,21 @@ const sanitizedHtml = computed(() => {
 
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
-  <div v-if="typeof body === 'string' || typeof body === 'number'" v-html="sanitizedHtml" />
-  <div v-else-if="body?.component">
+  <span v-if="typeof body === 'string' || typeof body === 'number'" v-html="sanitizedHtml" />
+  <template v-else-if="body?.component">
     <div v-if="body.component === 'view'" :style="body.style">
       <Render :body="body.body" :data="data" />
     </div>
-    <div v-else-if="body.component === 'image'">
+    <template v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
-    </div>
-    <div v-else-if="body.component === 'card'">
+    </template>
+    <template v-else-if="body.component === 'card'">
       <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" :data="data" />
-    </div>
-    <div v-else-if="body.component === 'form'">
+    </template>
+    <template v-else-if="body.component === 'form'">
       <ProForm v-bind="body" :data="data" />
-    </div>
-    <div v-else-if="fieldNames.includes(body.component)">
+    </template>
+    <template v-else-if="fieldNames.includes(body.component)">
       <ProFormField
         :key="body.componentkey"
         :field-props="{ ...body }"
@@ -104,20 +104,20 @@ const sanitizedHtml = computed(() => {
         :data="data"
         @update:value="val => (data[body.name] = val)"
       />
-    </div>
-    <div v-else-if="body.component === 'table'">
+    </template>
+    <template v-else-if="body.component === 'table'">
       <ProTable v-bind="body" />
-    </div>
-    <div v-else-if="body.component === 'tabs'">
+    </template>
+    <template v-else-if="body.component === 'tabs'">
       <ProTabs v-bind="body" :data="data" />
-    </div>
-    <div v-else>Unknown component: {{ body.component }}.</div>
-  </div>
-  <div v-else>
-    <div v-for="(item, index) in body" :key="index">
+    </template>
+    <template v-else>Unknown component: {{ body.component }}.</template>
+  </template>
+  <template v-else>
+    <template v-for="(item, _index) in body" :key="_index">
       <Render :body="item" :data="data" />
-    </div>
-  </div>
+    </template>
+  </template>
 </template>
 
 <style scoped></style>
