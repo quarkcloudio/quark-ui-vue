@@ -79,6 +79,21 @@ const sanitizedHtml = computed(() => {
     <template v-else-if="body.component === 'image'">
       <AImage v-bind="body" />
     </template>
+    <template v-else-if="body.component === 'col'">
+      <ACol v-bind="body"><Render :body="body.body" :data="data" /></ACol>
+    </template>
+    <template v-else-if="body.component === 'row'">
+      <ARow v-bind="body"><Render :body="body.body" :data="data" /></ARow>
+    </template>
+    <template v-else-if="body.component === 'statistic'">
+      <AStatistic v-bind="body" />
+    </template>
+    <template v-else-if="body.component === 'descriptions'">
+      <ProDescriptions v-bind="body" />
+    </template>
+    <template v-else-if="body.component === 'text'">
+      <ATypographyText v-bind="body"><Render :body="body.body" :data="data" /></ATypographyText>
+    </template>
     <template v-else-if="body.component === 'card'">
       <ProCard v-bind="body" :extra="undefined" :prop-extra="body.extra" :data="data" />
     </template>
