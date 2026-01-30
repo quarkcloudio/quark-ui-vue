@@ -134,6 +134,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   function setAuthComponent(component: Api.Auth.AuthComponent) {
     Object.assign(authComponent, component);
     localStg.set('authComponent', authComponent);
+    localStg.set('appTitle', component?.title || '');
   }
 
   return {

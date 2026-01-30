@@ -37,5 +37,7 @@ declare namespace StorageType {
       layout: UnionKey.ThemeLayoutMode;
       siderCollapse: boolean;
     };
+    /** The app title */
+    appTitle: string;
   }
 }
