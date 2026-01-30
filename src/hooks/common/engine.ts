@@ -35,6 +35,14 @@ export function useEngine() {
     return globalEngine.engineFormRef;
   };
 
+  const setEngineImageCaptchaRef = (value: any) => {
+    globalEngine.engineImageCaptchaRef = value;
+  };
+
+  const getEngineImageCaptchaRef = () => {
+    return globalEngine.engineImageCaptchaRef;
+  };
+
   return {
     globalEngine,
     setEngineApi,
@@ -44,6 +52,8 @@ export function useEngine() {
     setEngineFormApi,
     getEngineFormApi,
     setEngineFormRef,
-    getEngineFormRef
+    getEngineFormRef,
+    setEngineImageCaptchaRef,
+    getEngineImageCaptchaRef
   };
 }

@@ -1,7 +1,9 @@
 <script setup lang="tsx">
-import { toRefs } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import type { FormItemProps } from 'ant-design-vue/es/form';
+import { useEngine } from '@/hooks/common/engine';
 import tplEngine from '@/utils/template';
+import type { ProFormImageCaptchaRef } from './pro-field/pro-form-image-captcha.vue';
 
 defineOptions({
   name: 'ProFormField'
@@ -17,11 +19,25 @@ const props = defineProps<
   } & Partial<FormItemProps>
 >();
 
+const { setEngineImageCaptchaRef } = useEngine();
+
+const captchaComponentRef = ref<ProFormImageCaptchaRef>();
+
 const emit = defineEmits<{
   (e: 'update:value', value: any): void;
 }>();
 
 const { component, fieldProps, model } = toRefs(props);
+
+watch(
+  captchaComponentRef,
+  newVal => {
+    if (newVal) {
+      setEngineImageCaptchaRef(newVal);
+    }
+  },
+  { immediate: true }
+);
 
 const baseProps = (currentProps: any) => {
   return {
@@ -241,7 +257,12 @@ const updateValue = (value: any) => emit('update:value', value);
 
   <!-- 图形验证码 -->
   <AFormItem v-else-if="['imageCaptcha', 'imageCaptchaField'].includes(component)" v-bind="{ ...baseProps(props) }">
-    <ProFormImageCaptcha :value="value" v-bind="{ ...fieldProps }" @update:value="updateValue" />
+    <ProFormImageCaptcha
+      ref="captchaComponentRef"
+      :value="value"
+      v-bind="{ ...fieldProps }"
+      @update:value="updateValue"
+    />
   </AFormItem>
 
   <!-- 穿梭框 -->

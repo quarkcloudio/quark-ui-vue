@@ -7,11 +7,13 @@ import { useThemeStore } from '@/store/modules/theme';
 import { fetchAuthComponent } from '@/service/api';
 import { useAntdForm } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
+import { useEngine } from '@/hooks/common/engine';
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const authStore = useAuthStore();
 const { formRef, validate } = useAntdForm();
+const { getEngineImageCaptchaRef } = useEngine();
 
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
@@ -41,6 +43,7 @@ onMounted(async () => {
 
 async function handleSubmit() {
   await validate();
+  getEngineImageCaptchaRef()?.refreshCaptcha();
   await authStore.login(model);
 }
 </script>

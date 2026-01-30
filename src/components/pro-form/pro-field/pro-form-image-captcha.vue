@@ -4,6 +4,11 @@ import { Form } from 'ant-design-vue';
 import type { InputProps } from 'ant-design-vue';
 import { fetchLoginCaptcha } from '@/service/api';
 
+// 将接口导出，以便其他文件可以引用
+export interface ProFormImageCaptchaRef {
+  refreshCaptcha: () => Promise<void>;
+}
+
 defineOptions({
   name: 'ProFormImageCaptcha'
 });
@@ -68,6 +73,11 @@ const updateValue = (newValue: any) => {
   });
   formItemContext.onFieldChange();
 };
+
+// 暴露给父组件的方法
+defineExpose<ProFormImageCaptchaRef>({
+  refreshCaptcha
+});
 </script>
 
 <template>
