@@ -23,8 +23,10 @@ defineOptions({
 });
 
 const props = defineProps<ProTableProps>();
-const { rowKey, columns, headerTitle, search, toolBar, treeBar } = toRefs(props);
+const { rowKey, headerTitle, search, treeBar } = toRefs(props);
 const { getEngineApi } = useEngine();
+const columns = ref<any[]>(props.columns || []);
+const toolBar = ref<Record<string, any>>(props.toolBar || {});
 const datasource = ref<Record<string, any>[]>(props.datasource || []);
 const loading = ref(false);
 const pagination = ref<any>({
@@ -134,6 +136,8 @@ const onRequest = async (newQueryParams: any = queryParams.value) => {
     queryData.search = JSON.stringify(newQueryParams.search);
     queryData.pagination = JSON.stringify(newQueryParams.pagination);
     const { data }: any = await fetchTableData(getEngineApi(), queryData);
+    columns.value = data?.columns || [];
+    toolBar.value = { ...toolBar.value, ...data.toolBar };
     datasource.value = data?.datasource || [];
     selectedRowKeys.value = [];
     pagination.value = { ...pagination.value, ...data.pagination };
